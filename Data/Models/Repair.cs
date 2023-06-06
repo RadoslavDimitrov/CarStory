@@ -16,7 +16,7 @@ namespace CarStory.Data.Models
         [Required]
         public Car Car { get; set; }
 
-        public int CarRepairShopId { get; set; }
+        public string CarRepairShopId { get; set; }
         [Required]
         public CarRepairShop CarRepairShop { get; set; }
         public ICollection<RepairParts> PartsChanged { get; set; }

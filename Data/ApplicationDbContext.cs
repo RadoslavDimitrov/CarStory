@@ -1,11 +1,12 @@
 ﻿using CarStory.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace CarStory.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -13,6 +14,7 @@ namespace CarStory.Data
         {
         }
 
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<CarRepairShop> CarRepairShops { get; set; }
         public DbSet<Part> Parts { get; set; }
@@ -23,13 +25,13 @@ namespace CarStory.Data
         {
             modelBuilder.Entity<Repair>()
                 .HasOne(p => p.CarRepairShop)
-                .WithMany(b => b.PendingRepairs)
+                .WithMany(b => b.AllRepairs)
                 .HasForeignKey(p => p.CarRepairShopId);
 
-            modelBuilder.Entity<Repair>()
-                .HasOne(p => p.CarRepairShop)
-                .WithMany(b => b.RepairsHistory)
-                .HasForeignKey(p => p.CarRepairShopId);
+            modelBuilder.Entity<RepairParts>()
+                .HasKey(r => new { r.PartId, r.RepairId });
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
