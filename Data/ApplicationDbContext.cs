@@ -23,6 +23,8 @@ namespace CarStory.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Repair>()
                 .HasOne(p => p.CarRepairShop)
                 .WithMany(b => b.AllRepairs)
@@ -31,7 +33,6 @@ namespace CarStory.Data
             modelBuilder.Entity<RepairParts>()
                 .HasKey(r => new { r.PartId, r.RepairId });
 
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

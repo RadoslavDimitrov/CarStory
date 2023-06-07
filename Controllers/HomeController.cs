@@ -1,4 +1,5 @@
-﻿using CarStory.Models;
+﻿using CarStory.Data.Models;
+using CarStory.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,6 +16,7 @@ namespace CarStory.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
 
