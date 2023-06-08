@@ -1,5 +1,6 @@
 using CarStory.Data;
 using CarStory.Data.Models;
+using CarStory.Services.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<UserManager<AppUser>>();
+builder.Services.AddScoped<RoleManager<IdentityRole>>();
+builder.Services.AddTransient<IUserService, UserService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,5 +1,6 @@
 ﻿using CarStory.Data;
 using CarStory.Data.Models;
+using CarStory.Models.User;
 using Microsoft.AspNetCore.Identity;
 
 namespace CarStory.Services.User
@@ -23,6 +24,11 @@ namespace CarStory.Services.User
         public AppUser GetUser(string username)
         {
             return data.Users.Where(u => u.UserName == username).FirstOrDefault();
+        }
+
+        public ProfileUserViewModel UserWithRole(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

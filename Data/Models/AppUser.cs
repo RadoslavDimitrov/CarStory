@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarStory.Data.Models
 {
@@ -8,8 +10,6 @@ namespace CarStory.Data.Models
         {
             this.Cars = new List<Car>();
         }
-
-        public int test { get; set; }
         public ICollection<Car> Cars { get; set; }
     }
 }
