@@ -8,16 +8,13 @@ namespace CarStory.Services.User
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext data;
-        private readonly RoleManager<AppUser> roleManager;
-        private readonly UserManager<AppUser> userManager;
+        private readonly UserManager<AppUser> UserManager;
 
-        public UserService(ApplicationDbContext data, 
-            RoleManager<AppUser> roleManager,
-            UserManager<AppUser> userManager) 
+
+        public UserService(ApplicationDbContext data, UserManager<AppUser> userManager) 
         {
             this.data = data;
-            this.roleManager = roleManager;
-            this.userManager = userManager;
+            this.UserManager = userManager;
         }
 
 
@@ -28,7 +25,28 @@ namespace CarStory.Services.User
 
         public ProfileUserViewModel UserWithRole(string userId)
         {
-            throw new NotImplementedException();
+            var user = this.data.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+            ProfileUserViewModel model = new ProfileUserViewModel()
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                RoleName = this.GetUserRoleAsync(user).GetAwaiter().GetResult()
+            };
+
+            return model;
+        }
+
+        private async Task<string> GetUserRoleAsync(AppUser user)
+        {
+            var roles = await this.UserManager.GetRolesAsync(user);
+
+            if (!roles.Any())
+            {
+                return null;
+            }
+
+            return roles[0];
         }
     }
 }
