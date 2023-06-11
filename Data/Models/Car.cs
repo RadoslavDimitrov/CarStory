@@ -21,6 +21,10 @@ namespace CarStory.Data.Models
         [Required]
         public string Model { get; set; }
 
+        public DateTime YearManufactured { get; set; }
+
+        public int Milleage { get; set; }
+
         [Required]
         public DateTime NextRepair { get; set; }
         [Required]
