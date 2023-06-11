@@ -20,6 +20,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
+                            
+                            <button id="menu-button" class="btn btn-link nav-link" onclick="ShowHideMenu()">Menu</button>
+                            <div id="menu" style="display: none; position: absolute; top: 0; left: 0; width: 33%;">
+                                <p>Hello from menu</p>
+                            </div>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
@@ -32,7 +39,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" id="main-content">
             @RenderBody()
         </main>
     </div>

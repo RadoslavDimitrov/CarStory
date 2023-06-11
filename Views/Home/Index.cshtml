@@ -3,6 +3,9 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form method="get" action="@Url.Action("Search", "Home")">
+        <label for="vinNumber">Search:</label>
+        <input type="search" id="searchString" name="vinNumber" placeholder="Type car's' Vin Number">
+        <input type="submit" value="vinNumber">
+    </form>
 </div>

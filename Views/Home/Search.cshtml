@@ -1,0 +1,43 @@
+﻿@model SearchCarDTO;
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="text-center">
+        <p>
+            VinNumber: @Html.TextBox("VinNumber")
+            <input type="submit" value="Search" />
+        </p>
+    </div>
+}
+
+<div class="text-center">
+    @if (Model != null)
+    {
+        <h3>Item Details</h3>
+        <table>
+            <tr>
+                <th>VinNumber</th>
+                <th>Make</th>
+                <th>Model</th>
+            </tr>
+            <tr>
+                <td>@Model.VinNumber</td>
+                <td>@Model.Make</td>
+                <td>@Model.Model</td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        <h1>Car not found</h1>
+    }
+</div>
+
+
+
