@@ -3,5 +3,6 @@
     public class RoleConstants
     {
         public const string UserRoleName = "User";
+        public const string ShopRoleName = "Shop";
     }
 }

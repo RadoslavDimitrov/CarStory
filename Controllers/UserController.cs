@@ -1,5 +1,6 @@
 ﻿using CarStory.Data.Models;
 using CarStory.Infrastructure;
+using CarStory.Models.CarRepairShop;
 using CarStory.Models.User;
 using CarStory.Services.User;
 using Microsoft.AspNetCore.Authorization;
@@ -102,9 +103,72 @@ namespace CarStory.Controllers
                 return this.InvalidUsernameOrPassword(model);
             }
 
+            if(await userManager.IsInRoleAsync(user, "shop"))
+            {
+                var shop = this.userService.IsShopApproved(user.UserName);
+            }
+
             await this.signInManager.SignInAsync(user, true);
 
             return this.RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult RegisterRepairShop()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterRepairShop(RegisterRepairShopViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+
+            var user = new AppUser
+            {
+                Email = model.Email,
+                UserName = model.Name
+            };
+
+            var result = await userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(e => e.Description);
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
+
+                return this.View(model);
+            }
+
+            if (await roleManager.RoleExistsAsync(ShopRoleName))
+            {
+                await userManager.AddToRoleAsync(user, ShopRoleName);
+            }
+            else
+            {
+                var role = new IdentityRole { Name = ShopRoleName };
+
+                await roleManager.CreateAsync(role);
+                await userManager.AddToRoleAsync(user, ShopRoleName);
+            };
+
+            var repairShop = new CarRepairShop()
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Location = model.Location,
+                Description = model.Description,
+                PhoneNumber = model.PhoneNumber,
+            };
+
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]

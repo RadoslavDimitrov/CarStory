@@ -8,5 +8,7 @@ namespace CarStory.Services.User
         AppUser GetUser(string username);
 
         ProfileUserViewModel UserWithRole(string userId);
+
+        bool IsShopApproved(string username);
     }
 }
