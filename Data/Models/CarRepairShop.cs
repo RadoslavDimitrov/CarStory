@@ -13,6 +13,7 @@ namespace CarStory.Data.Models
             this.PendingRepairs = new List<Repair>();
             this.RepairsHistory = new List<Repair>();
             this.AllRepairs = new List<Repair>();
+            this.IsApproved = false;
         }
 
         [Key]
@@ -22,6 +23,8 @@ namespace CarStory.Data.Models
         public string Location { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+
+        public bool IsApproved { get; set; }
         public ICollection<Repair> AllRepairs { get; set; }
         [NotMapped]
         private ICollection<Repair> PendingRepairs { get; set; }
