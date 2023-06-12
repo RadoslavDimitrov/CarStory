@@ -105,7 +105,12 @@ namespace CarStory.Controllers
 
             if(await userManager.IsInRoleAsync(user, "shop"))
             {
-                var shop = this.userService.IsShopApproved(user.UserName);
+                bool isApproved = this.userService.IsShopApproved(user.UserName);
+
+                if(isApproved == false)
+                {
+                   //return an error for not approved shop
+                }
             }
 
             await this.signInManager.SignInAsync(user, true);
