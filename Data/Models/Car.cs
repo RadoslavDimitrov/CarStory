@@ -13,7 +13,7 @@ namespace CarStory.Data.Models
         [Key]
         public string Id { get; set; }
 
-        [RegularExpression("^[A-Z0-9]{17}$")]
+        [RegularExpression(ModelConstants.ModelConstants.VinNumberRegex)]
         public string VinNumber { get; set; }
 
         [Required]
