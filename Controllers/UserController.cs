@@ -93,14 +93,14 @@ namespace CarStory.Controllers
 
             if (user == null)
             {
-                return this.InvalidUsernameOrPassword(model);
+                return this.InvalidLoginAttempt(model, ErrorMessageConstants.WrongUsarnameOrPassword);
             }
 
             var passwordIsValid = await this.userManager.CheckPasswordAsync(user, model.Password);
 
             if (!passwordIsValid)
             {
-                return this.InvalidUsernameOrPassword(model);
+                return this.InvalidLoginAttempt(model, ErrorMessageConstants.WrongUsarnameOrPassword);
             }
 
             if(await userManager.IsInRoleAsync(user, "shop"))
@@ -109,7 +109,7 @@ namespace CarStory.Controllers
 
                 if(isApproved == false)
                 {
-                   //return an error for not approved shop
+                    return this.InvalidLoginAttempt(model, ErrorMessageConstants.ShopNotApproved);
                 }
             }
 
@@ -238,14 +238,13 @@ namespace CarStory.Controllers
         }
 
 
-        private IActionResult InvalidUsernameOrPassword(LoginUserFormModel model)
+        private IActionResult InvalidLoginAttempt(LoginUserFormModel model, string message)
         {
-            const string InvalidUsernameOrPassword = "Wrong username or password!";
-
-            ModelState.AddModelError(string.Empty, InvalidUsernameOrPassword);
+            ModelState.AddModelError(string.Empty, message);
 
             return this.View(model);
         }
+
     
     }
 }
