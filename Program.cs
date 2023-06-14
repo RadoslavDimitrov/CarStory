@@ -1,6 +1,7 @@
 using CarStory.Data;
 using CarStory.Data.Models;
 using CarStory.Infrastructure;
+using CarStory.Services.Admin;
 using CarStory.Services.Search;
 using CarStory.Services.User;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +32,7 @@ builder.Services.AddScoped<UserManager<AppUser>>();
 builder.Services.AddScoped<RoleManager<IdentityRole>>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ISearchService, SearchService>();
+builder.Services.AddTransient<IAdminService, AdminService>();
 
 var app = builder.Build();
 

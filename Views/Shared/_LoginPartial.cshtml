@@ -32,7 +32,14 @@
                 </form>
             </li>
         }
- 
+
+        if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Shops">All Shops</a>
+            </li>
+        }
+
 }
 else
 {
