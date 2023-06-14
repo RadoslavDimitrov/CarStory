@@ -30,12 +30,12 @@ namespace CarStory.Infrastructure
             Task
                 .Run(async () =>
                 {
-                    if (await roleManager.RoleExistsAsync("Admin"))
+                    if (await roleManager.RoleExistsAsync(RoleConstants.AdminRoleName))
                     {
                         return;
                     }
 
-                    var role = new IdentityRole { Name = "Admin" };
+                    var role = new IdentityRole { Name = RoleConstants.AdminRoleName };
 
                     await roleManager.CreateAsync(role);
 

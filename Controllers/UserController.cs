@@ -173,6 +173,8 @@ namespace CarStory.Controllers
                 PhoneNumber = model.PhoneNumber,
             };
 
+            this.userService.CreateShop(repairShop);
+
             return RedirectToAction("Index", "Home");
         }
 

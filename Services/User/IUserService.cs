@@ -10,5 +10,7 @@ namespace CarStory.Services.User
         ProfileUserViewModel UserWithRole(string userId);
 
         bool IsShopApproved(string username);
+
+        void CreateShop(CarRepairShop shop);
     }
 }

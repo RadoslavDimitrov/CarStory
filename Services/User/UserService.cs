@@ -17,6 +17,11 @@ namespace CarStory.Services.User
             this.UserManager = userManager;
         }
 
+        public void CreateShop(CarRepairShop shop)
+        {
+            this.data.CarRepairShops.Add(shop);
+            this.data.SaveChanges();
+        }
 
         public AppUser GetUser(string username)
         {
