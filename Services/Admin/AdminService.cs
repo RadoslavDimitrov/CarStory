@@ -1,4 +1,5 @@
 ﻿using CarStory.Data;
+using CarStory.Models.DTO.Car;
 using CarStory.Models.DTO.RepairShop;
 
 namespace CarStory.Services.Admin
@@ -10,6 +11,23 @@ namespace CarStory.Services.Admin
         public AdminService(ApplicationDbContext data)
         {
             this.data = data;
+        }
+
+        public List<CarDTO> GetAllCars()
+        {
+            var cars = this.data.Cars.Select(c => new CarDTO
+            {
+                Id = c.Id,
+                Make = c.Make,
+                Model = c.Model,
+                Milleage = c.Milleage,
+                NextRepair = c.NextRepair,
+                NextRepairInfo = c.NextRepairInfo,
+                VinNumber = c.VinNumber,
+                YearManufactured = c.YearManufactured
+            }).ToList();
+
+            return cars;
         }
 
         public List<RepairShopDTO> GetAllShops()

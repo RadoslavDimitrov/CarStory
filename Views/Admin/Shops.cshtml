@@ -1,5 +1,5 @@
 ﻿
-@model List<RepairShopDTO>
+@model IEnumerable<RepairShopDTO>
 
 <style>
     table {
@@ -31,6 +31,7 @@
             <th>Email</th>
             <th>Phone Number</th>
             <th>Is Approved</th>
+            <th>Approve</th>
         </tr>
     </thead>
     <tbody>
@@ -43,7 +44,26 @@
                 <td>@item.Email</td>
                 <td>@item.PhoneNumber</td>
                 <td>@item.IsApproved</td>
+                <td>
+                    <button id="approveButton" style="background-color: red" onclick="toggleIsApproved()">Approve</button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    let isApproved = false;
+    const approveButton = document.getElementById("approveButton");
+
+    function toggleIsApproved() {
+        isApproved = !isApproved;
+        if (isApproved) {
+            approveButton.style.backgroundColor = "green";
+            approveButton.disabled = true;
+        } else {
+            approveButton.style.backgroundColor = "red";
+            approveButton.disabled = false;
+        }
+    }
+</script>

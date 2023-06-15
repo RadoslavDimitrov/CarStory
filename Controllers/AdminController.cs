@@ -22,5 +22,12 @@ namespace CarStory.Controllers
 
             return View(shops);
         }
+
+        public IActionResult Cars()
+        {
+            var cars = this.adminService.GetAllCars();
+
+            return this.View(cars);
+        }
     }
 }

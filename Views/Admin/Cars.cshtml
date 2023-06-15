@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CarDTO>
+
+<h2>Cars</h2>
+
+<p>
+    <input type="text" id="searchInput" onkeyup="search()" placeholder="Search by Vin Number">
+</p>
+
+<table id="carsTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Vin Number</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year Manufactured</th>
+            <th>Mileage</th>
+            <th>Next Repair</th>
+            <th>Next Repair Info</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Id</td>
+                <td>@car.VinNumber</td>
+                <td>@car.Make</td>
+                <td>@car.Model</td>
+                <td>@car.YearManufactured.ToShortDateString()</td>
+                <td>@car.Milleage</td>
+                <td>@car.NextRepair.ToShortDateString()</td>
+                <td>@car.NextRepairInfo</td>
+                <td><a href="@Url.Action("ViewCar", new { id = car.Id })">View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function search() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById("carsTable");
+        const tr = table.getElementsByTagName("tr");
+
+        for (let i = 0; i < tr.length; i++) {
+            const td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                const txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
