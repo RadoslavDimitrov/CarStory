@@ -34,6 +34,7 @@ namespace CarStory.Services.Admin
         {
             var shops = this.data.CarRepairShops.Select(sh => new RepairShopDTO
             {
+                Id = sh.Id,
                 Name = sh.Name,
                 Description = sh.Description,
                 Email = sh.Email,
@@ -43,6 +44,24 @@ namespace CarStory.Services.Admin
             }).ToList();
 
             return shops;
+        }
+
+        public RepairShopDTO GetRepairShop(string id)
+        {
+            var shop = this.data.CarRepairShops.Select(sh => new RepairShopDTO
+            {
+
+                Name = sh.Name,
+                Description = sh.Description,
+                Email = sh.Email,
+                PhoneNumber = sh.PhoneNumber,
+                Location = sh.Location,
+                IsApproved = sh.IsApproved
+            })
+                .Where(sh => sh.Id == id)
+                .FirstOrDefault();
+
+            return shop;
         }
     }
 }

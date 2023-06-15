@@ -7,6 +7,8 @@ namespace CarStory.Services.Admin
     {
         List<RepairShopDTO> GetAllShops();
 
+        RepairShopDTO GetRepairShop(string id);
+
         List<CarDTO> GetAllCars();
     }
 }

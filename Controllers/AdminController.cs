@@ -29,5 +29,20 @@ namespace CarStory.Controllers
 
             return this.View(cars);
         }
+
+        [HttpPost]
+        public IActionResult ApproveShop(string id)
+        {
+            var repairShop = this.adminService.GetRepairShop(id);
+
+            if(repairShop == null) 
+            {
+                return NotFound();
+            }
+
+            //add logic
+
+            return this.View();
+        }
     }
 }
