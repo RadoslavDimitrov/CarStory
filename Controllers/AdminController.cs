@@ -33,16 +33,14 @@ namespace CarStory.Controllers
         [HttpPost]
         public IActionResult ApproveShop(string id)
         {
-            var repairShop = this.adminService.GetRepairShop(id);
+            var result = this.adminService.ApproveShop(id);
 
-            if(repairShop == null) 
+            if(result == false) 
             {
                 return NotFound();
             }
 
-            //add logic
-
-            return this.View();
+            return this.RedirectToAction("Shops","Admin");
         }
     }
 }

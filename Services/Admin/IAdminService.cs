@@ -10,5 +10,9 @@ namespace CarStory.Services.Admin
         RepairShopDTO GetRepairShop(string id);
 
         List<CarDTO> GetAllCars();
+
+        bool ApproveShop(string id);
+
+        
     }
 }

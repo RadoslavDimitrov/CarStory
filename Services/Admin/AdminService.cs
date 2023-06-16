@@ -13,6 +13,22 @@ namespace CarStory.Services.Admin
             this.data = data;
         }
 
+        public bool ApproveShop(string id)
+        {
+            var repairShop = this.data.CarRepairShops.Where(sh => sh.Id == id).FirstOrDefault();
+
+            if (repairShop == null)
+            {
+                return false;
+            }
+
+            repairShop.IsApproved = true;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
         public List<CarDTO> GetAllCars()
         {
             var cars = this.data.Cars.Select(c => new CarDTO
@@ -48,7 +64,7 @@ namespace CarStory.Services.Admin
 
         public RepairShopDTO GetRepairShop(string id)
         {
-            var shop = this.data.CarRepairShops.Select(sh => new RepairShopDTO
+            var shop = this.data.CarRepairShops.Where(sh => sh.Id == id).Select(sh => new RepairShopDTO
             {
 
                 Name = sh.Name,
@@ -58,7 +74,6 @@ namespace CarStory.Services.Admin
                 Location = sh.Location,
                 IsApproved = sh.IsApproved
             })
-                .Where(sh => sh.Id == id)
                 .FirstOrDefault();
 
             return shop;
