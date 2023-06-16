@@ -22,7 +22,14 @@ namespace CarStory.Services.Admin
                 return false;
             }
 
-            repairShop.IsApproved = true;
+            if(repairShop.IsApproved == false)
+            {
+                repairShop.IsApproved = true;
+            }
+            else
+            {
+                repairShop.IsApproved = false;
+            }
 
             this.data.SaveChanges();
 
