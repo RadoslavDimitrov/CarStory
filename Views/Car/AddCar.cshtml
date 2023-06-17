@@ -1,0 +1,74 @@
+﻿@model AddCarViewModel
+
+<h2>Add Car</h2>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+
+<form asp-action="AddCar" method="post">
+    <table>
+        <tr>
+            <th>Vin Number:</th>
+            <td><input asp-for="VinNumber" /></td>
+            <td><span asp-validation-for="VinNumber"></span></td>
+        </tr>
+        <tr>
+            <th>Make:</th>
+            <td><input asp-for="Make" /></td>
+            <td><span asp-validation-for="Make"></span></td>
+        </tr>
+        <tr>
+            <th>Model:</th>
+            <td><input asp-for="Model" /></td>
+            <td><span asp-validation-for="Model"></span></td>
+        </tr>
+        <tr>
+            <th>Year Manufactured:</th>
+            <td><input asp-for="YearManufactured" type="date" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Milleage:</th>
+            <td><input asp-for="Milleage" type="number" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Next Repair:</th>
+            <td><input asp-for="NextRepair" type="date" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Next Repair Info:</th>
+            <td><textarea asp-for="NextRepairInfo"></textarea></td>
+            <td></td>
+        </tr>
+
+    </table>
+
+    <button type="submit">Add Car</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

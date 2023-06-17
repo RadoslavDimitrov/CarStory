@@ -1,8 +1,29 @@
-﻿@model RegisterUserFormModel;
+﻿@model RegisterUserFormModel
 
 @{
     ViewBag.Title = "User register";
 }
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
 
 <div class="row col-m">
     <h3 class="mb-3">@ViewBag.Title</h3>
@@ -11,22 +32,30 @@
 <div class="row col-mt-3">
     <form method="post">
         <div asp-validation-summary="ModelOnly"></div>
-        <div class="form-group">
-            <label asp-for="Username">Name</label>
-            <input asp-for="Username" class="form-control">
-            <span asp-validation-for="Username" class="small text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Password">Password</label>
-            <input asp-for="Password" class="form-control" type="password">
-            <span asp-validation-for="Password" class="small text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Email">Email</label>
-            <input asp-for="Email" class="form-control">
-            <span asp-validation-for="Email" class="small text-danger"></span>
-        </div>
+        <table>
+            <tr>
+                <th><label asp-for="Username">Name</label></th>
+                <td><input asp-for="Username" class="form-control"></td>
+                <td><span asp-validation-for="Username" class="small text-danger"></span></td>
+            </tr>
+            <tr>
+                <th><label asp-for="Password">Password</label></th>
+                <td><input asp-for="Password" class="form-control" type="password"></td>
+                <td><span asp-validation-for="Password" class="small text-danger"></span></td>
+            </tr>
+            <tr>
+                <th><label asp-for="Email">Email</label></th>
+                <td><input asp-for="Email" class="form-control"></td>
+                <td><span asp-validation-for="Email" class="small text-danger"></span></td>
+            </tr>
+        </table>
 
         <input class="btn btn-primary mt-3" type="submit" value="Register" />
     </form>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

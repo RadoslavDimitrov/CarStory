@@ -23,41 +23,40 @@
 
 <h2>Cars</h2>
 
-<p>
-    <input type="text" id="searchInput" onkeyup="search()" placeholder="Search by Vin Number">
-</p>
-
-<table id="carsTable">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Vin Number</th>
-            <th>Make</th>
-            <th>Model</th>
-            <th>Year Manufactured</th>
-            <th>Mileage</th>
-            <th>Next Repair</th>
-            <th>Next Repair Info</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var car in Model)
-        {
+<div class="text-center">
+    <p>
+        <input type="text" id="searchInput" onkeyup="search()" placeholder="Search by Vin Number">
+    </p>
+    <table id="carsTable">
+        <thead>
             <tr>
-                <td>@car.Id</td>
-                <td>@car.VinNumber</td>
-                <td>@car.Make</td>
-                <td>@car.Model</td>
-                <td>@car.YearManufactured.ToShortDateString()</td>
-                <td>@car.Milleage</td>
-                <td>@(car.NextRepair.HasValue ? car.NextRepair.Value.ToString("dd/MM/yyyy") : "")</td>
-                <td>@car.NextRepairInfo</td>
-                <td><a href="@Url.Action("ViewCar", new { id = car.Id })">View</a></td>
+                <th>Vin Number</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year Manufactured</th>
+                <th>Mileage</th>
+                <th>Next Repair</th>
+                <th>Next Repair Info</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var car in Model)
+            {
+                <tr>
+                    <td>@car.VinNumber</td>
+                    <td>@car.Make</td>
+                    <td>@car.Model</td>
+                    <td>@car.YearManufactured.ToShortDateString()</td>
+                    <td>@car.Milleage</td>
+                    <td>@(car.NextRepair.HasValue ? car.NextRepair.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@car.NextRepairInfo</td>
+                    <td><a href="@Url.Action("ViewCar", new { id = car.Id })">View</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <script>
     function search() {

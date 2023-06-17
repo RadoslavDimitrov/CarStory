@@ -28,7 +28,7 @@ namespace CarStory.Data.Models
 
         public DateTime? NextRepair { get; set; }
 
-        public string NextRepairInfo { get; set; }
+        public string? NextRepairInfo { get; set; }
 
         public ICollection<Repair> Repairs { get; set; }
     }

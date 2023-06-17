@@ -1,5 +1,4 @@
-﻿using CarStory.Data.Models;
-using CarStory.Models;
+﻿using CarStory.Models;
 using CarStory.Services.Search;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -19,7 +18,7 @@ namespace CarStory.Controllers
 
         public IActionResult Index()
         {
-            
+
             return View();
         }
 
@@ -40,7 +39,6 @@ namespace CarStory.Controllers
 
             return View(car);
         }
-
 
         public IActionResult Error()
         {

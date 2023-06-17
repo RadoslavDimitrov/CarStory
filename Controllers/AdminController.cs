@@ -1,6 +1,4 @@
 ﻿using CarStory.Infrastructure;
-using CarStory.Models.Car;
-using CarStory.Models.CarRepairShop;
 using CarStory.Services.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,15 +29,7 @@ namespace CarStory.Controllers
             return this.View(cars);
         }
 
-        public IActionResult AddCar()
-        {
-            return this.View();
-        }
-
-        public IActionResult AddCar(AddCarViewModel car)
-        {
-            return this.View(car);
-        }
+        
 
         [HttpPost]
         public IActionResult ApproveShop(string id)
