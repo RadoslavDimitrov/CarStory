@@ -1,18 +1,18 @@
 ﻿using CarStory.Data.Models.ModelConstants;
-using CarStory.Data.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace CarStory.Models.DTO.Car
+namespace CarStory.Models.Car
 {
-    public class CarDTO
+    public class AddCarViewModel
     {
         public string Id { get; set; }
 
+        [RegularExpression(ModelConstants.VinNumberRegex)]
         public string VinNumber { get; set; }
 
-
+        [Required]
         public string Make { get; set; }
-
+        [Required]
         public string Model { get; set; }
 
         public DateTime YearManufactured { get; set; }
@@ -20,7 +20,7 @@ namespace CarStory.Models.DTO.Car
         public int Milleage { get; set; }
 
 
-        public DateTime? NextRepair { get; set; }
+        public DateTime NextRepair { get; set; }
 
         public string NextRepairInfo { get; set; }
     }

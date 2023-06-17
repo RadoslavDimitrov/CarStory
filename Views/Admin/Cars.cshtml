@@ -51,7 +51,7 @@
                 <td>@car.Model</td>
                 <td>@car.YearManufactured.ToShortDateString()</td>
                 <td>@car.Milleage</td>
-                <td>@car.NextRepair.ToShortDateString()</td>
+                <td>@(car.NextRepair.HasValue ? car.NextRepair.Value.ToString("dd/MM/yyyy") : "")</td>
                 <td>@car.NextRepairInfo</td>
                 <td><a href="@Url.Action("ViewCar", new { id = car.Id })">View</a></td>
             </tr>

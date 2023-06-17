@@ -10,8 +10,6 @@ namespace CarStory.Data.Models
         {
             this.Id = Guid.NewGuid().ToString();
 
-            this.PendingRepairs = new List<Repair>();
-            this.RepairsHistory = new List<Repair>();
             this.AllRepairs = new List<Repair>();
             this.IsApproved = false;
         }
@@ -26,9 +24,6 @@ namespace CarStory.Data.Models
 
         public bool IsApproved { get; set; }
         public ICollection<Repair> AllRepairs { get; set; }
-        [NotMapped]
-        private ICollection<Repair> PendingRepairs { get; set; }
-        [NotMapped]
-        private ICollection<Repair> RepairsHistory { get; set; }
+        
     }
 }

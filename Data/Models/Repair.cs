@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CarStory.Infrastructure;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarStory.Data.Models
 {
@@ -16,6 +17,7 @@ namespace CarStory.Data.Models
         [Required]
         public Car Car { get; set; }
 
+        public string Status { get; set; } = RepairStatusEnum.Pending.ToString();
         public string CarRepairShopId { get; set; }
         [Required]
         public CarRepairShop CarRepairShop { get; set; }

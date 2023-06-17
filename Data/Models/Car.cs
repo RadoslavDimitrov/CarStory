@@ -25,9 +25,9 @@ namespace CarStory.Data.Models
 
         public int Milleage { get; set; }
 
-        [Required]
-        public DateTime NextRepair { get; set; }
-        [Required]
+
+        public DateTime? NextRepair { get; set; }
+
         public string NextRepairInfo { get; set; }
 
         public ICollection<Repair> Repairs { get; set; }
