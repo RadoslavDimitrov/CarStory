@@ -36,22 +36,6 @@ namespace CarStory.Services.Admin
             return true;
         }
 
-        public List<CarDTO> GetAllCars()
-        {
-            var cars = this.data.Cars.Select(c => new CarDTO
-            {
-                Id = c.Id,
-                Make = c.Make,
-                Model = c.Model,
-                Milleage = c.Milleage,
-                NextRepair = c.NextRepair,
-                NextRepairInfo = c.NextRepairInfo,
-                VinNumber = c.VinNumber,
-                YearManufactured = c.YearManufactured
-            }).ToList();
-
-            return cars;
-        }
 
         public List<RepairShopDTO> GetAllShops()
         {

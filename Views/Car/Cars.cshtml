@@ -1,27 +1,8 @@
 ﻿@model IEnumerable<CarDTO>
 
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    th {
-        background-color: #4CAF50;
-        color: white;
-    }
-</style>
-
-<h2>Cars</h2>
+<div class="text-center">
+    <h2>Cars</h2>
+</div>
 
 <div class="text-center">
     <p>
@@ -51,7 +32,7 @@
                     <td>@car.Milleage</td>
                     <td>@(car.NextRepair.HasValue ? car.NextRepair.Value.ToString("dd/MM/yyyy") : "")</td>
                     <td>@car.NextRepairInfo</td>
-                    <td><a href="@Url.Action("ViewCar", new { id = car.Id })">View</a></td>
+                    <td><a asp-controller="Car" asp-action="ViewCar" asp-route-id="@car.Id" class="btn btn-success">View</a></td>
                 </tr>
             }
         </tbody>
