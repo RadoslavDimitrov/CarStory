@@ -35,5 +35,25 @@ namespace CarStory.Controllers
 
             return this.View(car);
         }
+
+        public IActionResult ViewCar(string id)
+        {
+            var car = this.carService.GetCar(id);
+
+            if(car == null) 
+            {
+                ModelState.AddModelError(string.Empty, "Wrong car");
+                return this.View(id);
+            }
+
+            return this.View(car);
+        }
+
+        public IActionResult Cars()
+        {
+            var cars = this.carService.GetAllCars();
+
+            return this.View(cars);
+        }
     }
 }

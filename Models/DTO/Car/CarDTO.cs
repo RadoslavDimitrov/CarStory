@@ -22,6 +22,6 @@ namespace CarStory.Models.DTO.Car
 
         public DateTime? NextRepair { get; set; }
 
-        public string NextRepairInfo { get; set; }
+        public string? NextRepairInfo { get; set; }
     }
 }

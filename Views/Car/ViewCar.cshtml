@@ -1,0 +1,36 @@
+﻿@model CarDTO
+<div class="text-center">
+    <h2>Car Details</h2>
+</div>
+
+<div class="text-center">
+    <table>
+        <thead>
+            <tr>
+                <th>Vin Number</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year Manufactured</th>
+                <th>Mileage</th>
+                <th>Next Repair</th>
+                <th>Next Repair Info</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.VinNumber</td>
+                <td>@Model.Make</td>
+                <td>@Model.Model</td>
+                <td>@Model.YearManufactured.ToShortDateString()</td>
+                <td>@Model.Milleage</td>
+                <td>@(Model.NextRepair.HasValue ? Model.NextRepair.Value.ToString("dd/MM/yyyy") : "")</td>
+                <td>@Model.NextRepairInfo</td>
+            </tr>           
+        </tbody>
+     </table>
+</div>
+
+@if(this.User.IsInRole("Admin")){
+    <a asp-controller="Car" asp-action="ViewCar" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+}
