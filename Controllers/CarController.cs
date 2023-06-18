@@ -1,5 +1,7 @@
-﻿using CarStory.Models.Car;
+﻿using CarStory.Infrastructure;
+using CarStory.Models.Car;
 using CarStory.Services.Car;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarStory.Controllers
@@ -55,6 +57,12 @@ namespace CarStory.Controllers
             var cars = this.carService.GetAllCars();
 
             return this.View(cars);
+        }
+
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
+        public IActionResult AddRepair()
+        {
+            return this.View();
         }
     }
 }
