@@ -10,10 +10,26 @@ namespace CarStory.Controllers
         {
             var cards = new List<MenuCardsViewModel>
             {
-                new MenuCardsViewModel {ImagePath = ImagePathConstants.AddCarImagePath, ImageText = MenuTextConstants.AddCar},
-                new MenuCardsViewModel {ImagePath = ImagePathConstants.AddRepairImagePath, ImageText = MenuTextConstants.AddRepair},
-                new MenuCardsViewModel {ImagePath = ImagePathConstants.FinishRepairImagePath, ImageText = MenuTextConstants.FinishRepair},
-                new MenuCardsViewModel {ImagePath = ImagePathConstants.DeleteImagePath, ImageText = MenuTextConstants.DeleteCar}
+                new MenuCardsViewModel 
+                {
+                    ImagePath = ImagePathConstants.AddCarImagePath,
+                    ImageText = MenuTextConstants.AddCar
+                },
+                new MenuCardsViewModel 
+                {
+                    ImagePath = ImagePathConstants.AddRepairImagePath,
+                    ImageText = MenuTextConstants.AddRepair
+                },
+                new MenuCardsViewModel 
+                {
+                    ImagePath = ImagePathConstants.FinishRepairImagePath, 
+                    ImageText = MenuTextConstants.FinishRepair
+                },
+                new MenuCardsViewModel 
+                {
+                    ImagePath = ImagePathConstants.DeleteImagePath,
+                    ImageText = MenuTextConstants.DeleteCar
+                }
             };
 
             return View(cards);
