@@ -18,6 +18,8 @@ body {
 }
 
 
+
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -35,4 +37,10 @@ tr:nth-child(even) {
 th {
     background-color: #4CAF50;
     color: white;
+}
+
+
+
+.card-image {
+    max-height: 200px;
 }

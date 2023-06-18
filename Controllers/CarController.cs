@@ -46,6 +46,7 @@ namespace CarStory.Controllers
                 return this.View(id);
             }
 
+            //Update the View with the info about repairs 
             return this.View(car);
         }
 

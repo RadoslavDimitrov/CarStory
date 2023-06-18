@@ -1,6 +1,7 @@
 ﻿using CarStory.Data.Models.ModelConstants;
 using CarStory.Data.Models;
 using System.ComponentModel.DataAnnotations;
+using CarStory.Models.DTO.Repair;
 
 namespace CarStory.Models.DTO.Car
 {
@@ -23,5 +24,7 @@ namespace CarStory.Models.DTO.Car
         public DateTime? NextRepair { get; set; }
 
         public string? NextRepairInfo { get; set; }
+
+        public ICollection<RepairDTO> repairs { get; set; }
     }
 }

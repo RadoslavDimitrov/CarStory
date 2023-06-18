@@ -1,0 +1,18 @@
+﻿@model List<MenuCardsViewModel>
+
+<div class="container">
+    <div class="row">
+        @foreach (var card in Model)
+        {
+            <div class="col-sm-4">
+                <div class="card">
+                    <img src="@Url.Content(card.ImagePath)" class="card-img-top card-image" alt="@card.ImageText">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@card.ImageText</h5>
+                        <button type="button" class="btn btn-primary position-absolute bottom-0 end-0">Button</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
