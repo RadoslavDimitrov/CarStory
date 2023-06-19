@@ -1,5 +1,6 @@
 ﻿using CarStory.Infrastructure;
 using CarStory.Models.Car;
+using CarStory.Models.Repair;
 using CarStory.Services.Car;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +63,22 @@ namespace CarStory.Controllers
         [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult AddRepair()
         {
-            return this.View();
+            var model = new AddRepairViewModel
+            {
+                PartsChanged = new List<RepairPartsViewModel>()
+            };
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
+        public IActionResult AddRepair(AddRepairViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+            return this.View(model);
         }
     }
 }

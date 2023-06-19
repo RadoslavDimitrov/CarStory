@@ -1,3 +1,53 @@
-﻿<h1>Hello from add repair to car</h1>
+﻿@model AddRepairViewModel
 
-@(this.User.Identity.Name)
+<form asp-action="AddRepair" method="post">
+    <input type="hidden" asp-for="CarId" />
+    <label for="Description">Description:</label>
+    <input asp-for="Description" />
+    <input type="hidden" asp-for="CarRepairShopId" />
+
+    <table id="partsTable">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.PartsChanged.Count; i++)
+            {
+                <tr>
+                    <td><input asp-for="@Model.PartsChanged[i].Number" /></td>
+                    <td><input asp-for="@Model.PartsChanged[i].Description" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="button" id="addPartButton">Add Part</button>
+
+    <input type="submit" value="Submit" />
+</form>
+
+@section Scripts {
+    <script>
+        $(function () {
+            var tableBody = $("#partsTable tbody");
+            var index = @Model.PartsChanged.Count;
+
+            $("#addPartButton").click(function () {
+                var newRow = $("<tr></tr>");
+                newRow.append('<td><input name="PartsChanged[' + index + '].Number" /></td>');
+                newRow.append('<td><input name="PartsChanged[' + index + '].Description" /></td>');
+                tableBody.append(newRow);
+                index++;
+            });
+        });
+    </script>
+
+    <script>
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    </script>
+}

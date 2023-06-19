@@ -1,8 +1,11 @@
 ﻿using CarStory.Data;
+using CarStory.Data.Models;
+using CarStory.Infrastructure;
 using CarStory.Models.Car;
 using CarStory.Models.DTO.Car;
 using CarStory.Models.DTO.Repair;
 using CarStory.Models.DTO.RepairParts;
+using CarStory.Models.Repair;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarStory.Services.Car
@@ -92,6 +95,38 @@ namespace CarStory.Services.Car
             }).ToList();
 
             return cars;
+        }
+
+        public int AddRepair(AddRepairViewModel model)
+        {
+            var newRepair = new Repair
+            {
+                CarId = model.CarId,
+                CarRepairShopId = model.CarRepairShopId,
+                Description = model.Description,
+                Status = RepairStatusEnum.Pending.ToString(),
+                PartsChanged = new List<RepairParts>()
+            };
+
+            for (int i = 0; i < model.PartsChanged.Count; i++)
+            {
+                var newPart = new Part
+                {
+                    Number = model.PartsChanged[i].Number,
+                    Description = model.PartsChanged[i].Description
+                };
+
+                if(!this.data.Parts.Any(p => p.Number == model.PartsChanged[i].Number))
+                {
+                    this.data.Parts.Add(newPart);
+                }
+
+                newRepair.PartsChanged.Add(new RepairParts { PartId = newPart.Id, RepairId = newRepair.Id });
+            }
+
+            this.data.SaveChanges();
+
+            return newRepair.Id;
         }
     }
 }

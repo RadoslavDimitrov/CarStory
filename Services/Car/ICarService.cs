@@ -1,5 +1,6 @@
 ﻿using CarStory.Models.Car;
 using CarStory.Models.DTO.Car;
+using CarStory.Models.Repair;
 
 namespace CarStory.Services.Car
 {
@@ -10,5 +11,7 @@ namespace CarStory.Services.Car
         CarDTO GetCar(string carId);
 
         List<CarDTO> GetAllCars();
+
+        int AddRepair(AddRepairViewModel model);
     }
 }
