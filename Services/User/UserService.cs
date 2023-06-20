@@ -28,6 +28,18 @@ namespace CarStory.Services.User
             return data.Users.Where(u => u.UserName == username).FirstOrDefault();
         }
 
+        public string GetUserShopId(string username)
+        {
+            var userShop = this.data.CarRepairShops.Where(s => s.Name == username).FirstOrDefault();
+
+            if (userShop == null) 
+            {
+                return null;
+            }
+
+            return userShop.Id;
+        }
+
         public bool IsShopApproved(string username)
         {
             var shop = this.data.CarRepairShops.Where(sh => sh.Name == username).FirstOrDefault();

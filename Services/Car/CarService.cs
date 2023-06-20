@@ -99,6 +99,18 @@ namespace CarStory.Services.Car
 
         public int AddRepair(AddRepairViewModel model)
         {
+            var car = this.data.Cars.Where(c => c.Id == model.CarId).FirstOrDefault();
+
+            if(car == null) 
+            {
+                return -1;
+            }
+
+            if(car.Milleage < model.CarMilleage)
+            {
+                return -2;
+            }
+
             var newRepair = new Repair
             {
                 CarId = model.CarId,

@@ -34,3 +34,7 @@
 @if(this.User.IsInRole("Admin")){
     <a asp-controller="Car" asp-action="ViewCar" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
 }
+
+@if(this.User.IsInRole("Ädmin") || this.User.IsInRole("Shop")){
+    <a asp-controller="Car" asp-action="AddRepair" asp-route-id="@Model.Id" asp-route-shopId="@Model."class="btn btn-danger">Add repair</a>
+}

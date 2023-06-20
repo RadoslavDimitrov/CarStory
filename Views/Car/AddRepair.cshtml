@@ -2,6 +2,8 @@
 
 <form asp-action="AddRepair" method="post">
     <input type="hidden" asp-for="CarId" />
+    <label for="CarMilleage">CarMilleage:</label>
+    <input asp-for="CarMilleage" />
     <label for="Description">Description:</label>
     <input asp-for="Description" />
     <input type="hidden" asp-for="CarRepairShopId" />

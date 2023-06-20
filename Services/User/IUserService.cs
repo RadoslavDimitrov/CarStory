@@ -12,5 +12,7 @@ namespace CarStory.Services.User
         bool IsShopApproved(string username);
 
         void CreateShop(CarRepairShop shop);
+
+        string GetUserShopId(string username);
     }
 }
