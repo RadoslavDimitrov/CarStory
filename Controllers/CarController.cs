@@ -55,8 +55,14 @@ namespace CarStory.Controllers
             if (this.User.IsInRole(RoleConstants.ShopRoleName))
             {
                 var shopId = this.userService.GetUserShopId(this.User.Identity.Name);
+
+                if(shopId != null)
+                {
+                    TempData["ShopId"] = shopId;
+                }
             }
 
+            
             //Update the View with the info about repairs 
             return this.View(car);
         }
