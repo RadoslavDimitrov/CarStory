@@ -36,5 +36,5 @@
 }
 
 @if(this.User.IsInRole("Ädmin") || this.User.IsInRole("Shop")){
-    <a asp-controller="Car" asp-action="AddRepair" asp-route-id="@Model.Id" asp-route-shopId="@Model."class="btn btn-danger">Add repair</a>
+    <a asp-controller="Car" asp-action="AddRepair" asp-route-CarId="@Model.Id" asp-route-CarRepairShopId="@TempData["ShopId"]" class="btn btn-danger">Add repair</a>
 }

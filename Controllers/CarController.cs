@@ -75,7 +75,7 @@ namespace CarStory.Controllers
         }
 
         [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
-        public IActionResult AddRepair()
+        public IActionResult AddRepair(string carId, string carRepairShopId)
         {
             var model = new AddRepairViewModel
             {
@@ -111,7 +111,7 @@ namespace CarStory.Controllers
 
             bool isWorking = true;
 
-            return this.View(model);
+            return this.RedirectToAction("ViewRepair");
         }
     }
 }

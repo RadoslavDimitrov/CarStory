@@ -106,10 +106,12 @@ namespace CarStory.Services.Car
                 return -1;
             }
 
-            if(car.Milleage < model.CarMilleage)
+            if(car.Milleage > model.CarMilleage)
             {
                 return -2;
             }
+
+            car.Milleage = model.CarMilleage;
 
             var newRepair = new Repair
             {
@@ -120,21 +122,36 @@ namespace CarStory.Services.Car
                 PartsChanged = new List<RepairParts>()
             };
 
+            
+
             for (int i = 0; i < model.PartsChanged.Count; i++)
             {
-                var newPart = new Part
+                var newPart = new Part();
+                //add repair to newpart list<repairs>
+                if(this.data.Parts.Any(p => p.Number == model.PartsChanged[i].Number))
                 {
-                    Number = model.PartsChanged[i].Number,
-                    Description = model.PartsChanged[i].Description
-                };
-
-                if(!this.data.Parts.Any(p => p.Number == model.PartsChanged[i].Number))
+                    newPart = this.data.Parts.Where(p => p.Number == model.PartsChanged[i].Number).FirstOrDefault();
+                }
+                else
                 {
+                    newPart.Number = model.PartsChanged[i].Number;
+                    newPart.Description = model.PartsChanged[i].Description;
                     this.data.Parts.Add(newPart);
                 }
 
-                newRepair.PartsChanged.Add(new RepairParts { PartId = newPart.Id, RepairId = newRepair.Id });
+                var newRepairParts = new RepairParts
+                {
+                    Part = newPart,
+                    Repair = newRepair
+                };
+
+                this.data.RepairParts.Add(newRepairParts);
+
+                newRepair.PartsChanged.Add(newRepairParts);
             }
+
+
+            this.data.Repairs.Add(newRepair);
 
             this.data.SaveChanges();
 
