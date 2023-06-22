@@ -13,6 +13,8 @@ namespace CarStory.Data.Models
         [Required]
         public string Description { get; set; }
 
+        public int currCarMilleage { get; set; }
+
         public string CarId { get; set; }
         [Required]
         public Car Car { get; set; }
