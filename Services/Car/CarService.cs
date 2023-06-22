@@ -118,6 +118,7 @@ namespace CarStory.Services.Car
                 CarId = model.CarId,
                 CarRepairShopId = model.CarRepairShopId,
                 Description = model.Description,
+                currCarMilleage = model.CarMilleage,
                 Status = RepairStatusEnum.Pending.ToString(),
                 PartsChanged = new List<RepairParts>()
             };
@@ -145,6 +146,8 @@ namespace CarStory.Services.Car
                     Repair = newRepair
                 };
 
+                newPart.Repairs.Add(newRepairParts);
+
                 this.data.RepairParts.Add(newRepairParts);
 
                 newRepair.PartsChanged.Add(newRepairParts);
@@ -156,6 +159,27 @@ namespace CarStory.Services.Car
             this.data.SaveChanges();
 
             return newRepair.Id;
+        }
+
+        public RepairDTO GetRepair(int repairId)
+        {
+            var repair = this.data.Repairs.Where(r => r.Id == repairId)
+                .Select(r => new RepairDTO
+                {
+                    Id = r.Id,
+                    CarId = r.CarId,
+                    CarRepairShopId = r.CarRepairShopId,
+                    currCarMilleage = r.currCarMilleage,
+                    Description = r.Description,
+                    Status = r.Status,
+                    PartsChanged = r.PartsChanged.Select(p => new RepairPartsDTO
+                    {
+                        Number = p.Part.Number,
+                        Description = p.Part.Description,
+                    }).ToList()
+                }).FirstOrDefault();
+
+            return repair;
         }
     }
 }
