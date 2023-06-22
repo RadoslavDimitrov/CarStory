@@ -169,6 +169,8 @@ namespace CarStory.Services.Car
                     Id = r.Id,
                     CarId = r.CarId,
                     CarRepairShopId = r.CarRepairShopId,
+                    CarRepairShopName = r.CarRepairShop.Name,
+                    DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
                     currCarMilleage = r.currCarMilleage,
                     Description = r.Description,
                     Status = r.Status,

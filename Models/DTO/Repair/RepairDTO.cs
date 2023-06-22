@@ -18,6 +18,10 @@ namespace CarStory.Models.DTO.Repair
         public string Status { get; set; } = RepairStatusEnum.Pending.ToString();
         public string CarRepairShopId { get; set; }
 
+        public string CarRepairShopName { get; set; }
+
+        public string DateCreated { get; set; }
+
         public ICollection<RepairPartsDTO> PartsChanged { get; set; }
     }
 }
