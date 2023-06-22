@@ -112,6 +112,8 @@ namespace CarStory.Controllers
             return this.RedirectToAction("ViewRepair", new {repairId = newRepairId});
         }
 
+
+        //fix /car/viewRepair/value not working
         public IActionResult ViewRepair(int repairId)
         {
             var repair = this.carService.GetRepair(repairId);
