@@ -109,14 +109,14 @@ namespace CarStory.Controllers
                 return this.View(model);
             }
 
-            return this.RedirectToAction("ViewRepair", new {repairId = newRepairId});
+            return this.RedirectToAction("ViewRepair", new {id = newRepairId});
         }
 
 
         //fix /car/viewRepair/value not working
-        public IActionResult ViewRepair(int repairId)
+        public IActionResult ViewRepair(int id)
         {
-            var repair = this.carService.GetRepair(repairId);
+            var repair = this.carService.GetRepair(id);
 
             return this.View(repair);
         }

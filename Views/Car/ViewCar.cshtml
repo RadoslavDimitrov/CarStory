@@ -3,33 +3,97 @@
     <h2>Car Details</h2>
 </div>
 
-<div class="text-center">
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Vin Number</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year Manufactured</th>
+        <th>Mileage</th>
+        <th>Next Repair</th>
+        <th>Next Repair Info</th>
+    </tr>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.VinNumber</td>
+        <td>@Model.Make</td>
+        <td>@Model.Model</td>
+        <td>@Model.YearManufactured.ToShortDateString()</td>
+        <td>@Model.Milleage</td>
+        <td>@(Model.NextRepair.HasValue ? Model.NextRepair.Value.ToShortDateString() : "")</td>
+        <td>@Model.NextRepairInfo</td>
+    </tr>
+</table>
+
+<h2>Repairs:</h2>
+
+@foreach (var repair in Model.repairs)
+{
     <table>
-        <thead>
-            <tr>
-                <th>Vin Number</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year Manufactured</th>
-                <th>Mileage</th>
-                <th>Next Repair</th>
-                <th>Next Repair Info</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@Model.VinNumber</td>
-                <td>@Model.Make</td>
-                <td>@Model.Model</td>
-                <td>@Model.YearManufactured.ToShortDateString()</td>
-                <td>@Model.Milleage</td>
-                <td>@(Model.NextRepair.HasValue ? Model.NextRepair.Value.ToString("dd/MM/yyyy") : "")</td>
-                <td>@Model.NextRepairInfo</td>
-            </tr>           
-        </tbody>
-     </table>
-</div>
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Car Id</th>
+            <th>Mileage at Repair</th>
+            <th>Status</th>
+            <th>Car Repair Shop Id</th>
+            <th>Car Repair Shop Name</th>
+            <th>Date Created</th>
+        </tr>
+        <tr>
+            <td>@repair.Id</td>
+            <td>@repair.Description</td>
+            <td>@repair.CarId</td>
+            <td>@repair.currCarMilleage</td>
+            <td>@repair.Status</td>
+            <td>@repair.CarRepairShopId</td>
+            <td>@repair.CarRepairShopName</td>
+            <td>@repair.DateCreated</td>
+
+        </tr>
+
+    </table>
+
+    var partsId = "parts" + repair.Id;
+
+    @if (repair.PartsChanged != null && repair.PartsChanged.Count > 0)
+    {
+        
+
+        @:<button onclick="showHide(@partsId)">Show/Hide Parts Changed Information </button>
+        @:<div id="@partsId" style="display:none">
+            @:<h3>Parts Changed:</h3>
+            @:<table>
+                @:<tr>
+                    @:<th>Id</th>
+                    @:<th>Number</th>
+                    @:<th>Description</th>
+                @:</tr>
+
+                @foreach (var part in repair.PartsChanged)
+                {
+                    @:<tr>
+                        @:<td>@part.Id</td>
+                        @:<td>@part.Number</td>
+                        @:<td>@part.Description</td>
+                    @:</tr>
+                }
+            @:</table>
+        @:</div>
+    }
+}
+
+<script type="text/javascript">
+    function showHide(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
 
 @if(this.User.IsInRole("Admin")){
     <a asp-controller="Car" asp-action="ViewCar" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>

@@ -64,6 +64,9 @@ namespace CarStory.Services.Car
                         Id = r.Id,
                         CarId = r.CarId,
                         Description = r.Description,
+                        CarRepairShopName = r.CarRepairShop.Name,
+                        currCarMilleage = r.currCarMilleage,
+                        DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
                         CarRepairShopId = r.CarRepairShopId,
                         Status = r.Status,
                         PartsChanged = r.PartsChanged.Select(p => new RepairPartsDTO
@@ -82,17 +85,36 @@ namespace CarStory.Services.Car
 
         public List<CarDTO> GetAllCars()
         {
-            var cars = this.data.Cars.Select(c => new CarDTO
-            {
-                Id = c.Id,
-                Make = c.Make,
-                Model = c.Model,
-                Milleage = c.Milleage,
-                NextRepair = c.NextRepair,
-                NextRepairInfo = c.NextRepairInfo,
-                VinNumber = c.VinNumber,
-                YearManufactured = c.YearManufactured
-            }).ToList();
+            var cars = this.data.Cars.Include(c => c.Repairs).ThenInclude(r => r.PartsChanged)
+                .Select(c => new CarDTO
+                {
+                    Id = c.Id,
+                    Make = c.Make,
+                    Milleage = c.Milleage,
+                    Model = c.Model,
+                    NextRepair = c.NextRepair,
+                    NextRepairInfo = c.NextRepairInfo,
+                    VinNumber = c.VinNumber,
+                    YearManufactured = c.YearManufactured,
+                    repairs = c.Repairs.Select(r => new RepairDTO
+                    {
+                        Id = r.Id,
+                        CarId = r.CarId,
+                        Description = r.Description,
+                        CarRepairShopName = r.CarRepairShop.Name,
+                        currCarMilleage = r.currCarMilleage,
+                        DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
+                        CarRepairShopId = r.CarRepairShopId,
+                        Status = r.Status,
+                        PartsChanged = r.PartsChanged.Select(p => new RepairPartsDTO
+                        {
+                            Description = p.Part.Description,
+                            Number = p.Part.Number
+                        }).ToList()
+                    }).ToList()
+
+                })
+                .ToList();
 
             return cars;
         }
