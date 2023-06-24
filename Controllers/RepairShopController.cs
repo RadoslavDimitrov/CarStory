@@ -54,5 +54,11 @@ namespace CarStory.Controllers
 
             return this.RedirectToAction("ViewRepair","Car");
         }
-    }
+
+        public IActionResult ShopRepairs()
+        {
+            //Update logic
+
+            return this.View();
+        }
 }
