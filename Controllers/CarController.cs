@@ -63,7 +63,7 @@ namespace CarStory.Controllers
             }
 
             
-            //Update the View with the info about repairs 
+            //Update the JS func so parts can be show/hide
             return this.View(car);
         }
 

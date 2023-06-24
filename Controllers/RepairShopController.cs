@@ -1,11 +1,19 @@
 ﻿using CarStory.Infrastructure;
 using CarStory.Models.Shared;
+using CarStory.Services.RepairShop;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarStory.Controllers
 {
     public class RepairShopController : Controller
     {
+        private readonly IRepairShopService repairShopService;
+
+        public RepairShopController(IRepairShopService repairShopService)
+        {
+            this.repairShopService = repairShopService;
+        }
+
         public IActionResult Menu()
         {
             var cards = new List<MenuCardsViewModel>
@@ -33,6 +41,18 @@ namespace CarStory.Controllers
             };
 
             return View(cards);
+        }
+
+        public IActionResult FinishRepair(int id)
+        {
+            var isFinished = this.repairShopService.FinishRepair(id);
+
+            if(isFinished == false)
+            {
+                return this.RedirectToAction("ShopRepairs", "RepairShop");
+            }
+
+            return this.RedirectToAction("ViewRepair","Car");
         }
     }
 }

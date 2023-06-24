@@ -3,6 +3,7 @@ using CarStory.Data.Models;
 using CarStory.Infrastructure;
 using CarStory.Services.Admin;
 using CarStory.Services.Car;
+using CarStory.Services.RepairShop;
 using CarStory.Services.Search;
 using CarStory.Services.User;
 using Microsoft.AspNetCore.Identity;
@@ -35,6 +36,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ISearchService, SearchService>();
 builder.Services.AddTransient<IAdminService, AdminService>();
 builder.Services.AddTransient<ICarService, CarService>();
+builder.Services.AddTransient<IRepairShopService, RepairShopService>();
 
 builder.Services.AddAntiforgery();
 
