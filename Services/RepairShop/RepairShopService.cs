@@ -1,5 +1,7 @@
 ﻿using CarStory.Data;
 using CarStory.Infrastructure;
+using CarStory.Models.CarRepairShop;
+using CarStory.Models.DTO.RepairParts;
 
 namespace CarStory.Services.RepairShop
 {
@@ -27,6 +29,53 @@ namespace CarStory.Services.RepairShop
             this.data.SaveChanges();
 
             return true;
+        }
+
+        public ShopRepairsViewModel GetAllRepairs(string username)
+        {
+            var shopRepairs = new ShopRepairsViewModel();
+
+            shopRepairs.PendingRepairs = this.data.Repairs
+                .Where(r => r.CarRepairShop.Name == username)
+                .Where(r => r.Status == RepairStatusEnum.Pending.ToString())
+                .Select(r => new Models.DTO.Repair.RepairDTO
+                {
+                    Id = r.Id,
+                    CarId = r.CarId,
+                    CarRepairShopId = r.CarRepairShopId,
+                    CarRepairShopName = r.CarRepairShopId,
+                    currCarMilleage = r.currCarMilleage,
+                    DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
+                    Description = r.Description,
+                    Status = r.Status,
+                    PartsChanged = r.PartsChanged.Select(rp => new RepairPartsDTO
+                    {
+                        Number = rp.Part.Number,
+                        Description = rp.Part.Description
+                    }).ToList()
+                }).ToList();
+
+            shopRepairs.FinishedRepairs = this.data.Repairs
+                .Where(r => r.CarRepairShop.Name == username)
+                .Where(r => r.Status == RepairStatusEnum.Finished.ToString())
+                .Select(r => new Models.DTO.Repair.RepairDTO
+                {
+                    Id = r.Id,
+                    CarId = r.CarId,
+                    CarRepairShopId = r.CarRepairShopId,
+                    CarRepairShopName = r.CarRepairShopId,
+                    currCarMilleage = r.currCarMilleage,
+                    DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
+                    Description = r.Description,
+                    Status = r.Status,
+                    PartsChanged = r.PartsChanged.Select(rp => new RepairPartsDTO
+                    {
+                        Number = rp.Part.Number,
+                        Description = rp.Part.Description
+                    }).ToList()
+                }).ToList();
+
+            return shopRepairs;
         }
     }
 }
