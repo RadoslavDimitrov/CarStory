@@ -57,6 +57,9 @@ namespace CarStory.Controllers
             return this.RedirectToAction("ViewRepair", "Car");
         }
 
+
+        //add button to finish given repair in the view
+        //add new property to Repairs -> datetime? DateFinished
         public IActionResult ShopRepairs()
         {
             var shopRepairs = this.repairShopService.GetAllRepairs(this.User.Identity.Name);
