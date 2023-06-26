@@ -5,7 +5,7 @@
 </div>
 
 <button onclick="toggleTable('pendingTable')">Show/Hide</button>
-<table id="pendingTable">
+<table id="pendingTable" style="display: none">
     <thead>
         <tr>
             <th>Id</th>
@@ -16,6 +16,7 @@
             <th>Repair Shop Id</th>
             <th>Repair Shop Name</th>
             <th>Date Created</th>
+            <th>Parts changed</th>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +31,18 @@
                 <td>@repair.CarRepairShopId</td>
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
+                <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
             </tr>
+
+            <tbody id="parts-@repair.Id" style="display: none;">
+                @foreach (var part in repair.PartsChanged)
+                {
+                <tr>
+                    <td colspan="8"></td>
+                    <td>@part.Number: @part.Description</td>
+                </tr>
+                }
+            </tbody>
         }
     </tbody>
 </table>
@@ -48,6 +60,7 @@
             <th>Repair Shop Id</th>
             <th>Repair Shop Name</th>
             <th>Date Created</th>
+            <th>Parts changed</th>
         </tr>
     </thead>
     <tbody>
@@ -62,7 +75,18 @@
                 <td>@repair.CarRepairShopId</td>
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
+                <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
             </tr>
+
+            <tbody id="parts-@repair.Id" style="display: none;">
+                @foreach (var part in repair.PartsChanged)
+                {
+                <tr>
+                    <td colspan="8"></td>
+                    <td>@part.Number: @part.Description</td>
+                </tr>
+                }
+            </tbody>
         }
     </tbody>
 </table>
@@ -74,6 +98,15 @@
             table.style.display = "table";
         } else {
             table.style.display = "none";
+        }
+    }
+
+    function toggleParts(repairId) {
+        var parts = document.getElementById("parts-" + repairId);
+        if (parts.style.display === "none") {
+            parts.style.display = "table-row-group";
+        } else {
+            parts.style.display = "none";
         }
     }
 </script>
