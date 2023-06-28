@@ -62,11 +62,10 @@ namespace CarStory.Controllers
                 return this.RedirectToAction("ShopRepairs", "RepairShop");
             }
 
+            //not working
             return this.RedirectToAction("ViewRepair", "Car" , id);
         }
 
-
-        //add button to finish given repair in the view
         public IActionResult ShopRepairs()
         {
             var shopRepairs = this.repairShopService.GetAllRepairs(this.User.Identity.Name);
