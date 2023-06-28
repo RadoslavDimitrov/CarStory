@@ -15,7 +15,7 @@ namespace CarStory.Controllers
         {
             this.repairShopService = repairShopService;
         }
-
+        //Delete button not used?
         public IActionResult Menu()
         {
             var cards = new List<MenuCardsViewModel>
@@ -23,22 +23,30 @@ namespace CarStory.Controllers
                 new MenuCardsViewModel
                 {
                     ImagePath = ImagePathConstants.AddCarImagePath,
-                    ImageText = MenuTextConstants.AddCar
+                    ImageText = MenuTextConstants.AddCar,
+                    ButtonController = MenuTextConstants.AddCarController,
+                    ButtonAction = MenuTextConstants.AddCarAction
                 },
                 new MenuCardsViewModel
                 {
                     ImagePath = ImagePathConstants.AddRepairImagePath,
-                    ImageText = MenuTextConstants.AddRepair
+                    ImageText = MenuTextConstants.AddRepair,
+                    ButtonController = MenuTextConstants.AddRepairController,
+                    ButtonAction = MenuTextConstants.AddRepairAction
                 },
                 new MenuCardsViewModel
                 {
                     ImagePath = ImagePathConstants.FinishRepairImagePath,
-                    ImageText = MenuTextConstants.FinishRepair
+                    ImageText = MenuTextConstants.FinishRepair,
+                    ButtonController = MenuTextConstants.FinishRepairController,
+                    ButtonAction = MenuTextConstants.FinishRepairAction
                 },
                 new MenuCardsViewModel
                 {
                     ImagePath = ImagePathConstants.DeleteImagePath,
-                    ImageText = MenuTextConstants.DeleteCar
+                    ImageText = MenuTextConstants.DeleteCar,
+                    ButtonController = MenuTextConstants.DeleteCarController,
+                    ButtonAction = MenuTextConstants.DeleteCarAction
                 }
             };
 
@@ -54,12 +62,11 @@ namespace CarStory.Controllers
                 return this.RedirectToAction("ShopRepairs", "RepairShop");
             }
 
-            return this.RedirectToAction("ViewRepair", "Car");
+            return this.RedirectToAction("ViewRepair", "Car" , id);
         }
 
 
         //add button to finish given repair in the view
-        //add new property to Repairs -> datetime? DateFinished
         public IActionResult ShopRepairs()
         {
             var shopRepairs = this.repairShopService.GetAllRepairs(this.User.Identity.Name);

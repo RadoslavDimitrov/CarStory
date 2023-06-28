@@ -17,6 +17,7 @@
             <th>Repair Shop Name</th>
             <th>Date Created</th>
             <th>Parts changed</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +33,7 @@
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
                 <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
+                <td><a asp-controller="RepairShop" asp-action="FinishRepair" asp-route-id="@repair.Id" type="button" class="btn btn-danger">Finish</a></td>
             </tr>
 
             <tbody id="parts-@repair.Id" style="display: none;">
@@ -43,6 +45,8 @@
                 </tr>
                 }
             </tbody>
+            
+
         }
     </tbody>
 </table>
@@ -60,6 +64,7 @@
             <th>Repair Shop Id</th>
             <th>Repair Shop Name</th>
             <th>Date Created</th>
+            <th>Date Finished</th>
             <th>Parts changed</th>
         </tr>
     </thead>
@@ -75,6 +80,7 @@
                 <td>@repair.CarRepairShopId</td>
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
+                <td>@repair.DateFinished</td>
                 <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
             </tr>
 

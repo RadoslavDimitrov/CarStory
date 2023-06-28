@@ -21,6 +21,7 @@ namespace CarStory.Models.DTO.Repair
         public string CarRepairShopName { get; set; }
 
         public string DateCreated { get; set; }
+        public string? DateFinished { get; set; }
 
         public ICollection<RepairPartsDTO> PartsChanged { get; set; }
     }

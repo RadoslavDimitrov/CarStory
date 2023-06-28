@@ -23,6 +23,12 @@ namespace CarStory.Services.RepairShop
                 return false;
             }
 
+            if(repair.Status == RepairStatusEnum.Finished.ToString())
+            {
+                return false;
+            }
+
+            repair.DateFinished = DateTime.UtcNow;
             repair.Status = RepairStatusEnum.Finished.ToString();
 
             this.data.Update(repair);
@@ -46,6 +52,7 @@ namespace CarStory.Services.RepairShop
                     CarRepairShopName = r.CarRepairShopId,
                     currCarMilleage = r.currCarMilleage,
                     DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
+                    DateFinished = r.DateFinished.ToString(),
                     Description = r.Description,
                     Status = r.Status,
                     PartsChanged = r.PartsChanged.Select(rp => new RepairPartsDTO
