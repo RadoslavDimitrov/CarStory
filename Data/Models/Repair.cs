@@ -20,6 +20,7 @@ namespace CarStory.Data.Models
         public Car Car { get; set; }
 
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        public DateTime? DateFinished { get; set; } = null;
 
         public string Status { get; set; } = RepairStatusEnum.Pending.ToString();
         public string CarRepairShopId { get; set; }
