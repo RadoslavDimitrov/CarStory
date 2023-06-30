@@ -18,13 +18,14 @@ namespace CarStory.Controllers
             this.carService = carService;
             this.userService = userService;
         }
-
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult AddCar()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult AddCar(AddCarViewModel car)
         {
             if(!ModelState.IsValid) 
@@ -62,8 +63,7 @@ namespace CarStory.Controllers
                 }
             }
 
-            
-            //Update the JS func so parts can be show/hide
+           
             return this.View(car);
         }
 
@@ -113,7 +113,6 @@ namespace CarStory.Controllers
         }
 
 
-        //fix /car/viewRepair/value not working
         public IActionResult ViewRepair(int id)
         {
             var repair = this.carService.GetRepair(id);
