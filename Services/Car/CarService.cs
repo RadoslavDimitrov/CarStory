@@ -7,6 +7,7 @@ using CarStory.Models.DTO.Repair;
 using CarStory.Models.DTO.RepairParts;
 using CarStory.Models.Repair;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace CarStory.Services.Car
 {
@@ -67,6 +68,7 @@ namespace CarStory.Services.Car
                         CarRepairShopName = r.CarRepairShop.Name,
                         currCarMilleage = r.currCarMilleage,
                         DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
+                        DateFinished = r.DateFinished == null ? "" : Convert.ToDateTime(r.DateFinished).ToString("dd/MM/yyyy"),
                         CarRepairShopId = r.CarRepairShopId,
                         Status = r.Status,
                         PartsChanged = r.PartsChanged.Select(p => new RepairPartsDTO
@@ -104,6 +106,7 @@ namespace CarStory.Services.Car
                         CarRepairShopName = r.CarRepairShop.Name,
                         currCarMilleage = r.currCarMilleage,
                         DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
+                        DateFinished = r.DateFinished == null ? "" : Convert.ToDateTime(r.DateFinished).ToString("dd/MM/yyyy"),
                         CarRepairShopId = r.CarRepairShopId,
                         Status = r.Status,
                         PartsChanged = r.PartsChanged.Select(p => new RepairPartsDTO
@@ -141,6 +144,7 @@ namespace CarStory.Services.Car
                 CarRepairShopId = model.CarRepairShopId,
                 Description = model.Description,
                 currCarMilleage = model.CarMilleage,
+                DateCreated = DateTime.UtcNow,
                 Status = RepairStatusEnum.Pending.ToString(),
                 PartsChanged = new List<RepairParts>()
             };
@@ -193,6 +197,7 @@ namespace CarStory.Services.Car
                     CarRepairShopId = r.CarRepairShopId,
                     CarRepairShopName = r.CarRepairShop.Name,
                     DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
+                    DateFinished = r.DateFinished == null ? "" : Convert.ToDateTime(r.DateFinished).ToString("dd/MM/yyyy"),
                     currCarMilleage = r.currCarMilleage,
                     Description = r.Description,
                     Status = r.Status,

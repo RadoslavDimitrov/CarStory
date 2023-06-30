@@ -40,6 +40,7 @@
             <th>Car Repair Shop Id</th>
             <th>Car Repair Shop Name</th>
             <th>Date Created</th>
+            <th>Date Finished</th>
             <th>Parts changed</th>
         </tr>
         <tr>
@@ -51,6 +52,7 @@
             <td>@repair.CarRepairShopId</td>
             <td>@repair.CarRepairShopName</td>
             <td>@repair.DateCreated</td>
+            <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
             <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
         </tr>
 

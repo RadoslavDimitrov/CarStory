@@ -63,7 +63,7 @@ namespace CarStory.Controllers
             }
 
             //not working
-            return this.RedirectToAction("ViewRepair", "Car" , id);
+            return this.RedirectToAction("ViewRepair", "Car", new { id });
         }
 
         public IActionResult ShopRepairs()
