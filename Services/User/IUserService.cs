@@ -1,4 +1,5 @@
 ﻿using CarStory.Data.Models;
+using CarStory.Models.DTO.Car;
 using CarStory.Models.User;
 
 namespace CarStory.Services.User
@@ -14,5 +15,9 @@ namespace CarStory.Services.User
         void CreateShop(CarRepairShop shop);
 
         string GetUserShopId(string username);
+
+        bool AddCarToMyCar(string id, string username);
+
+        List<CarDTO> MyCars(string username);
     }
 }

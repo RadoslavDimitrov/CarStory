@@ -103,11 +103,11 @@ namespace CarStory.Controllers
                 return this.InvalidLoginAttempt(model, ErrorMessageConstants.WrongUsarnameOrPassword);
             }
 
-            if(await userManager.IsInRoleAsync(user, "shop"))
+            if (await userManager.IsInRoleAsync(user, "shop"))
             {
                 bool isApproved = this.userService.IsShopApproved(user.UserName);
 
-                if(isApproved == false)
+                if (isApproved == false)
                 {
                     return this.InvalidLoginAttempt(model, ErrorMessageConstants.ShopNotApproved);
                 }
@@ -199,6 +199,26 @@ namespace CarStory.Controllers
             }
 
             return this.View(user);
+        }
+        [Authorize]
+        public IActionResult AddCarToMyCar(string id)
+        {
+            var result = this.userService.AddCarToMyCar(id, this.User.Identity.Name);
+
+            if (result == false)
+            {
+                return RedirectToAction("Search", "Home");
+            }
+
+            return RedirectToAction("MyCars");
+        }
+
+        [Authorize]
+        public IActionResult MyCars()
+        {
+            var cars = this.userService.MyCars(this.User.Identity.Name);
+
+            return this.View(cars);
         }
 
         [Authorize]

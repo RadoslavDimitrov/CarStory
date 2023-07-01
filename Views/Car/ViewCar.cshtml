@@ -80,6 +80,11 @@
     }
 </script>
 
+@if (this.User.IsInRole("User"))
+{
+    <a asp-controller="User" asp-action="AddCarToMyCar" asp-route-id="@Model.Id" class="btn btn-danger">Add to my cars</a>
+}
+
 @if(this.User.IsInRole("Admin")){
     <a asp-controller="Car" asp-action="ViewCar" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
 }

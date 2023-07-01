@@ -1,0 +1,86 @@
+﻿@model IEnumerable<CarDTO>
+
+<div class="text-center">
+    <h2>My cars:</h2>
+</div>
+
+@foreach (var car in Model){
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Vin Number</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year Manufactured</th>
+            <th>Mileage</th>
+            <th>Next Repair</th>
+            <th>Next Repair Info</th>
+        </tr>
+        <tr>
+            <td>@car.Id</td>
+            <td>@car.VinNumber</td>
+            <td>@car.Make</td>
+            <td>@car.Model</td>
+            <td>@car.YearManufactured.ToShortDateString()</td>
+            <td>@car.Milleage</td>
+            <td>@(car.NextRepair.HasValue ? car.NextRepair.Value.ToShortDateString() : "")</td>
+            <td>@car.NextRepairInfo</td>
+        </tr>
+    </table>
+
+    <h2>Repairs:</h2>
+
+    @foreach (var repair in car.repairs)
+    {
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Car Id</th>
+                <th>Mileage at Repair</th>
+                <th>Status</th>
+                <th>Car Repair Shop Id</th>
+                <th>Car Repair Shop Name</th>
+                <th>Date Created</th>
+                <th>Date Finished</th>
+                <th>Parts changed</th>
+            </tr>
+            <tr>
+                <td>@repair.Id</td>
+                <td>@repair.Description</td>
+                <td>@repair.CarId</td>
+                <td>@repair.currCarMilleage</td>
+                <td>@repair.Status</td>
+                <td>@repair.CarRepairShopId</td>
+                <td>@repair.CarRepairShopName</td>
+                <td>@repair.DateCreated</td>
+                <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
+                <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
+            </tr>
+
+            <tbody id="parts-@repair.Id" style="display: none;">
+                @foreach (var part in repair.PartsChanged)
+                {
+                    <tr>
+                        <td colspan="8"></td>
+                        <td>@part.Number: @part.Description</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+
+
+}
+
+<script type="text/javascript">
+    function toggleParts(repairId) {
+        var parts = document.getElementById("parts-" + repairId);
+        if (parts.style.display === "none") {
+            parts.style.display = "table-row-group";
+        } else {
+            parts.style.display = "none";
+        }
+    }
+</script>
