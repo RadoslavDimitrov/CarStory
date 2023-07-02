@@ -17,7 +17,7 @@ namespace CarStory.Data.Models
 
         public string CarId { get; set; }
         [Required]
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
 
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         public DateTime? DateFinished { get; set; } = null;
@@ -25,7 +25,7 @@ namespace CarStory.Data.Models
         public string Status { get; set; } = RepairStatusEnum.Pending.ToString();
         public string CarRepairShopId { get; set; }
         [Required]
-        public CarRepairShop CarRepairShop { get; set; }
-        public ICollection<RepairParts> PartsChanged { get; set; }
+        public virtual CarRepairShop CarRepairShop { get; set; }
+        public virtual ICollection<RepairParts> PartsChanged { get; set; }
     }
 }

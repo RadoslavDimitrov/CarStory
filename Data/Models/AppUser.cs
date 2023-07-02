@@ -10,6 +10,6 @@ namespace CarStory.Data.Models
         {
             this.Cars = new List<Car>();
         }
-        public ICollection<Car> Cars { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

@@ -214,7 +214,6 @@ namespace CarStory.Controllers
         }
 
 
-        //TODO not showing my cars
         [Authorize]
         public IActionResult MyCars()
         {

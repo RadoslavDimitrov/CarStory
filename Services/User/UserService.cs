@@ -4,6 +4,7 @@ using CarStory.Infrastructure;
 using CarStory.Models.DTO.Car;
 using CarStory.Models.User;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarStory.Services.User
 {

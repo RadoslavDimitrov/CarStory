@@ -10,9 +10,9 @@ namespace CarStory.Data.Models
         }
         public int RepairId { get; set; }
         [Required]
-        public Repair Repair { get; set; }
+        public virtual Repair Repair { get; set; }
         public int PartId { get; set; }
         [Required]
-        public Part Part { get; set; }
+        public virtual Part Part { get; set; }
     }
 }

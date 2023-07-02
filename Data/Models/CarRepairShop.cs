@@ -23,7 +23,7 @@ namespace CarStory.Data.Models
         public string PhoneNumber { get; set; }
 
         public bool IsApproved { get; set; }
-        public ICollection<Repair> AllRepairs { get; set; }
+        public virtual ICollection<Repair> AllRepairs { get; set; }
         
     }
 }

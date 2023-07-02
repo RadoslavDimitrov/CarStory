@@ -15,6 +15,6 @@ namespace CarStory.Data.Models
         [Required]
         public string Description { get; set; }
 
-        public ICollection<RepairParts> Repairs { get; set; }
+        public virtual ICollection<RepairParts> Repairs { get; set; }
     }
 }

@@ -9,9 +9,10 @@ namespace CarStory.Data
     public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration)
             : base(options)
         {
+            Configuration = configuration;
         }
 
         public DbSet<AppUser> AppUsers { get; set; }
@@ -20,6 +21,7 @@ namespace CarStory.Data
         public DbSet<Part> Parts { get; set; }
         public DbSet<Repair> Repairs { get; set; }
         public DbSet<RepairParts> RepairParts { get; set; }
+        public IConfiguration Configuration { get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +35,15 @@ namespace CarStory.Data
             modelBuilder.Entity<RepairParts>()
                 .HasKey(r => new { r.PartId, r.RepairId });
 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(connectionString);
+
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

@@ -30,6 +30,6 @@ namespace CarStory.Data.Models
 
         public string? NextRepairInfo { get; set; }
 
-        public ICollection<Repair> Repairs { get; set; }
+        public virtual ICollection<Repair> Repairs { get; set; }
     }
 }
