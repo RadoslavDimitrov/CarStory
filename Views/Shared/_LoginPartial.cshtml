@@ -26,15 +26,22 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-controller="Admin" asp-action="Shops">Shops</a>
             </li>
-      
+            
         }
 
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="repairshop" asp-action="index">Shops</a>
+        </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-controller="car" asp-action="cars">Cars</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="car" asp-action="addCar">Add Car</a>
-        </li>
+        if(User.IsInRole("Admin") || User.IsInRole("Shop"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-controller="car" asp-action="addCar">Add Car</a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link text-dark" asp-controller="user" asp-action="profile">Hello @User.Identity?.Name!</a>
         </li>

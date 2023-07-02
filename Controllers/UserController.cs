@@ -187,7 +187,6 @@ namespace CarStory.Controllers
         }
 
 
-
         [Authorize]
         public IActionResult Profile()
         {

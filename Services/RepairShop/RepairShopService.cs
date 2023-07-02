@@ -2,6 +2,7 @@
 using CarStory.Infrastructure;
 using CarStory.Models.CarRepairShop;
 using CarStory.Models.DTO.RepairParts;
+using CarStory.Models.DTO.RepairShop;
 
 namespace CarStory.Services.RepairShop
 {
@@ -83,6 +84,22 @@ namespace CarStory.Services.RepairShop
                 }).ToList();
 
             return shopRepairs;
+        }
+
+        public List<RepairShopDTO> Shops()
+        {
+            var shops = this.data.CarRepairShops.Select(sh => new RepairShopDTO
+            {
+                Description = sh.Description,
+                Email = sh.Email,
+                Id = sh.Id,
+                Location = sh.Location,
+                Name = sh.Name,
+                PhoneNumber = sh.PhoneNumber,
+                IsApproved = sh.IsApproved
+            }).ToList();
+
+            return shops;
         }
     }
 }

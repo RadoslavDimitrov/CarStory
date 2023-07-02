@@ -15,6 +15,15 @@ namespace CarStory.Controllers
         {
             this.repairShopService = repairShopService;
         }
+
+        [AllowAnonymous]
+        public IActionResult Index()
+        {
+            var shops = this.repairShopService.Shops();
+
+            return View(shops);
+        }
+
         //Delete button not used?
         public IActionResult Menu()
         {

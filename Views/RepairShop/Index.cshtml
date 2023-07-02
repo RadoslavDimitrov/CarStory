@@ -1,0 +1,55 @@
+﻿@model List<RepairShopDTO>
+
+<div class="text-center">
+    <h2>Shops</h2>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Is Approved</th>
+                <th>Approve</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var repairShop in Model)
+        {
+            <tr>
+                <td>@repairShop.Name</td>
+                <td>@repairShop.Description</td>
+                <td>@repairShop.Location</td>
+                <td>@repairShop.Email</td>
+                <td>@repairShop.PhoneNumber</td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>@repairShop.IsApproved</td>
+                    <td>
+                        @if (repairShop.IsApproved)
+                        {
+                            <form asp-controller="admin" asp-action="ApproveShop" method="post">
+                                <input type="hidden" name="id" value="@repairShop.Id">
+                                <input type="submit" value="Disapprove" class="approve-button">
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="admin" asp-action="ApproveShop" method="post">
+                                <input type="hidden" name="id" value="@repairShop.Id">
+                                <input type="submit" value="Approve" class="approve-button">
+                            </form>
+                        }
+
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

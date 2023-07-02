@@ -1,4 +1,5 @@
 ﻿using CarStory.Models.CarRepairShop;
+using CarStory.Models.DTO.RepairShop;
 
 namespace CarStory.Services.RepairShop
 {
@@ -7,5 +8,7 @@ namespace CarStory.Services.RepairShop
         bool FinishRepair(int id);
 
         ShopRepairsViewModel GetAllRepairs(string username);
+
+        List<RepairShopDTO> Shops();
     }
 }
