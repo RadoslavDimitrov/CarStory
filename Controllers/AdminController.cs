@@ -14,13 +14,6 @@ namespace CarStory.Controllers
         {
             this.adminService = adminService;
         }
-
-        public IActionResult Shops()
-        {
-            var shops = this.adminService.GetAllShops();
-
-            return View(shops);
-        }
         
 
         [HttpPost]

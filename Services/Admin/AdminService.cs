@@ -36,23 +36,6 @@ namespace CarStory.Services.Admin
             return true;
         }
 
-
-        public List<RepairShopDTO> GetAllShops()
-        {
-            var shops = this.data.CarRepairShops.Select(sh => new RepairShopDTO
-            {
-                Id = sh.Id,
-                Name = sh.Name,
-                Description = sh.Description,
-                Email = sh.Email,
-                Location = sh.Location,
-                PhoneNumber = sh.PhoneNumber,
-                IsApproved = sh.IsApproved,
-            }).ToList();
-
-            return shops;
-        }
-
         public RepairShopDTO GetRepairShop(string id)
         {
             var shop = this.data.CarRepairShops.Where(sh => sh.Id == id).Select(sh => new RepairShopDTO
