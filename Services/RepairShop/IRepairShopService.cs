@@ -1,4 +1,5 @@
 ﻿using CarStory.Models.CarRepairShop;
+using CarStory.Models.DTO.Repair;
 using CarStory.Models.DTO.RepairShop;
 
 namespace CarStory.Services.RepairShop
@@ -10,5 +11,7 @@ namespace CarStory.Services.RepairShop
         ShopRepairsViewModel GetAllRepairs(string username);
 
         List<RepairShopDTO> Shops(string name, string location);
+
+        List<PendingRepairDTO> PendingRepairs(string vinNumber, string shopName);
     }
 }

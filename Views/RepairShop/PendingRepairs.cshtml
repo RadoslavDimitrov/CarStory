@@ -1,0 +1,49 @@
+﻿@model List<PendingRepairDTO>
+
+<div class="text-center">
+    <h2>Pending repairs:</h2>
+</div>
+
+<div class="text-center">
+    <form method="get">
+        <label for="name">Search by Vin:</label>
+        <input type="text" id="vinNumber" name="vinNumber" value="@Context.Request.Query["vinNumber"]">
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Car Id</th>
+            <th>Vin number</th>
+            <th>Current Car Mileage</th>
+            <th>Date Created</th>
+            <th>Description</th>
+            <th>Id</th>
+            <th>Status</th>
+            <th>Parts Changed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var repair in Model)
+        {
+            <tr>
+                <td>@repair.CarId</td>
+                <td>@repair.VinNumber</td>
+                <td>@repair.CurrCarMilleage</td>
+                <td>@repair.DateCreated</td>
+                <td>@repair.Description</td>
+                <td>@repair.RepairId</td>
+                <td>@repair.Status</td>
+                <td>
+                    @foreach (var part in repair.PartsChanged)
+                    {
+                        @:@part.Number - @part.Description<br />
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

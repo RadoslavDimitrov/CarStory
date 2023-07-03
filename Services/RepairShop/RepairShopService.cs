@@ -1,8 +1,10 @@
 ﻿using CarStory.Data;
 using CarStory.Infrastructure;
 using CarStory.Models.CarRepairShop;
+using CarStory.Models.DTO.Repair;
 using CarStory.Models.DTO.RepairParts;
 using CarStory.Models.DTO.RepairShop;
+using CarStory.Models.Repair;
 
 namespace CarStory.Services.RepairShop
 {
@@ -84,6 +86,37 @@ namespace CarStory.Services.RepairShop
                 }).ToList();
 
             return shopRepairs;
+        }
+
+        public List<PendingRepairDTO> PendingRepairs(string vinNumber, string shopName)
+        {
+            var repairs = this.data.Repairs
+                .Where(r => r.CarRepairShop.Name == shopName)
+                .Where(r => r.Status == RepairStatusEnum.Pending.ToString())
+                .AsQueryable();
+
+            if(!string.IsNullOrEmpty(vinNumber))
+            {
+                repairs = repairs.Where(r => r.Car.VinNumber.Contains(vinNumber));
+            }
+
+            var result = repairs.Select(r => new PendingRepairDTO
+            {
+                VinNumber = r.Car.VinNumber,
+                CarId = r.CarId,
+                CurrCarMilleage = r.currCarMilleage,
+                DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
+                Description = r.Description,
+                RepairId = r.Id,
+                Status = r.Status,
+                PartsChanged = r.PartsChanged.Select(p => new RepairPartsDTO
+                {
+                    Number = p.Part.Number,
+                    Description = p.Part.Description
+                }).ToList()
+            }).ToList();
+
+            return result;
         }
 
         public List<RepairShopDTO> Shops(string name, string location)
