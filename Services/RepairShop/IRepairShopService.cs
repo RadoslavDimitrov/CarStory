@@ -9,6 +9,6 @@ namespace CarStory.Services.RepairShop
 
         ShopRepairsViewModel GetAllRepairs(string username);
 
-        List<RepairShopDTO> Shops();
+        List<RepairShopDTO> Shops(string name, string location);
     }
 }

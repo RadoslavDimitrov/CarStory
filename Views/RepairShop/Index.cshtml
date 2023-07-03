@@ -4,6 +4,14 @@
     <h2>Shops</h2>
 </div>
 
+<form method="get">
+    <label for="name">Search by name:</label>
+    <input type="text" id="name" name="name" value="@Context.Request.Query["name"]">
+    <label for="location">Search by location:</label>
+    <input type="text" id="location" name="location" value="@Context.Request.Query["location"]">
+    <input type="submit" value="Search">
+</form>
+
 <table>
     <thead>
         <tr>

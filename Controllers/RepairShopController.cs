@@ -17,9 +17,9 @@ namespace CarStory.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public IActionResult Index(string name, string location)
         {
-            var shops = this.repairShopService.Shops();
+            var shops = this.repairShopService.Shops(name, location);
 
             return View(shops);
         }

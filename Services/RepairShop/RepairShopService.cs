@@ -86,20 +86,33 @@ namespace CarStory.Services.RepairShop
             return shopRepairs;
         }
 
-        public List<RepairShopDTO> Shops()
+        public List<RepairShopDTO> Shops(string name, string location)
         {
-            var shops = this.data.CarRepairShops.Select(sh => new RepairShopDTO
+            var shops = this.data.CarRepairShops.AsQueryable();
+
+            if (!String.IsNullOrEmpty(name))
             {
+                shops = shops.Where(sh => sh.Name.Contains(name));
+            }
+
+            if (!String.IsNullOrEmpty(location))
+            {
+                shops = shops.Where(sh => sh.Location.Contains(location));
+            }
+
+            var result = shops.Select(sh => new RepairShopDTO
+            {
+                Id = sh.Id,
                 Description = sh.Description,
                 Email = sh.Email,
-                Id = sh.Id,
-                Location = sh.Location,
                 Name = sh.Name,
+                Location = sh.Location,
                 PhoneNumber = sh.PhoneNumber,
                 IsApproved = sh.IsApproved
             }).ToList();
 
-            return shops;
+
+            return result;
         }
     }
 }
