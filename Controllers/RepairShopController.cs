@@ -38,17 +38,17 @@ namespace CarStory.Controllers
                 },
                 new MenuCardsViewModel
                 {
-                    ImagePath = ImagePathConstants.AddRepairImagePath,
-                    ImageText = MenuTextConstants.AddRepair,
-                    ButtonController = MenuTextConstants.AddRepairController,
-                    ButtonAction = MenuTextConstants.AddRepairAction
+                    ImagePath = ImagePathConstants.PendingRepairsImgPath,
+                    ImageText = MenuTextConstants.PendingRepairs,
+                    ButtonController = MenuTextConstants.PendingRepairsController,
+                    ButtonAction = MenuTextConstants.PendingRepairsAction
                 },
                 new MenuCardsViewModel
                 {
-                    ImagePath = ImagePathConstants.FinishRepairImagePath,
-                    ImageText = MenuTextConstants.FinishRepair,
-                    ButtonController = MenuTextConstants.FinishRepairController,
-                    ButtonAction = MenuTextConstants.FinishRepairAction
+                    ImagePath = ImagePathConstants.FinishedRepairsImgPath,
+                    ImageText = MenuTextConstants.FinishedRepairs,
+                    ButtonController = MenuTextConstants.FinishedRepairsController,
+                    ButtonAction = MenuTextConstants.FinishedRepairsAction
                 },
                 new MenuCardsViewModel
                 {
