@@ -13,5 +13,6 @@ namespace CarStory.Services.RepairShop
         List<RepairShopDTO> Shops(string name, string location);
 
         List<PendingRepairDTO> PendingRepairs(string vinNumber, string shopName);
+        List<FinishedRepairsDTO> FinishedRepairs(string vinNumber, string shopName);
     }
 }

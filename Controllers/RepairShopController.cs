@@ -62,9 +62,11 @@ namespace CarStory.Controllers
             return View(cards);
         }
 
-        public IActionResult FinishedRepairs()
+        public IActionResult FinishedRepairs(string vinNumber)
         {
-            return View();
+            var repairs = this.repairShopService.FinishedRepairs(vinNumber, this.User.Identity.Name);
+
+            return View(repairs);
         }
 
         public IActionResult PendingRepairs(string vinNumber)

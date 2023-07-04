@@ -17,6 +17,39 @@ namespace CarStory.Services.RepairShop
             this.data = data;
         }
 
+        public List<FinishedRepairsDTO> FinishedRepairs(string vinNumber, string shopName)
+        {
+            var repairs = this.data.Repairs
+                .Where(r => r.CarRepairShop.Name == shopName)
+                .Where(r => r.Status == RepairStatusEnum.Finished.ToString())
+                .OrderBy(r => r.DateFinished)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(vinNumber))
+            {
+                repairs = repairs.Where(r => r.Car.VinNumber.Contains(vinNumber));
+            }
+
+            var result = repairs.Select(r => new FinishedRepairsDTO
+            {
+                VinNumber = r.Car.VinNumber,
+                CarId = r.CarId,
+                CurrCarMilleage = r.currCarMilleage,
+                DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
+                DateFinished = r.DateFinished == null ? "" : r.DateFinished.ToString(),
+                Description = r.Description,
+                RepairId = r.Id,
+                Status = r.Status,
+                PartsChanged = r.PartsChanged.Select(p => new RepairPartsDTO
+                {
+                    Number = p.Part.Number,
+                    Description = p.Part.Description
+                }).ToList()
+            }).ToList();
+
+            return result;
+        }
+
         public bool FinishRepair(int id)
         {
             var repair = this.data.Repairs.Where(r => r.Id == id).FirstOrDefault();
@@ -93,6 +126,7 @@ namespace CarStory.Services.RepairShop
             var repairs = this.data.Repairs
                 .Where(r => r.CarRepairShop.Name == shopName)
                 .Where(r => r.Status == RepairStatusEnum.Pending.ToString())
+                .OrderBy(r => r.DateCreated)
                 .AsQueryable();
 
             if(!string.IsNullOrEmpty(vinNumber))
@@ -114,7 +148,7 @@ namespace CarStory.Services.RepairShop
                     Number = p.Part.Number,
                     Description = p.Part.Description
                 }).ToList()
-            }).OrderBy(r => r.CurrCarMilleage).ToList();
+            }).ToList();
 
             return result;
         }
