@@ -114,7 +114,7 @@ namespace CarStory.Services.RepairShop
                     Number = p.Part.Number,
                     Description = p.Part.Description
                 }).ToList()
-            }).ToList();
+            }).OrderBy(r => r.CurrCarMilleage).ToList();
 
             return result;
         }
