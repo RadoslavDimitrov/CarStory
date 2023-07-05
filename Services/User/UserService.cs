@@ -53,6 +53,28 @@ namespace CarStory.Services.User
             this.data.SaveChanges();
         }
 
+        public bool DeleteCar(string id, string username)
+        {
+            var user = this.data.Users.Include(u => u.Cars).Where(u => u.UserName == username).FirstOrDefault();
+
+            if(user == null)
+            {
+                return false;
+            }
+
+            var car = this.data.Cars.Where(c => c.Id ==id).FirstOrDefault();
+
+            if(car == null)
+            {
+                return false;
+            }
+
+            user.Cars.Remove(car);
+            this.data.SaveChanges();
+
+            return true;
+        }
+
         public AppUser GetUser(string username)
         {
             return data.Users.Where(u => u.UserName == username).FirstOrDefault();

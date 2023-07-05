@@ -222,6 +222,19 @@ namespace CarStory.Controllers
         }
 
         [Authorize]
+        public IActionResult DeleteCar(string id)
+        {
+            var result = this.userService.DeleteCar(id, this.User.Identity.Name);
+
+            if(result == false)
+            {
+                return RedirectToAction("MyCars");
+            }
+
+            return RedirectToAction("MyCars");
+        }
+
+        [Authorize]
         public IActionResult ChangePassword()
         {
             return this.View();

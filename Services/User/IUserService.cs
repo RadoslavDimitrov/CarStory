@@ -19,5 +19,7 @@ namespace CarStory.Services.User
         bool AddCarToMyCar(string id, string username);
 
         List<CarDTO> MyCars(string username);
+
+        bool DeleteCar(string id, string username);
     }
 }
