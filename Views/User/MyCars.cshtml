@@ -15,6 +15,7 @@
             <th>Mileage</th>
             <th>Next Repair</th>
             <th>Next Repair Info</th>
+            <th>Delete</th>
         </tr>
         <tr>
             <td>@car.Id</td>
@@ -25,6 +26,9 @@
             <td>@car.Milleage</td>
             <td>@(car.NextRepair.HasValue ? car.NextRepair.Value.ToShortDateString() : "")</td>
             <td>@car.NextRepairInfo</td>
+            <td>
+                <a asp-controller="User" asp-action="DeleteCar" asp-route-id="@car.Id" class="btn btn-danger">Delete</a>
+            </td>
         </tr>
     </table>
 
@@ -54,7 +58,14 @@
                 <td>@repair.CarRepairShopId</td>
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
-                <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
+                @if(repair.DateFinished != String.Empty)
+                {
+                    <td>@DateTime.Parse(repair.DateFinished).ToString("dd/MM/yyyy")</td>
+                }
+                else
+                {
+                    <td></td>
+                }
                 <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
             </tr>
 
