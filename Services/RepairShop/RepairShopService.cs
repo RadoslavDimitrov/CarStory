@@ -121,6 +121,31 @@ namespace CarStory.Services.RepairShop
             return shopRepairs;
         }
 
+        public RepairDTO GetRepair(int id)
+        {
+            var repair = this.data.Repairs
+                .Where(r => r.Id == id)
+                .Where(r => r.Status != RepairStatusEnum.Finished.ToString())
+                .Select(r => new RepairDTO
+                {
+                    Id = r.Id,
+                    CarId = r.CarId,
+                    CarRepairShopId = r.CarRepairShopId,
+                    CarRepairShopName = r.CarRepairShop.Name,
+                    currCarMilleage = r.currCarMilleage,
+                    DateCreated = r.DateCreated.ToShortDateString(),
+                    Description = r.Description,
+                    Status = r.Status,
+                    PartsChanged = r.PartsChanged.Select(p => new RepairPartsDTO
+                    {
+                        Description = p.Part.Description,
+                        Number = p.Part.Number
+                    }).ToList()
+                }).FirstOrDefault();
+
+            return repair;
+        }
+
         public List<PendingRepairDTO> PendingRepairs(string vinNumber, string shopName)
         {
             var repairs = this.data.Repairs

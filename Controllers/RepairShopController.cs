@@ -95,5 +95,18 @@ namespace CarStory.Controllers
 
             return this.View(shopRepairs);
         }
+
+        public IActionResult EdidRepair(int id)
+        {
+            var repair = this.repairShopService.GetRepair(id);
+
+            if(repair == null)
+            {
+                //return not found repair
+            }
+
+            //make a view and post action
+            return this.View(repair);
+        }
     }
 }
