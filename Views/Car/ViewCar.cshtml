@@ -30,43 +30,139 @@
 
 @foreach (var repair in Model.repairs)
 {
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Description</th>
-            <th>Car Id</th>
-            <th>Mileage at Repair</th>
-            <th>Status</th>
-            <th>Car Repair Shop Id</th>
-            <th>Car Repair Shop Name</th>
-            <th>Date Created</th>
-            <th>Date Finished</th>
-            <th>Parts changed</th>
-        </tr>
-        <tr>
-            <td>@repair.Id</td>
-            <td>@repair.Description</td>
-            <td>@repair.CarId</td>
-            <td>@repair.currCarMilleage</td>
-            <td>@repair.Status</td>
-            <td>@repair.CarRepairShopId</td>
-            <td>@repair.CarRepairShopName</td>
-            <td>@repair.DateCreated</td>
-            <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
-            <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
-        </tr>
+    if (User.IsInRole("Shop"))
+    {
+        if (repair.CarRepairShopId != TempData["ShopId"].ToString() && repair.Status == "Pending")
+        {
+            continue;
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Description</th>
+                    <th>Car Id</th>
+                    <th>Mileage at Repair</th>
+                    <th>Status</th>
+                    <th>Car Repair Shop Id</th>
+                    <th>Car Repair Shop Name</th>
+                    <th>Date Created</th>
+                    <th>Date Finished</th>
+                    <th>Parts changed</th>
+                </tr>
+                <tr>
+                    <td>@repair.Id</td>
+                    <td>@repair.Description</td>
+                    <td>@repair.CarId</td>
+                    <td>@repair.currCarMilleage</td>
+                    <td>@repair.Status</td>
+                    <td>@repair.CarRepairShopId</td>
+                    <td>@repair.CarRepairShopName</td>
+                    <td>@repair.DateCreated</td>
+                    <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
+                    <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
+                </tr>
 
-        <tbody id="parts-@repair.Id" style="display: none;">
+                <tbody id="parts-@repair.Id" style="display: none;">
+                    @foreach (var part in repair.PartsChanged)
+                    {
+                        <tr>
+                            <td colspan="8"></td>
+                            <td>@part.Number: @part.Description</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        }
+
+    }else if (User.IsInRole("Admin"))
+    {
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Car Id</th>
+                <th>Mileage at Repair</th>
+                <th>Status</th>
+                <th>Car Repair Shop Id</th>
+                <th>Car Repair Shop Name</th>
+                <th>Date Created</th>
+                <th>Date Finished</th>
+                <th>Parts changed</th>
+            </tr>
+            <tr>
+                <td>@repair.Id</td>
+                <td>@repair.Description</td>
+                <td>@repair.CarId</td>
+                <td>@repair.currCarMilleage</td>
+                <td>@repair.Status</td>
+                <td>@repair.CarRepairShopId</td>
+                <td>@repair.CarRepairShopName</td>
+                <td>@repair.DateCreated</td>
+                <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
+                <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
+            </tr>
+
+            <tbody id="parts-@repair.Id" style="display: none;">
                 @foreach (var part in repair.PartsChanged)
                 {
-                <tr>
-                    <td colspan="8"></td>
-                    <td>@part.Number: @part.Description</td>
-                </tr>
+                    <tr>
+                        <td colspan="8"></td>
+                        <td>@part.Number: @part.Description</td>
+                    </tr>
                 }
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
+    }
+    else
+    {
+        if(repair.Status == "Pending")
+        {
+            continue;
+        }
+
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Car Id</th>
+                <th>Mileage at Repair</th>
+                <th>Status</th>
+                <th>Car Repair Shop Id</th>
+                <th>Car Repair Shop Name</th>
+                <th>Date Created</th>
+                <th>Date Finished</th>
+                <th>Parts changed</th>
+            </tr>
+            <tr>
+                <td>@repair.Id</td>
+                <td>@repair.Description</td>
+                <td>@repair.CarId</td>
+                <td>@repair.currCarMilleage</td>
+                <td>@repair.Status</td>
+                <td>@repair.CarRepairShopId</td>
+                <td>@repair.CarRepairShopName</td>
+                <td>@repair.DateCreated</td>
+                <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
+                <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
+            </tr>
+
+            <tbody id="parts-@repair.Id" style="display: none;">
+                @foreach (var part in repair.PartsChanged)
+                {
+                    <tr>
+                        <td colspan="8"></td>
+                        <td>@part.Number: @part.Description</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+
 }
 
 <script type="text/javascript">
