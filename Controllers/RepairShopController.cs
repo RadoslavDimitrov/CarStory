@@ -1,4 +1,5 @@
 ﻿using CarStory.Infrastructure;
+using CarStory.Models.DTO.Repair;
 using CarStory.Models.Shared;
 using CarStory.Services.RepairShop;
 using Microsoft.AspNetCore.Authorization;
@@ -96,7 +97,7 @@ namespace CarStory.Controllers
             return this.View(shopRepairs);
         }
 
-        public IActionResult EdidRepair(int id)
+        public IActionResult EditRepair(int id)
         {
             var repair = this.repairShopService.GetRepair(id);
 
@@ -107,6 +108,12 @@ namespace CarStory.Controllers
 
             //make a view and post action
             return this.View(repair);
+        }
+
+        [HttpPost]
+        public IActionResult EditRepair(RepairDTO repair)
+        {
+            return View();
         }
     }
 }

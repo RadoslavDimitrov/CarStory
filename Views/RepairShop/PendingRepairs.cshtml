@@ -23,6 +23,7 @@
             <th>Id</th>
             <th>Status</th>
             <th>Parts Changed</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
@@ -43,6 +44,7 @@
 
                     }
                 </td>
+                <td><a asp-controller="RepairShop" asp-action="EditRepair" asp-route-id="@repair.RepairId">Edit</a></td>
             </tr>
         }
     </tbody>

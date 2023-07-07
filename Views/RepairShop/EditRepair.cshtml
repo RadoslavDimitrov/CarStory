@@ -1,0 +1,96 @@
+﻿@model RepairDTO
+
+<div class="text-center">
+    <h2>Edit Repair</h2>
+</div>
+
+<form asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CarId" class="control-label"></label>
+        <input asp-for="CarId" class="form-control" />
+        <span asp-validation-for="CarId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="currCarMilleage" class="control-label"></label>
+        <input asp-for="currCarMilleage" class="form-control" />
+        <span asp-validation-for="currCarMilleage" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Status" class="control-label"></label>
+        <input asp-for="Status" class="form-control" />
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CarRepairShopId" class="control-label"></label>
+        <input asp-for="CarRepairShopId" class="form-control" />
+        <span asp-validation-for="CarRepairShopId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CarRepairShopName" class="control-label"></label>
+        <input asp-for="CarRepairShopName" class="form-control" />
+        <span asp-validation-for="CarRepairShopName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateCreated" class="control-label"></label>
+        <input asp-for="DateCreated" class="form-control" />
+        <span asp-validation-for="DateCreated" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateFinished" class="control-label"></label>
+        <input asp-for="DateFinished" class="form-control" />
+        <span asp-validation-for="DateFinished" class="text-danger"></span>
+    </div>
+
+        @for (var i = 0; i < Model.PartsChanged.Count; i++)
+        {
+            var part = Model.PartsChanged.ElementAt(i);
+
+            <h4>Part @(i + 1)</h4>
+
+            <div class="form-group">
+                <label for="PartsChanged[@i].Number">Number</label>
+                <input type="text" name="PartsChanged[@i].Number" value="@part.Number" />
+                <span asp-validation-for="PartsChanged[@i].Number" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="PartsChanged[@i].Description">Description</label>
+                <input type="text" name="PartsChanged[@i].Description" value="@part.Description" />
+                <span asp-validation-for="PartsChanged[@i].Description" class="text-danger"></span>
+            </div>
+
+        }
+    
+
+    <button type="button" id="addPartButton">Add Part</button>
+
+    <input type="submit" value="Submit" />
+
+    
+
+</form>
+
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            var index = @Model.PartsChanged.Count;
+
+            $("#addPartButton").click(function () {
+                var newRow = $("<div></div>");
+                newRow.append('<div class="form-group"><label for="PartsChanged[' + index + '].Number">Number</label><input type="text" name="PartsChanged[' + index + '].Number" /></div>');
+                newRow.append('<div class="form-group"><label for="PartsChanged[' + index + '].Description">Description</label><input type="text" name="PartsChanged[' + index + '].Description" /></div>');
+                $("#partsContainer").append(newRow);
+                index++;
+            });
+        });
+    </script>
+
+    }
+
