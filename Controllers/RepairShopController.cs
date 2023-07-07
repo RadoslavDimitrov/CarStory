@@ -106,7 +106,7 @@ namespace CarStory.Controllers
                 //return not found repair
             }
 
-            //make a view and post action
+            //make a view working and post action
             return this.View(repair);
         }
 
