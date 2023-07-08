@@ -16,5 +16,7 @@ namespace CarStory.Services.RepairShop
         List<FinishedRepairsDTO> FinishedRepairs(string vinNumber, string shopName);
 
         RepairDTO GetRepair(int id);
+
+        bool EditRepair(RepairDTO repair);
     }
 }

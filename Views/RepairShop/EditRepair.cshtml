@@ -4,7 +4,7 @@
     <h2>Edit Repair</h2>
 </div>
 
-<form asp-action="Edit">
+<form asp-action="EditRepair">
     <div class="form-group">
         <label asp-for="Description" class="control-label"></label>
         <input asp-for="Description" class="form-control" />
@@ -46,6 +46,7 @@
         <span asp-validation-for="DateFinished" class="text-danger"></span>
     </div>
 
+    <div id="partsContainer">
         @for (var i = 0; i < Model.PartsChanged.Count; i++)
         {
             var part = Model.PartsChanged.ElementAt(i);
@@ -65,11 +66,11 @@
             </div>
 
         }
-    
+    </div>
 
     <button type="button" id="addPartButton">Add Part</button>
 
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Edit" />
 
     
 

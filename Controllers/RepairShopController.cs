@@ -113,7 +113,16 @@ namespace CarStory.Controllers
         [HttpPost]
         public IActionResult EditRepair(RepairDTO repair)
         {
-            return View();
+            //add parts to DB
+            var result = this.repairShopService.EditRepair(repair);
+            //Add parts to repair
+            if(result == false)
+            {
+                return this.View(repair);
+            }
+
+
+            return RedirectToAction("ViewRepair", "Car", new {id = repair.Id});
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CarStory.Data;
+using CarStory.Data.Models;
 using CarStory.Infrastructure;
 using CarStory.Models.CarRepairShop;
 using CarStory.Models.DTO.Repair;
@@ -15,6 +16,56 @@ namespace CarStory.Services.RepairShop
         public RepairShopService(ApplicationDbContext data)
         {
             this.data = data;
+        }
+
+        public bool EditRepair(RepairDTO repair)
+        {
+            var repairDb = this.data.Repairs.Where(r => r.Id == repair.Id).FirstOrDefault();
+
+            if(repairDb == null)
+            {
+                return false;
+            }
+
+            foreach (var partDTO in repair.PartsChanged)
+            {
+                var newPart = new Part();
+                var newRepairParts = new RepairParts();
+
+                if(!this.data.Parts.Any(p => p.Number.ToLower() == partDTO.Number.ToLower()))
+                {
+                    newPart.Number = partDTO.Number;
+                    newPart.Description = partDTO.Description;
+                    this.data.Parts.Add(newPart);
+
+                    newRepairParts.Part = newPart;
+                    newRepairParts.Repair = repairDb;
+
+                    newPart.Repairs.Add(newRepairParts);
+
+                    this.data.RepairParts.Add(newRepairParts);
+
+                    repairDb.PartsChanged.Add(newRepairParts);
+                }
+                else
+                {
+                    if(!repairDb.PartsChanged.Any(p => p.Part.Number.ToLower() == partDTO.Number.ToLower()))
+                    {
+                        var part = this.data.Parts.Where(p => p.Number == partDTO.Number).First();
+                        var repairPart = new RepairParts { Part = part, Repair = repairDb };
+                        part.Repairs.Add(repairPart);
+
+                        this.data.RepairParts.Add(repairPart);
+
+                        repairDb.PartsChanged.Add(repairPart);
+                    }
+                }
+
+            }
+
+            this.data.SaveChanges();
+            return true;
+            
         }
 
         public List<FinishedRepairsDTO> FinishedRepairs(string vinNumber, string shopName)
