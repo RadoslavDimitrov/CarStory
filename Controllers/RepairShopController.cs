@@ -4,6 +4,7 @@ using CarStory.Models.Shared;
 using CarStory.Services.RepairShop;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace CarStory.Controllers
 {
@@ -116,8 +117,13 @@ namespace CarStory.Controllers
             //add parts to DB
             var result = this.repairShopService.EditRepair(repair);
             //Add parts to repair
-            if(result == false)
+            if(result == -1)
             {
+                ModelState.AddModelError(string.Empty, "Repair does not exist");
+                return this.View(repair);
+            }else if(result == -2)
+            {
+                ModelState.AddModelError(nameof(repair.currCarMilleage), "current car milleage cannot be lower that the car's millleage");
                 return this.View(repair);
             }
 

@@ -17,6 +17,6 @@ namespace CarStory.Services.RepairShop
 
         RepairDTO GetRepair(int id);
 
-        bool EditRepair(RepairDTO repair);
+        int EditRepair(RepairDTO repair);
     }
 }

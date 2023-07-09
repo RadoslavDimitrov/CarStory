@@ -9,6 +9,7 @@ namespace CarStory.Models.DTO.Repair
     {
         public int Id { get; set; }
         [Required]
+        [StringLength(2000, ErrorMessage = "Description must be between 5 and 2000 characters long", MinimumLength = 5)]
         public string Description { get; set; }
 
         public string CarId { get; set; }

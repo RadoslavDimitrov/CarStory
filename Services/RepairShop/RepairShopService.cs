@@ -18,14 +18,22 @@ namespace CarStory.Services.RepairShop
             this.data = data;
         }
 
-        public bool EditRepair(RepairDTO repair)
+        public int EditRepair(RepairDTO repair)
         {
             var repairDb = this.data.Repairs.Where(r => r.Id == repair.Id).FirstOrDefault();
 
             if(repairDb == null)
             {
-                return false;
+                return -1;
             }
+
+            if(repair.currCarMilleage < repairDb.currCarMilleage)
+            {
+                return -2;
+            }
+
+            repairDb.currCarMilleage = repair.currCarMilleage;
+            repairDb.Description = repair.Description;
 
             foreach (var partDTO in repair.PartsChanged)
             {
@@ -64,7 +72,7 @@ namespace CarStory.Services.RepairShop
             }
 
             this.data.SaveChanges();
-            return true;
+            return repairDb.Id;
             
         }
 
