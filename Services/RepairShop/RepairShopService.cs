@@ -27,6 +27,8 @@ namespace CarStory.Services.RepairShop
                 return -1;
             }
 
+            var car = this.data.Cars.Where(c => c.Id == repairDb.CarId).FirstOrDefault();
+
             if(repair.currCarMilleage < repairDb.currCarMilleage)
             {
                 return -2;
@@ -34,6 +36,7 @@ namespace CarStory.Services.RepairShop
 
             repairDb.currCarMilleage = repair.currCarMilleage;
             repairDb.Description = repair.Description;
+            car.Milleage = repair.currCarMilleage;
 
             foreach (var partDTO in repair.PartsChanged)
             {

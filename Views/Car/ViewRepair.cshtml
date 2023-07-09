@@ -24,7 +24,7 @@
         <td>@Model.CarRepairShopId</td>
         <td>@Model.CarRepairShopName</td>
         <td>@Model.DateCreated</td>
-            @if (this.User.Identity.Name == Model.CarRepairShopName)
+            @if (this.User.Identity.Name == Model.CarRepairShopName && Model.Status != "Finished")
             {
                 <td><a asp-controller="RepairShop" asp-action="FinishRepair" asp-route-id="@Model.Id" class="btn btn-success">Finish Repair</a></td>
             <td><a asp-controller="RepairShop" asp-action="EditRepair" asp-route-id="@Model.Id" class="btn btn-danger">Edit Repair</a></td>
