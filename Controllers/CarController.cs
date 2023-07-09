@@ -106,7 +106,7 @@ namespace CarStory.Controllers
 
             if(newRepairId == -2)
             {
-                ModelState.AddModelError(string.Empty, "New car milleage cannot be lower to old car milleage");
+                ModelState.AddModelError(nameof(model.CarMilleage), "New car milleage cannot be lower to old car milleage");
                 return this.View(model);
             }
 

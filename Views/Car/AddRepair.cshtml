@@ -4,8 +4,10 @@
     <input type="hidden" asp-for="CarId" />
     <label for="CarMilleage">CarMilleage:</label>
     <input asp-for="CarMilleage" />
+    <span asp-validation-for="CarMilleage"></span>
     <label for="Description">Description:</label>
     <input asp-for="Description" />
+    <span asp-validation-for="Description"></span>
     <input type="hidden" asp-for="CarRepairShopId" />
 
     <table id="partsTable">

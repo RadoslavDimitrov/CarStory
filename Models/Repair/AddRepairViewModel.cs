@@ -2,6 +2,10 @@
 {
     public class AddRepairViewModel
     {
+        public AddRepairViewModel()
+        {
+            this.PartsChanged = new List<RepairPartsViewModel>();
+        }
         public string CarId { get; set; }
 
         public int CarMilleage { get; set; }
