@@ -6,7 +6,6 @@
 
 <table>
     <tr>
-        <th>Id</th>
         <th>Description</th>
         <th>CarId</th>
         <th>currCarMilleage</th>
@@ -14,9 +13,10 @@
         <th>CarRepairShopId</th>
         <th>CarRepairShopName</th>
         <th>DateCreated</th>
+        <th></th>
+        <th></th>
     </tr>
     <tr>
-        <td>@Model.Id</td>
         <td>@Model.Description</td>
         <td>@Model.CarId</td>
         <td>@Model.currCarMilleage</td>
@@ -24,18 +24,41 @@
         <td>@Model.CarRepairShopId</td>
         <td>@Model.CarRepairShopName</td>
         <td>@Model.DateCreated</td>
-    </tr>
+            @if (this.User.Identity.Name == Model.CarRepairShopName)
+            {
+                <td><a asp-controller="RepairShop" asp-action="FinishRepair" asp-route-id="@Model.Id" class="btn btn-success">Finish Repair</a></td>
+            <td><a asp-controller="RepairShop" asp-action="EditRepair" asp-route-id="@Model.Id" class="btn btn-danger">Edit Repair</a></td>
+        }
+        else
+        {
+            <td></td>
+            <td></td>
+        }
 
+    </tr>
+</table>
+
+<div class="text-center">
+    <h2>Parts Details</h2>
+</div>
+
+<table>
     @if (Model.PartsChanged != null)
     {
-        <tr><th colspan="6">Parts Changed:</th></tr>
+        
+        <tr>
+            <th>Parts Changed:</th>
+            <th>Parts Number:</th>
+            <th>Parts Description:</th>
+            </tr>
         foreach (var part in Model.PartsChanged)
         {
             <tr>
-                <td>@part.Id</td>
+                <td></td>
                 <td>@part.Number</td>
                 <td colspan="4">@part.Description</td>
             </tr>
         }
     }
+ 
 </table>
