@@ -15,12 +15,10 @@
 <table>
     <thead>
         <tr>
-            <th>Car Id</th>
             <th>Vin number</th>
             <th>Current Car Mileage</th>
             <th>Date Created</th>
             <th>Description</th>
-            <th>Id</th>
             <th>Status</th>
             <th>Parts Changed</th>
             <th>Edit</th>
@@ -31,12 +29,10 @@
         @foreach (var repair in Model)
         {
             <tr>
-                <td>@repair.CarId</td>
                 <td>@repair.VinNumber</td>
                 <td>@repair.CurrCarMilleage</td>
                 <td>@repair.DateCreated</td>
                 <td>@repair.Description</td>
-                <td>@repair.RepairId</td>
                 <td>@repair.Status</td>
                 <td>
                     @foreach (var part in repair.PartsChanged)
@@ -45,8 +41,8 @@
 
                     }
                 </td>
-                <td><a asp-controller="RepairShop" asp-action="EditRepair" asp-route-id="@repair.RepairId" class="btn-dark">Edit</a></td>
-                <td><a asp-controller="RepairShop" asp-action="FinishRepair" asp-route-id="@repair.RepairId" class="btn-danger">Finish</a></td>
+                <td><a asp-controller="RepairShop" asp-action="EditRepair" asp-route-id="@repair.RepairId" class="btn btn-dark">Edit</a></td>
+                <td><a asp-controller="RepairShop" asp-action="FinishRepair" asp-route-id="@repair.RepairId" class=" btn btn-danger">Finish</a></td>
             </tr>
         }
     </tbody>
