@@ -26,8 +26,11 @@
     </tr>
 </table>
 
-<h2>Repairs:</h2>
+<div class="text-center">
+    <h2><button onclick="toggleRepair()">Repairs:</button></h2>
+</div>
 
+<div id="table">
 @foreach (var repair in Model.repairs)
 {
     if (User.IsInRole("Shop"))
@@ -79,7 +82,7 @@
 
     }else if (User.IsInRole("Admin"))
     {
-        <table>
+        <table id="table">
             <tr>
                 <th>Id</th>
                 <th>Description</th>
@@ -124,7 +127,7 @@
             continue;
         }
 
-        <table>
+        <table id="table">
             <tr>
                 <th>Id</th>
                 <th>Description</th>
@@ -164,12 +167,24 @@
     }
 
 }
+</div>
 
 <script type="text/javascript">
     function toggleParts(repairId) {
         var parts = document.getElementById("parts-" + repairId);
         if (parts.style.display === "none") {
             parts.style.display = "table-row-group";
+        } else {
+            parts.style.display = "none";
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function toggleRepair(repairId) {
+        var parts = document.getElementById("table");
+        if (parts.style.display === "none") {
+            parts.style.display = "table";
         } else {
             parts.style.display = "none";
         }
