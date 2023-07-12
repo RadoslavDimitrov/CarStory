@@ -4,13 +4,17 @@
     <h2>My cars:</h2>
 </div>
 
+@if (Model.Count() == 0)
+{
+    <div class="text-center">
+        <h3>Opps, you dont have any cars! Go <a asp-controller="Home" asp-action="Search">find</a> your car or go to repair shop to register one</h3>
+    </div>
+}
+
 @foreach (var car in Model)
 {
 
-    <div class="text-center">
-        <h2>Car: @car.VinNumber</h2>
-    </div>
-
+    <div id="car" + @car.Id></div>
     <table>
         <tr>
             <th>Make</th>
@@ -78,16 +82,16 @@
     }
 
 
-}
-
-
-<script type="text/javascript">
-    function toggleParts(repairId) {
-        var parts = document.getElementById("parts-" + repairId);
-        if (parts.style.display === "none") {
-            parts.style.display = "table-row-group";
-        } else {
-            parts.style.display = "none";
-        }
     }
-</script>
+
+
+    <script type="text/javascript">
+        function toggleParts(repairId) {
+            var parts = document.getElementById("parts-" + repairId);
+            if (parts.style.display === "none") {
+                parts.style.display = "table-row-group";
+            } else {
+                parts.style.display = "none";
+            }
+        }
+    </script>
