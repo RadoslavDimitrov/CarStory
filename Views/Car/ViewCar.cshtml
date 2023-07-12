@@ -13,6 +13,7 @@
         <th>Mileage</th>
         <th>Next Repair</th>
         <th>Next Repair Info</th>
+        <th></th>
     </tr>
     <tr>
         <td>@Model.Id</td>
@@ -23,6 +24,17 @@
         <td>@Model.Milleage</td>
         <td>@(Model.NextRepair.HasValue ? Model.NextRepair.Value.ToShortDateString() : "")</td>
         <td>@Model.NextRepairInfo</td>
+        <td>
+            @if (this.User.IsInRole("User"))
+            {
+                <a asp-controller="User" asp-action="AddCarToMyCar" asp-route-id="@Model.Id" class="btn btn-danger">Add to my cars</a>
+            }
+            else if (this.User.IsInRole("Ädmin") || this.User.IsInRole("Shop"))
+            {
+                <a asp-controller="Car" asp-action="AddRepair" asp-route-CarId="@Model.Id" asp-route-CarRepairShopId="@TempData["ShopId"]" class="btn btn-danger">Add repair</a>
+            }
+
+        </td>
     </tr>
 </table>
 
@@ -191,15 +203,7 @@
     }
 </script>
 
-@if (this.User.IsInRole("User"))
-{
-    <a asp-controller="User" asp-action="AddCarToMyCar" asp-route-id="@Model.Id" class="btn btn-danger">Add to my cars</a>
-}
 
 @if(this.User.IsInRole("Admin")){
-    <a asp-controller="Car" asp-action="ViewCar" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-}
-
-@if(this.User.IsInRole("Ädmin") || this.User.IsInRole("Shop")){
-    <a asp-controller="Car" asp-action="AddRepair" asp-route-CarId="@Model.Id" asp-route-CarRepairShopId="@TempData["ShopId"]" class="btn btn-danger">Add repair</a>
+    <a asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
 }
