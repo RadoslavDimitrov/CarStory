@@ -8,8 +8,10 @@
                 <div class="card">
                     <img src="@Url.Content(card.ImagePath)" class="card-img-top card-image" alt="@card.ImageText">
                     <div class="card-body">
-                        <h5 class="card-title text-center">@card.ImageText</h5>
-                        <a asp-controller="@card.ButtonController" asp-action="@card.ButtonAction" type="button" class="btn btn-primary position-absolute bottom-0 end-0">Button</a>
+                        <h5 class="card-title text-center">
+                            <a asp-controller="@card.ButtonController" asp-action="@card.ButtonAction" type="button">@card.ImageText</a>
+                        </h5>
+                        
                     </div>
                 </div>
             </div>
