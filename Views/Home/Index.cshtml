@@ -2,22 +2,71 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <form method="get" action="@Url.Action("Search", "Home")">
-        <label for="vinNumber">Search:</label>
-        <input type="search" id="searchString" name="vinNumber" placeholder="Type car's' Vin Number">
-        <input type="submit" value="vinNumber">
-    </form>
-</div>
+<style>
+    body, html {
+        height: 100%;
+    }
 
-<br />
+    .indexBg {
+        /* The image used */
+        background-image: url("../images/checklistCustomerService.jpg");
+        /* Full height */
+        height: 100%;
+        opacity: 0.7;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
-<div class="text-center" style="border: 1px solid black; background-color: lightgreen; padding: 10px;">
-    <div>
-        Welcome to CarStory, the web app that helps you keep track of your car’s repairs and find the best repair shops near you. With CarStory, you can:
+    form {
+        width: 70%; /* make the form half of the row */
+        margin: 0 auto; /* center the form horizontally */
+    }
 
-        Store information about your car’s repairs, such as date,parts, etc.
-        Search for repair shops based on location or name.
-        CarStory is easy to use, secure and reliable. Whether you need a simple oil change or a major engine overhaul, CarStory will help you find the best solution for your car’s needs. Join CarStory today and enjoy the benefits of having a smart and convenient web app for your car’s repairs.🚗
+    #indexIntro {
+        font-size: 30px;
+    }
+</style>
+
+<div class="indexBg">
+    <div class="text-center">
+        <form method="get" action="@Url.Action("Search", "Home")">
+            <label for="vinNumber">Search:</label>
+            <input type="search" id="searchString" name="vinNumber" placeholder="Type car's' Vin Number">
+            <input type="submit" value="vinNumber">
+        </form>
+    </div>
+
+    <br />
+
+    <!--<div class="text-center" style="border: 1px solid black; background-color: rgba(144, 238, 144, 0.7); padding: 10px;">
+        <div>
+            Welcome to CarStory, the web app that helps you keep track of your car’s repairs and find the best repair shops near you. With CarStory, you can:
+
+            Store information about your car’s repairs, such as date,parts, etc.
+            Search for repair shops based on location or name.
+            CarStory is easy to use, secure and reliable. Whether you need a simple oil change or a major engine overhaul, CarStory will help you find the best solution for your car’s needs. Join CarStory today and enjoy the benefits of having a smart and convenient web app for your car’s repairs.🚗
+        </div>
+    </div> --> 
+
+    <div id="indexIntro" class="text-center" style="border: 1px solid black; background-color: rgba(144, 238, 144, 0.7); padding: 10px; margin-top: 10px;">
+        <div>
+            Do you want to know the repair history of a car before you buy it?
+            Do you want to find the best repair shops near you?
+            Do you want to add value to your second-hand car by showing its maintenance record?
+            Are you tired of keeping old notes with information about past repairs?
+            Are you tired of remembering the next oil change?
+            Are you looking to buy a used car, but you need to know its history?
+            If you answered yes to any of these questions, then you need CarStory, the web app that stores and displays information about car repairs and car repair shops.
+            With CarStory, you can search for any car by its VIN number and see its repair story, including the date, location and description of each service.
+            You can also search for repair shops by their name, or city and see their reviews.
+            CarStory helps you make informed decisions about buying, selling and repairing cars.
+            Try it today and see the difference!
+        </div>
     </div>
 </div>
+
+
+
+
