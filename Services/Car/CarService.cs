@@ -187,9 +187,9 @@ namespace CarStory.Services.Car
             return newRepair.Id;
         }
 
-        public RepairDTO GetRepair(int repairId)
+        public async Task<RepairDTO> GetRepairAsync(int repairId)
         {
-            var repair = this.data.Repairs.Where(r => r.Id == repairId)
+            var repair = await data.Repairs.Where(r => r.Id == repairId)
                 .Select(r => new RepairDTO
                 {
                     Id = r.Id,
@@ -206,7 +206,7 @@ namespace CarStory.Services.Car
                         Number = p.Part.Number,
                         Description = p.Part.Description,
                     }).ToList()
-                }).FirstOrDefault();
+                }).FirstOrDefaultAsync();
 
             return repair;
         }

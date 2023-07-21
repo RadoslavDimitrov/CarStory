@@ -114,9 +114,9 @@ namespace CarStory.Controllers
         }
 
 
-        public IActionResult ViewRepair(int id)
+        public async Task<IActionResult> ViewRepair(int id)
         {
-            var repair = this.carService.GetRepair(id);
+            var repair = await carService.GetRepairAsync(id);
 
             return this.View(repair);
         }

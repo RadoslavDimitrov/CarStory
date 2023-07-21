@@ -15,6 +15,6 @@ namespace CarStory.Services.Car
 
         int AddRepair(AddRepairViewModel model);
 
-        RepairDTO GetRepair(int  repairId);
+        Task<RepairDTO> GetRepairAsync(int  repairId);
     }
 }
