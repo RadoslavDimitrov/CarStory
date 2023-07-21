@@ -85,9 +85,9 @@ namespace CarStory.Services.Car
             return car;
         }
 
-        public List<CarDTO> GetAllCars()
+        public async Task<List<CarDTO>> GetAllCarsAsync()
         {
-            var cars = this.data.Cars.Include(c => c.Repairs).ThenInclude(r => r.PartsChanged)
+            var cars = await data.Cars
                 .Select(c => new CarDTO
                 {
                     Id = c.Id,
@@ -117,7 +117,7 @@ namespace CarStory.Services.Car
                     }).ToList()
 
                 })
-                .ToList();
+                .ToListAsync();
 
             return cars;
         }

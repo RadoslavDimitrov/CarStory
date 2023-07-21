@@ -11,7 +11,7 @@ namespace CarStory.Services.Car
 
         Task<CarDTO> GetCarAsync(string carId);
 
-        List<CarDTO> GetAllCars();
+        Task<List<CarDTO>> GetAllCarsAsync();
 
         int AddRepair(AddRepairViewModel model);
 

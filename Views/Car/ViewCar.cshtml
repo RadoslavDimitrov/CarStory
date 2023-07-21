@@ -36,11 +36,11 @@
     </tr>
 </table>
 
-<div class="text-center">
-    <h2><button onclick="toggleRepair()">Repairs:</button></h2>
+<div class="text-center" style="margin: 20px">
+    <h2>Repairs:</h2>
 </div>
 
-<div id="table">
+<div id="table-container">
 @foreach (var repair in Model.repairs)
 {
     if (User.IsInRole("Shop"))
@@ -51,7 +51,7 @@
         }
         else
         {
-            <table>
+                <table>
                 <tr>
                     <th>Description</th>
                     <th>Mileage at Repair</th>
@@ -71,7 +71,7 @@
                         <td><button onclick="toggleParts(@repair.Id)" class="showHideButton">Show Parts Changed</button></td>
                 </tr>
 
-                <tbody id="parts-@repair.Id" style="display: none;">
+                <tbody id="parts-@repair.Id" style="display: none; width: auto;">
                     @foreach (var part in repair.PartsChanged)
                     {
                         <tr>
@@ -86,7 +86,7 @@
 
     }else if (User.IsInRole("Admin"))
     {
-        <table id="table">
+        <table>
             <tr>
                 <th>Id</th>
                 <th>Description</th>
@@ -130,7 +130,7 @@
             continue;
         }
 
-        <table id="table">
+        <table>
             <tr>
                 <th>Description</th>
                 <th>Mileage at Repair</th>
@@ -185,16 +185,6 @@
     }
 </script>
 
-<script type="text/javascript">
-    function toggleRepair(repairId) {
-        var parts = document.getElementById("table");
-        if (parts.style.display === "none") {
-            parts.style.display = "table";
-        } else {
-            parts.style.display = "none";
-        }
-    }
-</script>
 
 
 @if(this.User.IsInRole("Admin")){

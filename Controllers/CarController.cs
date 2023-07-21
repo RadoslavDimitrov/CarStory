@@ -68,9 +68,9 @@ namespace CarStory.Controllers
             return this.View(car);
         }
 
-        public IActionResult Cars()
+        public async Task<IActionResult> Cars()
         {
-            var cars = this.carService.GetAllCars();
+            var cars = await carService.GetAllCarsAsync();
 
             return this.View(cars);
         }

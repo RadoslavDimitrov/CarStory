@@ -18,16 +18,21 @@ body {
 }
 
 
+.table-container {
+    height: 100px; 
+}
 
 
 table {
     border-collapse: collapse;
+    display: table;
     width: 100%;
 }
 
 th, td {
+    padding: 10px;
     text-align: left;
-    padding: 8px;
+    width: inherit;
 }
 
 tr:nth-child(even) {
