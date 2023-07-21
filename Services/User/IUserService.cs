@@ -14,7 +14,7 @@ namespace CarStory.Services.User
 
         void CreateShop(CarRepairShop shop);
 
-        string GetUserShopId(string username);
+        Task<string> GetUserShopIdAsync(string username);
 
         bool AddCarToMyCar(string id, string username);
 

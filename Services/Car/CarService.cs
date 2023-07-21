@@ -20,7 +20,7 @@ namespace CarStory.Services.Car
             this.data = data;
         }
 
-        public async Task<string> AddCar(AddCarViewModel carModel)
+        public async Task<string> AddCarAsync(AddCarViewModel carModel)
         {
             bool isInDB = await data.Cars.AnyAsync(c => c.VinNumber == carModel.VinNumber);
 
@@ -47,9 +47,9 @@ namespace CarStory.Services.Car
             return car.Id;
         }
 
-        public CarDTO GetCar(string carId)
+        public async Task<CarDTO> GetCarAsync(string carId)
         {
-            var car = this.data.Cars.Include(c => c.Repairs).ThenInclude(r => r.PartsChanged)
+            var car = await data.Cars.Include(c => c.Repairs).ThenInclude(r => r.PartsChanged)
                 .Where(c => c.Id == carId).Select(c => new CarDTO
                 {
                     Id = carId,
@@ -79,7 +79,7 @@ namespace CarStory.Services.Car
                     }).ToList()
 
                 })
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
          
 
             return car;

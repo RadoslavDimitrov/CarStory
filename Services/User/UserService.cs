@@ -80,9 +80,9 @@ namespace CarStory.Services.User
             return data.Users.Where(u => u.UserName == username).FirstOrDefault();
         }
 
-        public string GetUserShopId(string username)
+        public async Task<string> GetUserShopIdAsync(string username)
         {
-            var userShop = this.data.CarRepairShops.Where(s => s.Name == username).FirstOrDefault();
+            var userShop = await data.CarRepairShops.Where(s => s.Name == username).FirstOrDefaultAsync();
 
             if (userShop == null) 
             {

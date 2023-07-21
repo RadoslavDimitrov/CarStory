@@ -33,7 +33,7 @@ namespace CarStory.Controllers
                 return View(car);
             }
 
-            var CarId = await this.carService.AddCar(car);
+            var CarId = await this.carService.AddCarAsync(car);
 
             if(CarId == null) 
             {
@@ -43,9 +43,9 @@ namespace CarStory.Controllers
             return this.RedirectToAction("Cars");
         }
 
-        public IActionResult ViewCar(string id)
+        public async Task<IActionResult> ViewCar(string id)
         {
-            var car = this.carService.GetCar(id);
+            var car = await this.carService.GetCarAsync(id);
 
             if(car == null) 
             {
@@ -55,7 +55,7 @@ namespace CarStory.Controllers
 
             if (this.User.IsInRole(RoleConstants.ShopRoleName))
             {
-                var shopId = this.userService.GetUserShopId(this.User.Identity.Name);
+                var shopId = await userService.GetUserShopIdAsync(User.Identity.Name);
 
                 if(shopId != null)
                 {
