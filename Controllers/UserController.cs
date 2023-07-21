@@ -173,7 +173,7 @@ namespace CarStory.Controllers
                 PhoneNumber = model.PhoneNumber,
             };
 
-            this.userService.CreateShop(repairShop);
+            await userService.CreateShopAsync(repairShop);
 
             return RedirectToAction("Index", "Home");
         }
@@ -200,9 +200,9 @@ namespace CarStory.Controllers
             return this.View(user);
         }
         [Authorize]
-        public IActionResult AddCarToMyCar(string id)
+        public async Task<IActionResult> AddCarToMyCar(string id)
         {
-            var result = this.userService.AddCarToMyCar(id, this.User.Identity.Name);
+            var result = await userService.AddCarToMyCarAsync(id, this.User.Identity.Name);
 
             if (result == false)
             {
@@ -214,9 +214,9 @@ namespace CarStory.Controllers
 
 
         [Authorize]
-        public IActionResult MyCars()
+        public async Task<IActionResult> MyCars()
         {
-            var cars = this.userService.MyCars(this.User.Identity.Name);
+            var cars = await userService.MyCarsAsync(this.User.Identity.Name);
 
             return this.View(cars);
         }

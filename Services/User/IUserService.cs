@@ -12,13 +12,13 @@ namespace CarStory.Services.User
 
         bool IsShopApproved(string username);
 
-        void CreateShop(CarRepairShop shop);
+        Task CreateShopAsync(CarRepairShop shop);
 
         Task<string> GetUserShopIdAsync(string username);
 
-        bool AddCarToMyCar(string id, string username);
+        Task<bool> AddCarToMyCarAsync(string id, string username);
 
-        List<CarDTO> MyCars(string username);
+        Task<List<CarDTO>> MyCarsAsync(string username);
 
         Task<bool> DeleteCarAsync(string id, string username);
     }

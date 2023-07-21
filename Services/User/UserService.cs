@@ -5,6 +5,7 @@ using CarStory.Models.DTO.Car;
 using CarStory.Models.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace CarStory.Services.User
 {
@@ -20,16 +21,16 @@ namespace CarStory.Services.User
             this.UserManager = userManager;
         }
 
-        public bool AddCarToMyCar(string id, string username)
+        public async Task<bool> AddCarToMyCarAsync(string id, string username)
         {
-            var car = this.data.Cars.Where(c => c.Id == id).FirstOrDefault();
+            var car = await data.Cars.Where(c => c.Id == id).FirstOrDefaultAsync();
 
             if(car == null)
             {
                 return false;
             }
 
-            var currUser = this.data.Users.Where(u => u.UserName == username).FirstOrDefault();
+            var currUser = await data.Users.Where(u => u.UserName == username).FirstOrDefaultAsync();
 
             if(currUser == null)
             {
@@ -42,15 +43,15 @@ namespace CarStory.Services.User
             }
 
             currUser.Cars.Add(car);
-            this.data.SaveChanges();
+            await data.SaveChangesAsync();
 
             return true;
         }
 
-        public void CreateShop(CarRepairShop shop)
+        public async Task CreateShopAsync(CarRepairShop shop)
         {
-            this.data.CarRepairShops.Add(shop);
-            this.data.SaveChanges();
+            await data.CarRepairShops.AddAsync(shop);
+            await data.SaveChangesAsync();
         }
 
         public async Task<bool> DeleteCarAsync(string id, string username)
