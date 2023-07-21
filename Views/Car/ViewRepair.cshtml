@@ -7,10 +7,8 @@
 <table>
     <tr>
         <th>Description</th>
-        <th>CarId</th>
         <th>currCarMilleage</th>
         <th>Status</th>
-        <th>CarRepairShopId</th>
         <th>CarRepairShopName</th>
         <th>DateCreated</th>
         <th></th>
@@ -18,10 +16,8 @@
     </tr>
     <tr>
         <td>@Model.Description</td>
-        <td>@Model.CarId</td>
         <td>@Model.currCarMilleage</td>
         <td>@Model.Status</td>
-        <td>@Model.CarRepairShopId</td>
         <td>@Model.CarRepairShopName</td>
         <td>@Model.DateCreated</td>
             @if (this.User.Identity.Name == Model.CarRepairShopName && Model.Status != "Finished")

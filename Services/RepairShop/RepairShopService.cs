@@ -36,6 +36,10 @@ namespace CarStory.Services.RepairShop
 
             repairDb.currCarMilleage = repair.currCarMilleage;
             repairDb.Description = repair.Description;
+            
+            //TODO make all parts and repairs delete RepairParts from their collections
+
+            repairDb.PartsChanged.Clear();
             car.Milleage = repair.currCarMilleage;
 
             foreach (var partDTO in repair.PartsChanged)
