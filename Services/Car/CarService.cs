@@ -122,9 +122,9 @@ namespace CarStory.Services.Car
             return cars;
         }
 
-        public int AddRepair(AddRepairViewModel model)
+        public async Task<int> AddRepairAsync(AddRepairViewModel model)
         {
-            var car = this.data.Cars.Where(c => c.Id == model.CarId).FirstOrDefault();
+            var car = await data.Cars.Where(c => c.Id == model.CarId).FirstOrDefaultAsync();
 
             if(car == null) 
             {
@@ -155,15 +155,15 @@ namespace CarStory.Services.Car
             {
                 var newPart = new Part();
                 //add repair to newpart list<repairs>
-                if(this.data.Parts.Any(p => p.Number == model.PartsChanged[i].Number))
+                if(data.Parts.Any(p => p.Number == model.PartsChanged[i].Number))
                 {
-                    newPart = this.data.Parts.Where(p => p.Number == model.PartsChanged[i].Number).FirstOrDefault();
+                    newPart = data.Parts.Where(p => p.Number == model.PartsChanged[i].Number).FirstOrDefault();
                 }
                 else
                 {
                     newPart.Number = model.PartsChanged[i].Number;
                     newPart.Description = model.PartsChanged[i].Description;
-                    this.data.Parts.Add(newPart);
+                    data.Parts.Add(newPart);
                 }
 
                 var newRepairParts = new RepairParts
@@ -174,15 +174,15 @@ namespace CarStory.Services.Car
 
                 newPart.Repairs.Add(newRepairParts);
 
-                this.data.RepairParts.Add(newRepairParts);
+                await data.RepairParts.AddAsync(newRepairParts);
 
                 newRepair.PartsChanged.Add(newRepairParts);
             }
 
 
-            this.data.Repairs.Add(newRepair);
+            await data.Repairs.AddAsync(newRepair);
 
-            this.data.SaveChanges();
+            await data.SaveChangesAsync();
 
             return newRepair.Id;
         }

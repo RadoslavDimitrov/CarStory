@@ -89,14 +89,14 @@ namespace CarStory.Controllers
         //fix so admin can add shop ID and car repair
         [HttpPost]
         [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
-        public IActionResult AddRepair(AddRepairViewModel model)
+        public async Task<IActionResult> AddRepair(AddRepairViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            var newRepairId = this.carService.AddRepair(model);
+            var newRepairId = await carService.AddRepairAsync(model);
 
             if(newRepairId == -1)
             {
