@@ -5,7 +5,6 @@
 
 <table>
     <tr>
-        <th>Id</th>
         <th>Vin Number</th>
         <th>Make</th>
         <th>Model</th>
@@ -16,7 +15,6 @@
         <th></th>
     </tr>
     <tr>
-        <td>@Model.Id</td>
         <td>@Model.VinNumber</td>
         <td>@Model.Make</td>
         <td>@Model.Model</td>
@@ -55,35 +53,29 @@
         {
             <table>
                 <tr>
-                    <th>Id</th>
                     <th>Description</th>
-                    <th>Car Id</th>
                     <th>Mileage at Repair</th>
                     <th>Status</th>
-                    <th>Car Repair Shop Id</th>
                     <th>Car Repair Shop Name</th>
                     <th>Date Created</th>
                     <th>Date Finished</th>
                     <th>Parts changed</th>
                 </tr>
                 <tr>
-                    <td>@repair.Id</td>
                     <td>@repair.Description</td>
-                    <td>@repair.CarId</td>
                     <td>@repair.currCarMilleage</td>
                     <td>@repair.Status</td>
-                    <td>@repair.CarRepairShopId</td>
                     <td>@repair.CarRepairShopName</td>
                     <td>@repair.DateCreated</td>
                     <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
-                    <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
+                        <td><button onclick="toggleParts(@repair.Id)" class="showHideButton">Show Parts Changed</button></td>
                 </tr>
 
                 <tbody id="parts-@repair.Id" style="display: none;">
                     @foreach (var part in repair.PartsChanged)
                     {
                         <tr>
-                            <td colspan="8"></td>
+                            
                             <td>@part.Number: @part.Description</td>
                         </tr>
                     }
@@ -124,7 +116,6 @@
                 @foreach (var part in repair.PartsChanged)
                 {
                     <tr>
-                        <td colspan="8"></td>
                         <td>@part.Number: @part.Description</td>
                     </tr>
                 }
@@ -141,35 +132,28 @@
 
         <table id="table">
             <tr>
-                <th>Id</th>
                 <th>Description</th>
-                <th>Car Id</th>
                 <th>Mileage at Repair</th>
                 <th>Status</th>
-                <th>Car Repair Shop Id</th>
                 <th>Car Repair Shop Name</th>
                 <th>Date Created</th>
                 <th>Date Finished</th>
                 <th>Parts changed</th>
             </tr>
             <tr>
-                <td>@repair.Id</td>
                 <td>@repair.Description</td>
-                <td>@repair.CarId</td>
                 <td>@repair.currCarMilleage</td>
                 <td>@repair.Status</td>
-                <td>@repair.CarRepairShopId</td>
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
                 <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
-                <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
+                <td><button onclick="toggleParts(@repair.Id)" >Show/Hide Parts Changed</button></td>
             </tr>
 
             <tbody id="parts-@repair.Id" style="display: none;">
                 @foreach (var part in repair.PartsChanged)
                 {
                     <tr>
-                        <td colspan="8"></td>
                         <td>@part.Number: @part.Description</td>
                     </tr>
                 }
@@ -183,11 +167,20 @@
 
 <script type="text/javascript">
     function toggleParts(repairId) {
+        var buttontext = document.getElementsByClassName("showHideButton")[0];
+
+        console.log(buttontext);
         var parts = document.getElementById("parts-" + repairId);
         if (parts.style.display === "none") {
             parts.style.display = "table-row-group";
         } else {
             parts.style.display = "none";
+        }
+
+        if (parts.style.display === "none") {
+            buttontext.textContent = "Show Parts Changed";
+        } else {
+            buttontext.textContent = "Hide Parts CHanged";
         }
     }
 </script>
