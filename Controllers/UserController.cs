@@ -222,9 +222,9 @@ namespace CarStory.Controllers
         }
 
         [Authorize]
-        public IActionResult DeleteCar(string id)
+        public async Task<IActionResult> DeleteCar(string id)
         {
-            var result = this.userService.DeleteCar(id, this.User.Identity.Name);
+            var result = await userService.DeleteCarAsync(id, this.User.Identity.Name);
 
             if(result == false)
             {

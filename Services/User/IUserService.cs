@@ -20,6 +20,6 @@ namespace CarStory.Services.User
 
         List<CarDTO> MyCars(string username);
 
-        bool DeleteCar(string id, string username);
+        Task<bool> DeleteCarAsync(string id, string username);
     }
 }

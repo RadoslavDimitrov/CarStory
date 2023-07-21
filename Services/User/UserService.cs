@@ -53,16 +53,16 @@ namespace CarStory.Services.User
             this.data.SaveChanges();
         }
 
-        public bool DeleteCar(string id, string username)
+        public async Task<bool> DeleteCarAsync(string id, string username)
         {
-            var user = this.data.Users.Include(u => u.Cars).Where(u => u.UserName == username).FirstOrDefault();
+            var user = await data.Users.Include(u => u.Cars).Where(u => u.UserName == username).FirstOrDefaultAsync();
 
             if(user == null)
             {
                 return false;
             }
 
-            var car = this.data.Cars.Where(c => c.Id ==id).FirstOrDefault();
+            var car = await data.Cars.Where(c => c.Id ==id).FirstOrDefaultAsync();
 
             if(car == null)
             {
@@ -70,7 +70,7 @@ namespace CarStory.Services.User
             }
 
             user.Cars.Remove(car);
-            this.data.SaveChanges();
+            await data.SaveChangesAsync();
 
             return true;
         }
@@ -104,9 +104,9 @@ namespace CarStory.Services.User
             return shop.IsApproved;
         }
 
-        public List<CarDTO> MyCars(string username)
+        public async Task<List<CarDTO>> MyCarsAsync(string username)
         {
-            var user = this.data.Users.Where(u => u.UserName == username).FirstOrDefault();
+            var user = await data.Users.Where(u => u.UserName == username).FirstOrDefaultAsync();
 
             if(user == null)
             {
