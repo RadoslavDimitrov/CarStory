@@ -20,9 +20,9 @@ namespace CarStory.Services.Car
             this.data = data;
         }
 
-        public string AddCar(AddCarViewModel carModel)
+        public async Task<string> AddCar(AddCarViewModel carModel)
         {
-            bool isInDB = this.data.Cars.Any(c => c.VinNumber == carModel.VinNumber);
+            bool isInDB = await data.Cars.AnyAsync(c => c.VinNumber == carModel.VinNumber);
 
             if(isInDB) 
             {
@@ -41,8 +41,8 @@ namespace CarStory.Services.Car
                 NextRepairInfo = carModel.NextRepairInfo,
             };
 
-            this.data.Cars.Add(car);
-            this.data.SaveChanges();
+            await this.data.Cars.AddAsync(car);
+            await this.data.SaveChangesAsync();
 
             return car.Id;
         }

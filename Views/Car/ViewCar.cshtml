@@ -109,7 +109,7 @@
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
                 <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
-                <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
+                    <td><button onclick="toggleParts(@repair.Id)">Show Parts Changed</button></td>
             </tr>
 
             <tbody id="parts-@repair.Id" style="display: none;">
@@ -147,7 +147,7 @@
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
                 <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
-                <td><button onclick="toggleParts(@repair.Id)" >Show/Hide Parts Changed</button></td>
+                    <td><button onclick="toggleParts(@repair.Id)">Show Parts Changed</button></td>
             </tr>
 
             <tbody id="parts-@repair.Id" style="display: none;">

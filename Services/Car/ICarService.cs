@@ -7,7 +7,7 @@ namespace CarStory.Services.Car
 {
     public interface ICarService
     {
-        string AddCar(AddCarViewModel carModel);
+        Task<string> AddCar(AddCarViewModel carModel);
 
         CarDTO GetCar(string carId);
 

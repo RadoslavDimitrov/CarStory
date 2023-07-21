@@ -26,21 +26,21 @@ namespace CarStory.Controllers
 
         [HttpPost]
         [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
-        public IActionResult AddCar(AddCarViewModel car)
+        public async Task<IActionResult> AddCar(AddCarViewModel car)
         {
             if(!ModelState.IsValid) 
             {
                 return View(car);
             }
 
-            var CarId = this.carService.AddCar(car);
+            var CarId = await this.carService.AddCar(car);
 
             if(CarId == null) 
             {
                 return View(car);
             }
 
-            return this.View(car);
+            return this.RedirectToAction("Cars");
         }
 
         public IActionResult ViewCar(string id)
