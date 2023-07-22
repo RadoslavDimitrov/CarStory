@@ -6,6 +6,7 @@ using CarStory.Models.DTO.Repair;
 using CarStory.Models.DTO.RepairParts;
 using CarStory.Models.DTO.RepairShop;
 using CarStory.Models.Repair;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarStory.Services.RepairShop
 {
@@ -36,14 +37,27 @@ namespace CarStory.Services.RepairShop
 
             repairDb.currCarMilleage = repair.currCarMilleage;
             repairDb.Description = repair.Description;
-            
-            //TODO make all parts and repairs delete RepairParts from their collections
+
+            var repairParts = data.RepairParts.Where(r => r.RepairId == repairDb.Id).ToList();
+
+            foreach (var repairPart in repairParts)
+            {
+                repairPart.Part.Repairs.Remove(repairPart);
+                repairPart.Repair.PartsChanged.Remove(repairPart);
+            }
+
+            data.RepairParts.RemoveRange(repairParts);
 
             repairDb.PartsChanged.Clear();
             car.Milleage = repair.currCarMilleage;
 
             foreach (var partDTO in repair.PartsChanged)
             {
+                if(partDTO.Number == null)
+                {
+                    continue;
+                }
+
                 var newPart = new Part();
                 var newRepairParts = new RepairParts();
 
