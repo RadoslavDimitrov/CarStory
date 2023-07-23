@@ -27,11 +27,13 @@
                 <th>VinNumber</th>
                 <th>Make</th>
                 <th>Model</th>
+                <th></th>
             </tr>
             <tr>
                 <td>@Model.VinNumber</td>
                 <td>@Model.Make</td>
                 <td>@Model.Model</td>
+                <td><a asp-controller="Car" asp-action="ViewCar" asp-route-id="@Model.Id" class="btn btn-primary">View Car</a></td>
             </tr>
         </table>
     }
