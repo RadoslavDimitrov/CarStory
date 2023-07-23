@@ -1,10 +1,12 @@
 ﻿using CarStory.Infrastructure;
+using CarStory.Models;
 using CarStory.Models.Car;
 using CarStory.Models.Repair;
 using CarStory.Services.Car;
 using CarStory.Services.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CarStory.Controllers
 {
@@ -37,7 +39,7 @@ namespace CarStory.Controllers
 
             if(CarId == null) 
             {
-                ModelState.AddModelError("AlreadyExistCar", "Car with that Vin Number already exist");
+                ModelState.AddModelError(ErrorMessageConstants.AlreadyExistCar, ErrorMessageConstants.AlreadyExistCarMsg);
                 return View(car);
             }
 
@@ -48,10 +50,16 @@ namespace CarStory.Controllers
         {
             var car = await this.carService.GetCarAsync(id);
 
-            if(car == null) 
+            if (car == null)
             {
-                ModelState.AddModelError(string.Empty, "Wrong car");
-                return this.View(id);
+                var error = new ErrorViewModel
+                {
+                    Description = ErrorMessageConstants.CarDoesNotExist,
+                    ActionName = "Cars",
+                    ControllerName = "Car"
+                };
+
+                return this.RedirectToAction("Error","Home", error);
             }
 
             if (this.User.IsInRole(RoleConstants.ShopRoleName))
@@ -71,6 +79,11 @@ namespace CarStory.Controllers
 
         public async Task<IActionResult> Cars()
         {
+            if (TempData["ModelState"] != null)
+            {
+                ModelState.Merge((ModelStateDictionary)TempData["ModelState"]);
+            }
+
             var cars = await carService.GetAllCarsAsync();
 
             return this.View(cars);

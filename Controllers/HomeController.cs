@@ -40,9 +40,9 @@ namespace CarStory.Controllers
             return View(car);
         }
 
-        public IActionResult Error(string? description)
+        public IActionResult Error(ErrorViewModel model)
         {
-            return View(new ErrorViewModel { Description = description });
+            return View(model);
         }
     }
 }
