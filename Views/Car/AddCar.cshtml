@@ -5,7 +5,7 @@
 </h2>
 
 <div class="text-center">
-    <div class="Error">@Html.ValidationMessage(ErrorMessageConstants.AlreadyExistCar);</div>
+    <div class="Error">@Html.ValidationMessage(ErrorMessageConstants.AlreadyExistCar)</div>
 </div>
 
 <style>
@@ -34,39 +34,39 @@
 <form asp-action="AddCar" method="post">
     <table>
         <tr>
-            <th>Vin Number:</th>
+            <th>*Vin Number:</th>
             <td><input asp-for="VinNumber" /></td>
             <td><span asp-validation-for="VinNumber"></span></td>
         </tr>
         <tr>
-            <th>Make:</th>
+            <th>*Make:</th>
             <td><input asp-for="Make" /></td>
             <td><span asp-validation-for="Make"></span></td>
         </tr>
         <tr>
-            <th>Model:</th>
+            <th>*Model:</th>
             <td><input asp-for="Model" /></td>
             <td><span asp-validation-for="Model"></span></td>
         </tr>
         <tr>
-            <th>Year Manufactured:</th>
+            <th>*Year Manufactured:</th>
             <td><input asp-for="YearManufactured" type="date" /></td>
-            <td></td>
+            <td><span asp-validation-for="YearManufactured"></span></td>
         </tr>
         <tr>
-            <th>Milleage:</th>
+            <th>*Milleage:</th>
             <td><input asp-for="Milleage" type="number" /></td>
-            <td></td>
+            <td><span asp-validation-for="Milleage"></span></td>
         </tr>
         <tr>
             <th>Next Repair:</th>
             <td><input asp-for="NextRepair" type="date" /></td>
-            <td></td>
+            <td><span asp-validation-for="NextRepair"></span></td>
         </tr>
         <tr>
             <th>Next Repair Info:</th>
             <td><textarea asp-for="NextRepairInfo"></textarea></td>
-            <td></td>
+            <td><span asp-validation-for="NextRepairInfo"></span></td>
         </tr>
 
     </table>

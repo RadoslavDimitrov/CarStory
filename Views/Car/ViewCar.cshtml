@@ -27,7 +27,7 @@
             {
                 <a asp-controller="User" asp-action="AddCarToMyCar" asp-route-id="@Model.Id" class="btn btn-danger">Add to my cars</a>
             }
-            else if (this.User.IsInRole("Ädmin") || this.User.IsInRole("Shop"))
+            else if (this.User.IsInRole("Shop"))
             {
                 <a asp-controller="Car" asp-action="AddRepair" asp-route-CarId="@Model.Id" asp-route-CarRepairShopId="@TempData["ShopId"]" class="btn btn-danger">Add repair</a>
             }
@@ -41,17 +41,102 @@
 </div>
 
 <div id="table-container">
-@foreach (var repair in Model.repairs)
-{
-    if (User.IsInRole("Shop"))
+
+    @if (Model.repairs.Count == 0)
     {
-        if (repair.CarRepairShopId != TempData["ShopId"].ToString() && repair.Status == "Pending")
+        <div class="text-center">Car does not have repairs yet!</div>
+    }
+    @foreach (var repair in Model.repairs)
+    {
+        if (User.IsInRole("Shop"))
         {
-            continue;
+            if (repair.CarRepairShopId != TempData["ShopId"].ToString() && repair.Status == "Pending")
+            {
+                continue;
+            }
+            else
+            {
+                <table>
+                    <tr>
+                        <th>Description</th>
+                        <th>Mileage at Repair</th>
+                        <th>Status</th>
+                        <th>Car Repair Shop Name</th>
+                        <th>Date Created</th>
+                        <th>Date Finished</th>
+                        <th>Parts changed</th>
+                    </tr>
+                    <tr>
+                        <td>@repair.Description</td>
+                        <td>@repair.currCarMilleage</td>
+                        <td>@repair.Status</td>
+                        <td>@repair.CarRepairShopName</td>
+                        <td>@repair.DateCreated</td>
+                        <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
+                        <td><button onclick="toggleParts(@repair.Id)" class="showHideButton">Show Parts Changed</button></td>
+                    </tr>
+
+                    <tbody id="parts-@repair.Id" style="display: none; width: auto;">
+                        @foreach (var part in repair.PartsChanged)
+                        {
+                            <tr>
+
+                                <td>@part.Number: @part.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            }
+
+        }
+        else if (User.IsInRole("Admin"))
+        {
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Description</th>
+                    <th>Car Id</th>
+                    <th>Mileage at Repair</th>
+                    <th>Status</th>
+                    <th>Car Repair Shop Id</th>
+                    <th>Car Repair Shop Name</th>
+                    <th>Date Created</th>
+                    <th>Date Finished</th>
+                    <th>Parts changed</th>
+                </tr>
+                <tr>
+                    <td>@repair.Id</td>
+                    <td>@repair.Description</td>
+                    <td>@repair.CarId</td>
+                    <td>@repair.currCarMilleage</td>
+                    <td>@repair.Status</td>
+                    <td>@repair.CarRepairShopId</td>
+                    <td>@repair.CarRepairShopName</td>
+                    <td>@repair.DateCreated</td>
+                    <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
+                    <td><button onclick="toggleParts(@repair.Id)">Show Parts Changed</button></td>
+                </tr>
+
+                <tbody id="parts-@repair.Id" style="display: none;">
+                    @foreach (var part in repair.PartsChanged)
+                    {
+                        <tr>
+                            <td>@part.Number: @part.Description</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
         }
         else
         {
-                <table>
+            if (repair.Status == "Pending")
+            {
+                continue;
+            }
+
+            <table>
                 <tr>
                     <th>Description</th>
                     <th>Mileage at Repair</th>
@@ -68,14 +153,13 @@
                     <td>@repair.CarRepairShopName</td>
                     <td>@repair.DateCreated</td>
                     <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
-                        <td><button onclick="toggleParts(@repair.Id)" class="showHideButton">Show Parts Changed</button></td>
+                    <td><button onclick="toggleParts(@repair.Id)">Show Parts Changed</button></td>
                 </tr>
 
-                <tbody id="parts-@repair.Id" style="display: none; width: auto;">
+                <tbody id="parts-@repair.Id" style="display: none;">
                     @foreach (var part in repair.PartsChanged)
                     {
                         <tr>
-                            
                             <td>@part.Number: @part.Description</td>
                         </tr>
                     }
@@ -84,92 +168,13 @@
             </table>
         }
 
-    }else if (User.IsInRole("Admin"))
-    {
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Car Id</th>
-                <th>Mileage at Repair</th>
-                <th>Status</th>
-                <th>Car Repair Shop Id</th>
-                <th>Car Repair Shop Name</th>
-                <th>Date Created</th>
-                <th>Date Finished</th>
-                <th>Parts changed</th>
-            </tr>
-            <tr>
-                <td>@repair.Id</td>
-                <td>@repair.Description</td>
-                <td>@repair.CarId</td>
-                <td>@repair.currCarMilleage</td>
-                <td>@repair.Status</td>
-                <td>@repair.CarRepairShopId</td>
-                <td>@repair.CarRepairShopName</td>
-                <td>@repair.DateCreated</td>
-                <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
-                    <td><button onclick="toggleParts(@repair.Id)">Show Parts Changed</button></td>
-            </tr>
-
-            <tbody id="parts-@repair.Id" style="display: none;">
-                @foreach (var part in repair.PartsChanged)
-                {
-                    <tr>
-                        <td>@part.Number: @part.Description</td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
     }
-    else
-    {
-        if(repair.Status == "Pending")
-        {
-            continue;
-        }
-
-        <table>
-            <tr>
-                <th>Description</th>
-                <th>Mileage at Repair</th>
-                <th>Status</th>
-                <th>Car Repair Shop Name</th>
-                <th>Date Created</th>
-                <th>Date Finished</th>
-                <th>Parts changed</th>
-            </tr>
-            <tr>
-                <td>@repair.Description</td>
-                <td>@repair.currCarMilleage</td>
-                <td>@repair.Status</td>
-                <td>@repair.CarRepairShopName</td>
-                <td>@repair.DateCreated</td>
-                <td>@(repair.DateFinished != String.Empty ? repair.DateFinished : "")</td>
-                    <td><button onclick="toggleParts(@repair.Id)">Show Parts Changed</button></td>
-            </tr>
-
-            <tbody id="parts-@repair.Id" style="display: none;">
-                @foreach (var part in repair.PartsChanged)
-                {
-                    <tr>
-                        <td>@part.Number: @part.Description</td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-    }
-
-}
 </div>
 
 <script type="text/javascript">
     function toggleParts(repairId) {
         var buttontext = document.getElementsByClassName("showHideButton")[0];
 
-        console.log(buttontext);
         var parts = document.getElementById("parts-" + repairId);
         if (parts.style.display === "none") {
             parts.style.display = "table-row-group";
@@ -187,6 +192,7 @@
 
 
 
-@if(this.User.IsInRole("Admin")){
+@if (this.User.IsInRole("Admin"))
+{
     <a asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
 }

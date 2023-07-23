@@ -79,11 +79,6 @@ namespace CarStory.Controllers
 
         public async Task<IActionResult> Cars()
         {
-            if (TempData["ModelState"] != null)
-            {
-                ModelState.Merge((ModelStateDictionary)TempData["ModelState"]);
-            }
-
             var cars = await carService.GetAllCarsAsync();
 
             return this.View(cars);

@@ -1,30 +1,19 @@
 ﻿@model ProfileUserViewModel;
 
-<table class="table">
+
+<table>
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoleName)
-            </th>
+            <th>Username:</th>
+            <th>Email:</th>
+            <th>Role:</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>
-                @Html.DisplayFor(model => model.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.RoleName)
-            </td>
+            <td>@Model.UserName</td>
+            <td>@Model.Email</td>
+            <td>@Model.RoleName</td>
         </tr>
     </tbody>
 </table>
