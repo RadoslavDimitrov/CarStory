@@ -37,6 +37,7 @@ namespace CarStory.Controllers
 
             if(CarId == null) 
             {
+                ModelState.AddModelError("AlreadyExistCar", "Car with that Vin Number already exist");
                 return View(car);
             }
 

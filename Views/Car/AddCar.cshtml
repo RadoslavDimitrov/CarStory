@@ -1,8 +1,24 @@
 ﻿@model AddCarViewModel
 
-<h2>Add Car</h2>
+<h2 class="text-center">
+    Add Car
+</h2>
+
+<div class="text-center">
+    <div class="Error">@Html.ValidationMessage("AlreadyExistCar");</div>
+</div>
 
 <style>
+    .Error {
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-weight: bold;
+        background-color: red;
+        border-radius: 10px;
+        box-shadow: 5px 5px 10px gray; /* adjust as needed */
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;

@@ -50,4 +50,14 @@ th {
     max-height: 200px;
 }
 
+/*Error style*/
+.Error {
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: bold;
+    background-color: red;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px gray;
+}
 
