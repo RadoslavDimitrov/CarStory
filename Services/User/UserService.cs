@@ -123,25 +123,7 @@ namespace CarStory.Services.User
                 NextRepair = c.NextRepair,
                 NextRepairInfo = c.NextRepairInfo,
                 VinNumber = c.VinNumber,
-                YearManufactured = c.YearManufactured,
-                repairs = c.Repairs.Where(r => r.Status.ToString() == RepairStatusEnum.Finished.ToString())
-                    .Select(r => new Models.DTO.Repair.RepairDTO
-                    {
-                        Status = r.Status,
-                        CarId = r.CarId,
-                        CarRepairShopId = r.CarRepairShopId,
-                        CarRepairShopName = r.CarRepairShop.Name,
-                        currCarMilleage = r.currCarMilleage,
-                        DateCreated = r.DateCreated.ToString("dd/MM/yyyy"),
-                        DateFinished = r.DateFinished == null ? "" : r.DateFinished.ToString(),
-                        Description = r.Description,
-                        Id = r.Id,
-                        PartsChanged = r.PartsChanged.Select(p => new Models.DTO.RepairParts.RepairPartsDTO
-                        {
-                            Description = p.Part.Description,
-                            Number = p.Part.Number
-                        }).ToList()
-                    }).ToList()
+                YearManufactured = c.YearManufactured              
             }).ToList();
 
 
