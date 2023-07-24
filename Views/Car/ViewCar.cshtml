@@ -46,7 +46,7 @@
     {
         <div class="text-center">Car does not have repairs yet!</div>
     }
-    @foreach (var repair in Model.repairs)
+    @foreach (var repair in Model.repairs.OrderBy(r => r.currCarMilleage))
     {
         if (User.IsInRole("Shop"))
         {
