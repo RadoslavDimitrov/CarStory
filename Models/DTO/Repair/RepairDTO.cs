@@ -14,6 +14,8 @@ namespace CarStory.Models.DTO.Repair
 
         public string CarId { get; set; }
 
+        public string VinNumber { get; set; }
+
         public int currCarMilleage { get; set; }
 
         public string Status { get; set; } = RepairStatusEnum.Pending.ToString();

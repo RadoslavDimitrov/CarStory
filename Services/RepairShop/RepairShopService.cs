@@ -164,6 +164,7 @@ namespace CarStory.Services.RepairShop
                 {
                     Id = r.Id,
                     CarId = r.CarId,
+                    VinNumber = r.Car.VinNumber,
                     CarRepairShopId = r.CarRepairShopId,
                     CarRepairShopName = r.CarRepairShop.Name,
                     currCarMilleage = r.currCarMilleage,
@@ -185,6 +186,7 @@ namespace CarStory.Services.RepairShop
                 {
                     Id = r.Id,
                     CarId = r.CarId,
+                    VinNumber = r.Car.VinNumber,
                     CarRepairShopId = r.CarRepairShopId,
                     CarRepairShopName = r.CarRepairShop.Name,
                     currCarMilleage = r.currCarMilleage,
