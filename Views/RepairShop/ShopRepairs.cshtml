@@ -1,6 +1,6 @@
 ﻿@model ShopRepairsViewModel
 
-<div> 
+<div>
     <h2>Pending Repairs</h2>
 </div>
 
@@ -8,35 +8,31 @@
 <table id="pendingTable" style="display: none">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Description</th>
-            <th>Car Id</th>
             <th>Mileage</th>
             <th>Status</th>
-            <th>Repair Shop Id</th>
             <th>Repair Shop Name</th>
             <th>Date Created</th>
             <th>Parts changed</th>
             <th>Actions</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var repair in Model.PendingRepairs)
         {
             <tr>
-                <td>@repair.Id</td>
                 <td>@repair.Description</td>
-                <td>@repair.CarId</td>
                 <td>@repair.currCarMilleage</td>
                 <td>@repair.Status</td>
-                <td>@repair.CarRepairShopId</td>
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
                 <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
                 <td><a asp-controller="RepairShop" asp-action="FinishRepair" asp-route-id="@repair.Id" type="button" class="btn btn-danger">Finish</a></td>
+                <td><a asp-controller="RepairShop" asp-action="EditRepair" asp-route-id="@repair.Id" type="button" class="btn btn-primary">Edit</a></td>
             </tr>
 
-            <tbody id="parts-@repair.Id" style="display: none;">
+        <tbody id="parts-@repair.Id" style="display: none;">
                 @foreach (var part in repair.PartsChanged)
                 {
                 <tr>
@@ -44,8 +40,8 @@
                     <td>@part.Number: @part.Description</td>
                 </tr>
                 }
-            </tbody>
-            
+        </tbody>
+
 
         }
     </tbody>
@@ -56,12 +52,9 @@
 <table id="finishedTable" style="display: none">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Description</th>
-            <th>Car Id</th>
             <th>Mileage</th>
             <th>Status</th>
-            <th>Repair Shop Id</th>
             <th>Repair Shop Name</th>
             <th>Date Created</th>
             <th>Date Finished</th>
@@ -72,19 +65,16 @@
         @foreach (var repair in Model.FinishedRepairs)
         {
             <tr>
-                <td>@repair.Id</td>
                 <td>@repair.Description</td>
-                <td>@repair.CarId</td>
                 <td>@repair.currCarMilleage</td>
                 <td>@repair.Status</td>
-                <td>@repair.CarRepairShopId</td>
                 <td>@repair.CarRepairShopName</td>
                 <td>@repair.DateCreated</td>
                 <td>@repair.DateFinished</td>
                 <td><button onclick="toggleParts(@repair.Id)">Show/Hide Parts Changed</button></td>
             </tr>
 
-            <tbody id="parts-@repair.Id" style="display: none;">
+        <tbody id="parts-@repair.Id" style="display: none;">
                 @foreach (var part in repair.PartsChanged)
                 {
                 <tr>
@@ -92,7 +82,7 @@
                     <td>@part.Number: @part.Description</td>
                 </tr>
                 }
-            </tbody>
+        </tbody>
         }
     </tbody>
 </table>

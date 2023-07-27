@@ -13,5 +13,8 @@
         //view car with wrong Id
         public const string CarDoesNotExist = "CarDoesNotExist";
         public const string CarDoesNotExistMsg = "Car does not exist in out database!";
+
+        //edit repair with wrong repairId
+        public const string RepairDoesNotExistMsg = "Repair does not exist in our Database";
     }
 }

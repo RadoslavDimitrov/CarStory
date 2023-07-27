@@ -1,4 +1,5 @@
 ﻿using CarStory.Infrastructure;
+using CarStory.Models;
 using CarStory.Models.DTO.Repair;
 using CarStory.Models.Shared;
 using CarStory.Services.RepairShop;
@@ -54,10 +55,10 @@ namespace CarStory.Controllers
                 },
                 new MenuCardsViewModel
                 {
-                    ImagePath = ImagePathConstants.DeleteImagePath,
-                    ImageText = MenuTextConstants.DeleteCar,
-                    ButtonController = MenuTextConstants.DeleteCarController,
-                    ButtonAction = MenuTextConstants.DeleteCarAction
+                    ImagePath = ImagePathConstants.AllRepairsPath,
+                    ImageText = MenuTextConstants.AllRepairs,
+                    ButtonController = MenuTextConstants.AllRepairsController,
+                    ButtonAction = MenuTextConstants.AllRepairsAction
                 }
             };
 
@@ -104,7 +105,9 @@ namespace CarStory.Controllers
 
             if(repair == null)
             {
-                //return not found repair
+                var error = new ErrorViewModel
+                { ActionName = "ShopRepairs", ControllerName = "RepairShop", Description = ErrorMessageConstants.RepairDoesNotExistMsg };
+                return RedirectToAction("Error", "Home", error);
             }
 
             return this.View(repair);
