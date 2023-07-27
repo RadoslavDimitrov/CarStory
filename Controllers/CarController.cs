@@ -105,6 +105,20 @@ namespace CarStory.Controllers
                 return this.View(model);
             }
 
+            bool HasPendingRepair = this.carService.HasPendingRepair(model.CarId);
+
+            if (HasPendingRepair)
+            {
+                var error = new ErrorViewModel
+                {
+                    ControllerName = "RepairShop",
+                    ActionName = "ShopRepairs",
+                    Description = ErrorMessageConstants.CarHasPendingRepair
+                };
+
+                return this.RedirectToAction("Error", "Home", error);
+            }
+
             var newRepairId = await carService.AddRepairAsync(model);
 
             if(newRepairId == -1)
