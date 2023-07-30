@@ -17,6 +17,6 @@ namespace CarStory.Services.Car
 
         Task<RepairDTO> GetRepairAsync(int  repairId);
 
-        bool HasPendingRepair(string carId);
+        string HasPendingRepair(string carId);
     }
 }

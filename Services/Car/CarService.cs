@@ -211,9 +211,15 @@ namespace CarStory.Services.Car
             return repair;
         }
 
-        public bool HasPendingRepair(string carId)
+        public string HasPendingRepair(string carId)
         {
-            return this.data.Repairs.Any(r => r.CarId == carId && r.Status == RepairStatusEnum.Pending.ToString());
+            var repair = this.data.Repairs.Where(r => r.CarId == carId && r.Status == RepairStatusEnum.Pending.ToString()).FirstOrDefault();
+            if (repair == null)
+            {
+                return null;
+            }
+
+            return repair.CarRepairShop.Name;
         }
     }
 }

@@ -18,6 +18,10 @@
         public const string RepairDoesNotExistMsg = "Repair does not exist in our Database";
 
         //Car has pending repair
-        public const string CarHasPendingRepair = $"Car already has one pending repair, pleace finish it, or call customer support for help";
+        public static string CarHasPendingRepair(string shopName)
+        {
+                return $"Car already has one pending repair made by {shopName}, pleace finish it, or call customer support for help";
+        }
+
     }
 }

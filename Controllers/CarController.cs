@@ -30,14 +30,14 @@ namespace CarStory.Controllers
         [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public async Task<IActionResult> AddCar(AddCarViewModel car)
         {
-            if(!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 return View(car);
             }
 
             var CarId = await this.carService.AddCarAsync(car);
 
-            if(CarId == null) 
+            if (CarId == null)
             {
                 ModelState.AddModelError(ErrorMessageConstants.AlreadyExistCar, ErrorMessageConstants.AlreadyExistCarMsg);
                 return View(car);
@@ -59,21 +59,21 @@ namespace CarStory.Controllers
                     ControllerName = "Car"
                 };
 
-                return this.RedirectToAction("Error","Home", error);
+                return this.RedirectToAction("Error", "Home", error);
             }
 
             if (this.User.IsInRole(RoleConstants.ShopRoleName))
             {
                 var shopId = await userService.GetUserShopIdAsync(User.Identity.Name);
 
-                if(shopId != null)
+                if (shopId != null)
                 {
                     TempData["ShopId"] = shopId;
                 }
 
             }
 
-           
+
             return this.View(car);
         }
 
@@ -105,35 +105,39 @@ namespace CarStory.Controllers
                 return this.View(model);
             }
 
-            bool HasPendingRepair = this.carService.HasPendingRepair(model.CarId);
+            var pendingRepairShopName = this.carService.HasPendingRepair(model.CarId);
 
-            if (HasPendingRepair)
+            if (pendingRepairShopName != null)
             {
+
                 var error = new ErrorViewModel
                 {
                     ControllerName = "RepairShop",
                     ActionName = "ShopRepairs",
-                    Description = ErrorMessageConstants.CarHasPendingRepair
+                    Description = ErrorMessageConstants.CarHasPendingRepair(pendingRepairShopName)
                 };
+
+                TempData["ShopName"] = pendingRepairShopName;
+
 
                 return this.RedirectToAction("Error", "Home", error);
             }
 
             var newRepairId = await carService.AddRepairAsync(model);
 
-            if(newRepairId == -1)
+            if (newRepairId == -1)
             {
                 ModelState.AddModelError(string.Empty, "Car does not exist");
                 return this.View(model);
             }
 
-            if(newRepairId == -2)
+            if (newRepairId == -2)
             {
                 ModelState.AddModelError(nameof(model.CarMilleage), "New car milleage cannot be lower to old car milleage");
                 return this.View(model);
             }
 
-            return this.RedirectToAction("ViewRepair", new {id = newRepairId});
+            return this.RedirectToAction("ViewRepair", new { id = newRepairId });
         }
 
 

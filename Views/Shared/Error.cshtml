@@ -11,6 +11,14 @@
             <div class="Error">@Model.Description</div>
         </div>
     </div>
+    @if (TempData["ShopName"] != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <a asp-controller="RepairShop" asp-action="Index" asp-route-name="@TempData["ShopName"].ToString()">Visit shop</a>
+            </div>
+        </div>
+    }
     <div class=“row”>
         <div class=“col-md-12 text-center”>
             <a asp-controller=@Model.ControllerName asp-action=@Model.ActionName class="btn btn-primary btn-lg">Go Back</a>
