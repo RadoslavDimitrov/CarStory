@@ -1,0 +1,22 @@
+﻿@model ReviewDTO
+
+<h2>Add Review</h2>
+
+<form method="post" asp-action="AddReview">
+    <table class="table">
+        <tr>
+            <td><label>Username:</label></td>
+            <td>
+                <input type="text" class="form-control" value="@User.Identity.Name" readonly>
+                <!-- Hidden input to include Username in the model when submitting the form -->
+                <input type="hidden" name="Username" value="@User.Identity.Name" />
+            </td>
+        </tr>
+        <tr>
+            <td><label for="description">Review Description:</label></td>
+            <td><textarea class="form-control" id="description" name="Description" rows="4" required></textarea></td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+</form>
+

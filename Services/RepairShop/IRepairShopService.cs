@@ -1,6 +1,7 @@
 ﻿using CarStory.Models.CarRepairShop;
 using CarStory.Models.DTO.Repair;
 using CarStory.Models.DTO.RepairShop;
+using CarStory.Models.DTO.Review;
 
 namespace CarStory.Services.RepairShop
 {
@@ -12,6 +13,8 @@ namespace CarStory.Services.RepairShop
 
         List<RepairShopDTO> Shops(string name, string location);
         RepairShopDTO Shop(string id);
+
+        bool AddReview(ReviewDTO review);
 
         List<PendingRepairDTO> PendingRepairs(string vinNumber, string shopName);
         List<FinishedRepairsDTO> FinishedRepairs(string vinNumber, string shopName);

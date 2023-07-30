@@ -20,6 +20,30 @@ namespace CarStory.Services.RepairShop
             this.data = data;
         }
 
+        public bool AddReview(ReviewDTO review)
+        {
+            var shop = this.data.CarRepairShops.Where(sh => sh.Id == review.ShopId).FirstOrDefault();
+
+            if(shop == null)
+            {
+                return false;
+            }
+
+            var reviewDb = new Review
+            {
+                CarRepairShopId = review.ShopId,
+                CarRepairShop = shop,
+                Description = review.Description,
+                Username = review.Username
+            };
+
+            this.data.Reviews.Add(reviewDb);
+            shop.Reviews.Add(reviewDb);
+            this.data.SaveChanges();
+
+            return true;
+        }
+
         public int EditRepair(RepairDTO repair)
         {
             var repairDb = this.data.Repairs.Where(r => r.Id == repair.Id).FirstOrDefault();

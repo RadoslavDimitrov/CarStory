@@ -1,6 +1,7 @@
 ﻿using CarStory.Infrastructure;
 using CarStory.Models;
 using CarStory.Models.DTO.Repair;
+using CarStory.Models.DTO.Review;
 using CarStory.Models.Shared;
 using CarStory.Services.RepairShop;
 using Microsoft.AspNetCore.Authorization;
@@ -45,6 +46,38 @@ namespace CarStory.Controllers
             }
 
             return this.View(shop);
+        }
+
+        public async Task<IActionResult> AddReview(string id)
+        {
+            var shop = this.repairShopService.Shop(id);
+
+            if(shop == null)
+            {
+                //add custom error
+                return View("Error");
+            }
+
+            var model = new ReviewDTO
+            {
+                ShopId = id
+            };
+
+            return this.View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddReview(ReviewDTO model)
+        {
+            if (!ModelState.IsValid)
+            {
+                //TODO fix the model.description 
+                ModelState.AddModelError(model.Description, "Description must be between 5 and 250 characters long!");
+                return this.View(model);
+            }
+
+            var result = this.repairShopService.AddReview(model);
+            //returect if false and if true
+            return this.View();
         }
 
         //Delete button not used?
