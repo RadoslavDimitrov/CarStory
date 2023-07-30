@@ -27,6 +27,26 @@ namespace CarStory.Controllers
             return View(shops);
         }
 
+        [AllowAnonymous]
+        public IActionResult Visit(string id)
+        {
+            var shop = this.repairShopService.Shop(id);
+
+            if(shop == null)
+            {
+                var error = new ErrorViewModel
+                {
+                    ControllerName = "RepairShop",
+                    ActionName = "Index",
+                    Description = ErrorMessageConstants.RepairShopNotExist
+                };
+
+                return RedirectToAction("Home", "Error", error);
+            }
+
+            return this.View(shop);
+        }
+
         //Delete button not used?
         public IActionResult Menu()
         {

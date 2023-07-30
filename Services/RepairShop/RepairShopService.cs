@@ -5,6 +5,7 @@ using CarStory.Models.CarRepairShop;
 using CarStory.Models.DTO.Repair;
 using CarStory.Models.DTO.RepairParts;
 using CarStory.Models.DTO.RepairShop;
+using CarStory.Models.DTO.Review;
 using CarStory.Models.Repair;
 using Microsoft.EntityFrameworkCore;
 
@@ -260,6 +261,29 @@ namespace CarStory.Services.RepairShop
             return result;
         }
 
+        public RepairShopDTO Shop(string id)
+        {
+            var shop = this.data.CarRepairShops.Where(sh => sh.Id == id)
+                .Select(sh => new RepairShopDTO
+                {
+                    Id = sh.Id,
+                    Description = sh.Description,
+                    Email = sh.Email,
+                    Location = sh.Location,
+                    Name = sh.Name,
+                    PhoneNumber = sh.PhoneNumber,
+                    ReviewCount = sh.Reviews.Count,
+                    Reviews = sh.Reviews.Select(r => new ReviewDTO
+                    {
+                        Id = r.Id,
+                        Username = r.Username,
+                        Description = r.Description
+                    }).ToList()
+                }).FirstOrDefault();
+
+            return shop;
+        }
+
         public List<RepairShopDTO> Shops(string name, string location)
         {
             var shops = this.data.CarRepairShops.AsQueryable();
@@ -282,8 +306,10 @@ namespace CarStory.Services.RepairShop
                 Name = sh.Name,
                 Location = sh.Location,
                 PhoneNumber = sh.PhoneNumber,
+                ReviewCount = sh.Reviews.Count,
                 IsApproved = sh.IsApproved
             }).ToList();
+
 
 
             return result;

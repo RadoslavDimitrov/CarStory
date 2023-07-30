@@ -21,6 +21,7 @@ namespace CarStory.Data
         public DbSet<Part> Parts { get; set; }
         public DbSet<Repair> Repairs { get; set; }
         public DbSet<RepairParts> RepairParts { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         public IConfiguration Configuration { get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

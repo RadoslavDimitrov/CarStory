@@ -1,0 +1,76 @@
+﻿@model RepairShopDTO
+
+<div class="shop-card">
+    <h2>@Model.Name</h2>
+    <div>Description: @Model.Description</div>
+    <div>Email: @Model.Email</div>
+    <div>Phone Number: @Model.PhoneNumber</div>
+    <div>Location: @Model.Location</div>
+    <div class="text-lg-end">
+        <a asp-controller="RepairShop" asp-action="AddReview" asp-route-id="@Model.Id" class="btn btn-primary">Add Review</a>
+    </div>
+</div>
+
+<h2 class="reviews-title">Reviews</h2>
+
+<div class="reviews">
+
+    @{
+        int counter = 0;
+    }
+    @foreach (var review in Model.Reviews)
+    {
+        <div class="review @(counter % 2 == 0 ? "right-aligned" : "left-aligned")">
+            <p>@review.Username</p>
+            <p>@review.Description</p>
+        </div>
+
+        counter++;
+    }
+</div>
+
+<style>
+    .shop-card {
+        background-color: #8BC34A; /* Green color */
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+        .shop-card h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+    .reviews-title {
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .reviews {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .review {
+        width: 45%;
+        background-color: #f0f0f0; /* Light gray color for reviews */
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .left-aligned {
+        float: left;
+    }
+
+    .right-aligned {
+        float: right;
+    }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>

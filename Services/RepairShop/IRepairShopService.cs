@@ -11,6 +11,7 @@ namespace CarStory.Services.RepairShop
         ShopRepairsViewModel GetAllRepairs(string username);
 
         List<RepairShopDTO> Shops(string name, string location);
+        RepairShopDTO Shop(string id);
 
         List<PendingRepairDTO> PendingRepairs(string vinNumber, string shopName);
         List<FinishedRepairsDTO> FinishedRepairs(string vinNumber, string shopName);

@@ -17,6 +17,9 @@
         //edit repair with wrong repairId
         public const string RepairDoesNotExistMsg = "Repair does not exist in our Database";
 
+        //visit shop with wrong id
+        public const string RepairShopNotExist = "car repair shop does not exist in our Database!";
+
         //Car has pending repair
         public static string CarHasPendingRepair(string shopName)
         {

@@ -11,6 +11,7 @@ namespace CarStory.Data.Models
             this.Id = Guid.NewGuid().ToString();
 
             this.AllRepairs = new List<Repair>();
+            this.Reviews = new List<Review>();
             this.IsApproved = false;
         }
 
@@ -24,6 +25,7 @@ namespace CarStory.Data.Models
 
         public bool IsApproved { get; set; }
         public virtual ICollection<Repair> AllRepairs { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
         
     }
 }

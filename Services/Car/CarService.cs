@@ -6,6 +6,7 @@ using CarStory.Models.DTO.Car;
 using CarStory.Models.DTO.Repair;
 using CarStory.Models.DTO.RepairParts;
 using CarStory.Models.Repair;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
@@ -14,10 +15,12 @@ namespace CarStory.Services.Car
     public class CarService : ICarService
     {
         private readonly ApplicationDbContext data;
+        private readonly UserManager<AppUser> userManager;
 
-        public CarService(ApplicationDbContext data)
+        public CarService(ApplicationDbContext data, UserManager<AppUser> userManager)
         {
             this.data = data;
+            this.userManager = userManager;
         }
 
         public async Task<string> AddCarAsync(AddCarViewModel carModel)
@@ -149,8 +152,6 @@ namespace CarStory.Services.Car
                 PartsChanged = new List<RepairParts>()
             };
 
-            
-
             for (int i = 0; i < model.PartsChanged.Count; i++)
             {
                 var newPart = new Part();
@@ -179,6 +180,8 @@ namespace CarStory.Services.Car
                 newRepair.PartsChanged.Add(newRepairParts);
             }
 
+            var shop = this.data.CarRepairShops.Where(sh => sh.Id == model.CarRepairShopId).FirstOrDefault();
+            shop.AllRepairs.Add(newRepair);
 
             await data.Repairs.AddAsync(newRepair);
 

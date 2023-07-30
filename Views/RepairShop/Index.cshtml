@@ -23,6 +23,8 @@
             <th>Location</th>
             <th>Email</th>
             <th>Phone Number</th>
+            <th>Total reviews</th>
+            <th>Visit</th>
             @if (User.IsInRole("Admin"))
             {
                 <th>Is Approved</th>
@@ -39,6 +41,8 @@
                 <td>@repairShop.Location</td>
                 <td>@repairShop.Email</td>
                 <td>@repairShop.PhoneNumber</td>
+                <td>@repairShop.ReviewCount</td>
+                <td><a asp-action="Visit" asp-controller="RepairShop" asp-route-id="@repairShop.Id" class="btn btn-info">Visit</a></td>
                 @if (User.IsInRole("Admin"))
                 {
                     <td>@repairShop.IsApproved</td>
