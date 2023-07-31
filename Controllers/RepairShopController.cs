@@ -48,14 +48,16 @@ namespace CarStory.Controllers
             return this.View(shop);
         }
 
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}, {RoleConstants.UserRoleName}")]
         public async Task<IActionResult> AddReview(string id)
         {
             var shop = this.repairShopService.Shop(id);
 
             if(shop == null)
             {
-                //add custom error
-                return View("Error");
+                var error = new ErrorViewModel
+                { ActionName = "Index", ControllerName = "RepairShop", Description = ErrorMessageConstants.RepairShopNotExist };
+                return RedirectToAction("Error", "Home", error);
             }
 
             var model = new ReviewDTO
@@ -66,6 +68,7 @@ namespace CarStory.Controllers
             return this.View(model);
         }
         [HttpPost]
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}, {RoleConstants.UserRoleName}")]
         public async Task<IActionResult> AddReview(ReviewDTO model)
         {
             if (!ModelState.IsValid)
@@ -75,9 +78,15 @@ namespace CarStory.Controllers
                 return this.View(model);
             }
 
-            var result = this.repairShopService.AddReview(model);
-            //returect if false and if true
-            return this.View();
+            var result = await this.repairShopService.AddReviewAsync(model);
+            
+            if(result == false)
+            {
+                var error = new ErrorViewModel
+                { ActionName = "Index", ControllerName = "RepairShop", Description = ErrorMessageConstants.RepairShopNotExist };
+                return RedirectToAction("Error", "Home", error);
+            }
+            return this.RedirectToAction("Visit", new {id = model.ShopId});
         }
 
         //Delete button not used?

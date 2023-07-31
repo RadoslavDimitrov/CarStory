@@ -2,7 +2,7 @@
 
 <h2>Add Review</h2>
 
-<form method="post" asp-action="AddReview">
+<form method="post" asp-action="AddReview" asp-route-ShopId="@Model.ShopId">
     <table class="table">
         <tr>
             <td><label>Username:</label></td>

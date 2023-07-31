@@ -20,9 +20,9 @@ namespace CarStory.Services.RepairShop
             this.data = data;
         }
 
-        public bool AddReview(ReviewDTO review)
+        public async Task<bool> AddReviewAsync(ReviewDTO review)
         {
-            var shop = this.data.CarRepairShops.Where(sh => sh.Id == review.ShopId).FirstOrDefault();
+            var shop = await this.data.CarRepairShops.Where(sh => sh.Id == review.ShopId).FirstOrDefaultAsync();
 
             if(shop == null)
             {
@@ -37,9 +37,9 @@ namespace CarStory.Services.RepairShop
                 Username = review.Username
             };
 
-            this.data.Reviews.Add(reviewDb);
+            await this.data.Reviews.AddAsync(reviewDb);
             shop.Reviews.Add(reviewDb);
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
 
             return true;
         }
@@ -287,6 +287,7 @@ namespace CarStory.Services.RepairShop
 
         public RepairShopDTO Shop(string id)
         {
+            //change reviewDTO with other DTO that has Id
             var shop = this.data.CarRepairShops.Where(sh => sh.Id == id)
                 .Select(sh => new RepairShopDTO
                 {
@@ -299,7 +300,6 @@ namespace CarStory.Services.RepairShop
                     ReviewCount = sh.Reviews.Count,
                     Reviews = sh.Reviews.Select(r => new ReviewDTO
                     {
-                        Id = r.Id,
                         Username = r.Username,
                         Description = r.Description
                     }).ToList()

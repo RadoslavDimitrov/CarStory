@@ -1,4 +1,7 @@
-﻿@model RepairShopDTO
+﻿@using CarStory.Data.Models;
+@using Microsoft.AspNetCore.Identity;
+@model RepairShopDTO
+@inject SignInManager<AppUser> SignInManager
 
 <div class="shop-card">
     <h2>@Model.Name</h2>
@@ -7,7 +10,14 @@
     <div>Phone Number: @Model.PhoneNumber</div>
     <div>Location: @Model.Location</div>
     <div class="text-lg-end">
-        <a asp-controller="RepairShop" asp-action="AddReview" asp-route-id="@Model.Id" class="btn btn-primary">Add Review</a>
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            <a asp-controller="User" asp-action="Login" class="btn btn-primary">Pleace log in to leave a review</a>
+        }
+        else
+        {
+            <a asp-controller="RepairShop" asp-action="AddReview" asp-route-id="@Model.Id" class="btn btn-primary">Add Review</a>
+        }
     </div>
 </div>
 
