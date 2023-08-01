@@ -28,9 +28,11 @@
     @{
         int counter = 0;
     }
-    @foreach (var review in Model.Reviews)
+   @foreach (var review in Model.Reviews)
     {
-        <div class="review @(counter % 2 == 0 ? "right-aligned" : "left-aligned")">
+        //review @(counter % 2 == 0 ? "right-aligned" : "left-aligned")
+        //review @(i % 2 == 0 ? "even" : "odd")
+        <div class="review @(counter % 2 == 0 ? "even" : "odd")">
             <p>@review.Username</p>
             <p>@review.Description</p>
         </div>
@@ -38,6 +40,7 @@
         counter++;
     }
 </div>
+
 
 <style>
     .shop-card {
@@ -64,19 +67,29 @@
     }
 
     .review {
-        width: 45%;
+        width: 60%;
         background-color: #f0f0f0; /* Light gray color for reviews */
         padding: 10px;
         margin-bottom: 10px;
     }
 
-    .left-aligned {
+    .odd {
+        margin-left: auto;
+    }
+
+    .even {
+        margin-right: auto;
+    }
+
+    /*.left-aligned {
         float: left;
+        clear: left;
     }
 
     .right-aligned {
         float: right;
-    }
+        clear: right;
+    }*/
 
     .clearfix::after {
         content: "";

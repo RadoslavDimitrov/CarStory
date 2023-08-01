@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace CarStory.Controllers
 {
-    [Authorize(Roles = RoleConstants.ShopRoleName)]
+
     public class RepairShopController : Controller
     {
         private readonly IRepairShopService repairShopService;
@@ -90,6 +90,7 @@ namespace CarStory.Controllers
         }
 
         //Delete button not used?
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult Menu()
         {
             var cards = new List<MenuCardsViewModel>
@@ -126,21 +127,21 @@ namespace CarStory.Controllers
 
             return View(cards);
         }
-
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult FinishedRepairs(string vinNumber)
         {
             var repairs = this.repairShopService.FinishedRepairs(vinNumber, this.User.Identity.Name);
 
             return View(repairs);
         }
-
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult PendingRepairs(string vinNumber)
         {
             var repairs = this.repairShopService.PendingRepairs(vinNumber, this.User.Identity.Name);
 
             return View(repairs);
         }
-
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult FinishRepair(int id)
         {
             var isFinished = this.repairShopService.FinishRepair(id);
@@ -154,6 +155,7 @@ namespace CarStory.Controllers
             return this.RedirectToAction("ViewRepair", "Car", new { id });
         }
 
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult ShopRepairs()
         {
             var shopRepairs = this.repairShopService.GetAllRepairs(this.User.Identity.Name);
@@ -161,6 +163,7 @@ namespace CarStory.Controllers
             return this.View(shopRepairs);
         }
 
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult EditRepair(int id)
         {
             var repair = this.repairShopService.GetRepair(id);
@@ -176,6 +179,7 @@ namespace CarStory.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult EditRepair(RepairDTO repair)
         {
             //add parts to DB

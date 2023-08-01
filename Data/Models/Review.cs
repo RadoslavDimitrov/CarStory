@@ -14,5 +14,7 @@ namespace CarStory.Data.Models
 
         [Required]
         public string Description { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }
