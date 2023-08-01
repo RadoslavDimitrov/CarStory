@@ -34,7 +34,8 @@ namespace CarStory.Services.RepairShop
                 CarRepairShopId = review.ShopId,
                 CarRepairShop = shop,
                 Description = review.Description,
-                Username = review.Username
+                Username = review.Username,
+                DateCreated = DateTime.UtcNow
             };
 
             await this.data.Reviews.AddAsync(reviewDb);
