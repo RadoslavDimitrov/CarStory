@@ -33,7 +33,10 @@
         //review @(counter % 2 == 0 ? "right-aligned" : "left-aligned")
         //review @(i % 2 == 0 ? "even" : "odd")
         <div class="review @(counter % 2 == 0 ? "even" : "odd")">
-            <p>@review.Username</p>
+            <div class="row">
+                <div class="col-md-6 text-left">@review.Username</div>
+                <div class="col-md-6 text-right">@review.DateCreated</div>
+            </div>
             <p>@review.Description</p>
         </div>
 

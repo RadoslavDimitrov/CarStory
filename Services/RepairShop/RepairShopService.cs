@@ -302,7 +302,8 @@ namespace CarStory.Services.RepairShop
                     Reviews = sh.Reviews.Select(r => new ReviewDTO
                     {
                         Username = r.Username,
-                        Description = r.Description
+                        Description = r.Description,
+                        DateCreated = r.DateCreated.ToString("HH:mmh. dd MMM yyyy")
                     }).ToList()
                 }).FirstOrDefault();
 

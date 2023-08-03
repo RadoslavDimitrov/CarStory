@@ -7,5 +7,7 @@
 
         public string ShopId { get; set; }
 
+        public string DateCreated { get; set; }
+
     }
 }

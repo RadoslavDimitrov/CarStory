@@ -48,7 +48,7 @@ namespace CarStory.Controllers
             return this.View(shop);
         }
 
-        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}, {RoleConstants.UserRoleName}")]
+        [Authorize]
         public async Task<IActionResult> AddReview(string id)
         {
             var shop = this.repairShopService.Shop(id);
@@ -68,7 +68,7 @@ namespace CarStory.Controllers
             return this.View(model);
         }
         [HttpPost]
-        [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}, {RoleConstants.UserRoleName}")]
+        [Authorize]
         public async Task<IActionResult> AddReview(ReviewDTO model)
         {
             if (!ModelState.IsValid)
@@ -89,7 +89,6 @@ namespace CarStory.Controllers
             return this.RedirectToAction("Visit", new {id = model.ShopId});
         }
 
-        //Delete button not used?
         [Authorize(Roles = $"{RoleConstants.AdminRoleName}, {RoleConstants.ShopRoleName}")]
         public IActionResult Menu()
         {
