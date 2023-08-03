@@ -303,7 +303,7 @@ namespace CarStory.Services.RepairShop
                     {
                         Username = r.Username,
                         Description = r.Description,
-                        DateCreated = r.DateCreated.ToString("HH:mmh. dd MMM yyyy")
+                        DateCreated = r.DateCreated.ToString("HH:mm. dd MMM yyyy")
                     }).ToList()
                 }).FirstOrDefault();
 

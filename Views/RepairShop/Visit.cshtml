@@ -5,10 +5,15 @@
 
 <div class="shop-card">
     <h2>@Model.Name</h2>
+    <p class="separator-line"></p>
     <div>Description: @Model.Description</div>
+
     <div>Email: @Model.Email</div>
+
     <div>Phone Number: @Model.PhoneNumber</div>
+
     <div>Location: @Model.Location</div>
+    <p class="separator-line"></p>
     <div class="text-lg-end">
         @if (!SignInManager.IsSignedIn(User))
         {
@@ -37,6 +42,7 @@
                 <div class="col-md-6 text-left">@review.Username</div>
                 <div class="col-md-6 text-right">@review.DateCreated</div>
             </div>
+            <p class="separator-line"></p>
             <p>@review.Description</p>
         </div>
 
@@ -74,6 +80,13 @@
         background-color: #f0f0f0; /* Light gray color for reviews */
         padding: 10px;
         margin-bottom: 10px;
+        border: 2px solid black; /* Add black outline */
+        position: relative; /* For positioning the separator line */
+    }
+
+    .separator-line {
+        border-top: 2px solid black; /* Use border-top to create the line */
+        margin: 10px 0; /* Add some margin for spacing */
     }
 
     .odd {
