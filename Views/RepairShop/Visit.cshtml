@@ -6,13 +6,13 @@
 <div class="shop-card">
     <h2>@Model.Name</h2>
     <p class="separator-line"></p>
-    <div>Description: @Model.Description</div>
+    <div>Description: <b>@Model.Description</b></div>
 
-    <div>Email: @Model.Email</div>
+    <div>Email: <b>@Model.Email</b></div>
 
-    <div>Phone Number: @Model.PhoneNumber</div>
+    <div>Phone Number: <b>@Model.PhoneNumber</b></div>
 
-    <div>Location: @Model.Location</div>
+    <div>Location: <b>@Model.Location</b></div>
     <p class="separator-line"></p>
     <div class="text-lg-end">
         @if (!SignInManager.IsSignedIn(User))
@@ -43,7 +43,7 @@
                 <div class="col-md-6 text-right">@review.DateCreated</div>
             </div>
             <p class="separator-line"></p>
-            <p>@review.Description</p>
+            <p><b>@review.Description</b></p>
         </div>
 
         counter++;
@@ -53,9 +53,10 @@
 
 <style>
     .shop-card {
-        background-color: #8BC34A; /* Green color */
+        background-color: lightgreen; /* Green color */
         padding: 20px;
         margin-bottom: 20px;
+        border: 5px solid black;
     }
 
         .shop-card h2 {

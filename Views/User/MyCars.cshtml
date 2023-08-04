@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CarDTO>
+﻿@using CarStory.Data.Models;
+@using Microsoft.AspNetCore.Identity;
+@*@model IEnumerable<CarDTO>
 
 <div class="text-center">
     <h2>My cars:</h2>
@@ -43,4 +45,85 @@
     </table>
 
 }
+
+*@
+
+@model IEnumerable<CarDTO>
+@inject SignInManager<AppUser> SignInManager
+
+<div class="text-center">
+    <h2>My cars:</h2>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center">
+        <h3>Oops, you don't have any cars! Go <a asp-controller="Home" asp-action="Search">find</a> your car or go to a repair shop to register one</h3>
+    </div>
+}
+
+@{
+    bool isEven = true; // Initialize to false for the first element
+}
+
+@foreach (var car in Model)
+{
+    <div class="car-card @(isEven ? "even" : "odd")">
+        <h2>@car.Make @car.Model</h2>
+        <p class="separator-line"></p>
+        <div>Vin number: <b>@car.VinNumber</b></div>
+        <div>Year Manufactured: <b>@car.YearManufactured.ToString("dd MMM yyyy")</b></div>
+        <div>Mileage: <b>@car.Milleage</b></div>
+        <div>Next Repair: <b>@(car.NextRepair.HasValue ? car.NextRepair.Value.ToString("dd MMM yyyy") : "No info")</b></div>
+        <div>Next Repair Info: <b>@car.NextRepairInfo</b></div>
+        <p class="separator-line"></p>
+        <div class="button-container">
+            <a asp-controller="Car" asp-action="ViewCar" asp-route-id="@car.Id" class="btn btn-primary">Details</a>
+            <a asp-controller="User" asp-action="DeleteCar" asp-route-id="@car.Id" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+
+    isEven = !isEven; // Toggle between even and odd for the next iteration
+}
+
+<style>
+    /* Your existing styles */
+    .car-card {
+        width: 60%;
+        background-color: lightgreen; /* Blue color */
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 5px solid black;
+    }
+
+        .car-card h2{
+            text-align: center;
+        }
+
+    .odd {
+        margin-left: auto;
+    }
+
+    .even {
+        margin-right: auto;
+    }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .separator-line {
+        border-top: 2px solid black; /* Use border-top to create the line */
+        margin: 10px 0; /* Add some margin for spacing */
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    /* Your existing styles */
+</style>
+
 

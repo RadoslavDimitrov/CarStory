@@ -1,4 +1,4 @@
-﻿@model CarDTO
+﻿@*@model CarDTO
 <div class="text-center">
     <h2>Car Details</h2>
 </div>
@@ -196,3 +196,140 @@
 {
     <a asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
 }
+*@
+
+@model CarDTO
+
+<div class="text-center">
+    <h2>Car Details</h2>
+</div>
+
+<div class="car-card">
+    <h2>@Model.Make @Model.Model</h2>
+    <p class="separator-line"></p>
+    <div>Vin number: <b>@Model.VinNumber</b></div>
+    <div>Year Manufactured: <b>@Model.YearManufactured.ToString("dd MMM yyyy")</b></div>
+    <div>Mileage: <b>@Model.Milleage</b></div>
+    <div>Next Repair: <b>@(Model.NextRepair.HasValue ? Model.NextRepair.Value.ToString("dd MMM yyyy") : "No info")</b></div>
+    <div>Next Repair Info: <b>@Model.NextRepairInfo</b></div>
+    <p class="separator-line"></p>
+    @if (this.User.IsInRole("User"))
+    {
+        <a asp-controller="User" asp-action="AddCarToMyCar" asp-route-id="@Model.Id" class="btn btn-primary">Add to my cars</a>
+    }
+</div>
+
+<div class="text-center" style="margin-bottom: 15px">
+    <h2>Repairs</h2>
+</div>
+
+@{
+    bool isEven = true; // Initialize to false for the first element
+}
+
+@foreach (var repair in Model.repairs)
+{
+    if(User.IsInRole("User") && repair.Status == RepairStatusEnum.Pending.ToString())
+    {
+        continue;
+    }
+
+    <div class="repairs">
+        <div class="repair @(isEven ? "even" : "odd")">
+            <div class="row">
+                <div class="col-md-6 text-left">Created at: @repair.DateCreated</div>
+                <div class="col-md-6 text-right">@repair.Status</div>
+            </div>
+            <p class="separator-line"></p>
+            <p><b>Description:</b> @repair.Description</p>
+            <p><b>Car Repair Shop:</b> @repair.CarRepairShopName</p>
+            <p><b>Date Finished:</b> @repair.DateFinished</p>
+
+            <a class="btn btn-primary show-hide-button" data-repair-id="@repair.Id">Parts</a>
+
+            <div class="repair-parts" data-repair-id="@repair.Id">
+                <h4>Parts Changed:</h4>
+                @foreach (var part in repair.PartsChanged)
+                {
+                    <div class="part">
+                        <p class="separator-line"></p>
+                        <p><b>Part Number:</b> @part.Number | <b>Description:</b> @part.Description</p>
+                    </div>
+                }
+            </div>
+        </div>
+    
+    </div>
+
+    isEven = !isEven;
+}
+
+<style>
+    /* Your existing styles */
+    .car-card {
+        width: 100%;
+        background-color: lightgreen;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 5px solid black;
+    }
+
+    .repairs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .repair {
+        width: 60%;
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 2px solid black;
+        position: relative;
+    }
+
+    .show-hide-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: blue;
+    }
+
+    .show-hide-parts {
+        display: none;
+        padding-left: 15px;
+        border-left: 2px solid black;
+    }
+
+    .odd {
+        margin-left: auto;
+    }
+
+    .even {
+        margin-right: auto;
+    }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .separator-line {
+        border-top: 2px solid black; /* Use border-top to create the line */
+        margin: 10px 0; /* Add some margin for spacing */
+    }
+
+</style>
+
+<script>
+    const showHideButtons = document.querySelectorAll('.show-hide-button');
+    showHideButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const repairId = button.getAttribute('data-repair-id');
+            const repairParts = document.querySelector(`.repair-parts[data-repair-id="${repairId}"]`);
+            repairParts.classList.toggle('show-hide-parts');
+        });
+    });
+</script>
