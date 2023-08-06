@@ -198,24 +198,33 @@
 }
 *@
 
-@model CarDTO
+@model ViewCarViewModel
 
 <div class="text-center">
     <h2>Car Details</h2>
 </div>
 
 <div class="car-card">
-    <h2>@Model.Make @Model.Model</h2>
+    <h2>@Model.Car.Make @Model.Car.Model</h2>
     <p class="separator-line"></p>
-    <div>Vin number: <b>@Model.VinNumber</b></div>
-    <div>Year Manufactured: <b>@Model.YearManufactured.ToString("dd MMM yyyy")</b></div>
-    <div>Mileage: <b>@Model.Milleage</b></div>
-    <div>Next Repair: <b>@(Model.NextRepair.HasValue ? Model.NextRepair.Value.ToString("dd MMM yyyy") : "No info")</b></div>
-    <div>Next Repair Info: <b>@Model.NextRepairInfo</b></div>
+    <div>Vin number: <b>@Model.Car.VinNumber</b></div>
+    <div>Year Manufactured: <b>@Model.Car.YearManufactured.ToString("dd MMM yyyy")</b></div>
+    <div>Mileage: <b>@Model.Car.Milleage</b></div>
+    <div>Next Repair: <b>@(Model.Car.NextRepair.HasValue ? Model.Car.NextRepair.Value.ToString("dd MMM yyyy") : "No info")</b></div>
+    <div>Next Repair Info: <b>@Model.Car.NextRepairInfo</b></div>
     <p class="separator-line"></p>
-    @if (this.User.IsInRole("User"))
+    @if (this.User.IsInRole("User") && Model.IsUserAdded == false)
     {
-        <a asp-controller="User" asp-action="AddCarToMyCar" asp-route-id="@Model.Id" class="btn btn-primary">Add to my cars</a>
+        <a asp-controller="User" asp-action="AddCarToMyCar" asp-route-id="@Model.Car.Id" class="btn btn-primary">Add to my cars</a>
+    }
+    else if(this.User.IsInRole("User") && Model.IsUserAdded == true)
+    {
+        <p><b>Already added to my cars!</b></p>
+    }
+
+    @if (this.User.IsInRole("Shop"))
+    {
+        <a asp-controller="Car" asp-action="AddRepair" asp-route-id="@Model.Car.Id" class="btn btn-primary">Add repair</a>
     }
 </div>
 
@@ -227,11 +236,19 @@
     bool isEven = true; // Initialize to false for the first element
 }
 
-@foreach (var repair in Model.repairs)
+@foreach (var repair in Model.Car.repairs)
 {
     if(User.IsInRole("User") && repair.Status == RepairStatusEnum.Pending.ToString())
     {
         continue;
+    }
+
+    if (User.IsInRole("Shop"))
+    {
+        if (repair.CarRepairShopId != TempData["ShopId"].ToString() && repair.Status == "Pending")
+        {
+            continue;
+        }
     }
 
     <div class="repairs">
@@ -242,6 +259,7 @@
             </div>
             <p class="separator-line"></p>
             <p><b>Description:</b> @repair.Description</p>
+            <p><b>Car milleage at reapair date:</b> @repair.currCarMilleage</p>
             <p><b>Car Repair Shop:</b> @repair.CarRepairShopName</p>
             <p><b>Date Finished:</b> @repair.DateFinished</p>
 

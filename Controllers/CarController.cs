@@ -73,8 +73,17 @@ namespace CarStory.Controllers
 
             }
 
+            var user = this.userService.GetUser(User.Identity.Name);
+            bool hasCar = user.Cars.Any(c => c.Id == id);
 
-            return this.View(car);
+            var carModel = new ViewCarViewModel
+            {
+                Car = car,
+                IsUserAdded = hasCar
+            };
+
+
+            return this.View(carModel);
         }
 
         public async Task<IActionResult> Cars()
