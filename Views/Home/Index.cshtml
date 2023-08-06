@@ -33,7 +33,6 @@
         margin-bottom: 20px;
         font-size: 15px; /* Adjust the font size as needed */
         line-height: 1.6; /* Adjust the line height for better readability */
-        overflow: auto;
     }
 
     .dot{
@@ -68,15 +67,12 @@
             CarStory helps you make informed decisions about buying, selling and repairing cars.
             Try it today and see the difference!<br />
             <a class="btn btn-primary" asp-controller="User" asp-action="Register">Register</a> for free or 
-            <a class="btn btn-primary" asp-controller="User" asp-action="Login">login</a> to existing account!
-        </div>
-
-        <div style="font-family: 'lobster', cursive">
-            <span class="dot">&middot;</span>Do you want to register as Repair shop?<br />
-            <span class="dot">&middot;</span>Do you want customers to have more trust in your shop<br />
-            <a class="btn btn-primary" asp-controller="User" asp-action="Register">Register</a> now!<br />
-            <span style="font-size: 25px">!</span><b>Pleace note that if you register Repair shop our customer service must first approve your shop before you can access it!</b><br />
-        </div>
+            <a class="btn btn-primary" asp-controller="User" asp-action="Login">login</a> to existing account!<br />
+            <span class="dot">&middot;</span>Do you want to register as Repair shop?
+            <span class="dot">&middot;</span>Do you want customers to have more trust in your shop
+            <a class="btn btn-primary" asp-controller="User" asp-action="RegisterRepairShop">Register Shop</a> now!<br />
+            
+        </div>           
     </div>
 </div>
 
