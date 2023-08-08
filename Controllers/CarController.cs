@@ -73,15 +73,17 @@ namespace CarStory.Controllers
 
             }
 
-            var user = this.userService.GetUser(User.Identity.Name);
-            bool hasCar = user.Cars.Any(c => c.Id == id);
-
             var carModel = new ViewCarViewModel
             {
                 Car = car,
-                IsUserAdded = hasCar
+                IsUserAdded = false
             };
 
+            if (this.User.IsInRole(RoleConstants.UserRoleName))
+            {
+                var user = this.userService.GetUser(User.Identity.Name);
+                bool hasCar = user.Cars.Any(c => c.Id == id);
+            }
 
             return this.View(carModel);
         }
