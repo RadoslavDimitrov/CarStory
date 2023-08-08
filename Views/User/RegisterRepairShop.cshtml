@@ -8,6 +8,8 @@
     table {
         border-collapse: collapse;
         width: 100%;
+        background-color: lightgray;
+        border: 3px solid black;
     }
 
     th, td {
@@ -15,59 +17,84 @@
         padding: 8px;
     }
 
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
+    th {
+        background-color: lightgreen;
     }
 
-    th {
-        background-color: #4CAF50;
-        color: white;
+    .registerDiv {
+        text-decoration-color: black;
+    }
+
+    #message {
+        text-align: center;
+        border: 3px solid black;
+        background-color: rgba(144, 238, 144, 0.7);
+        padding: 10px;
+        margin-top: 20px;
+        font-size: 40px
+    }
+
+    .messageSmall {
+        font-size: 20px;
     }
 </style>
 
-<div class="row col-m">
+<div class="text-center row col-m">
     <h3 class="mb-3">@ViewBag.Title</h3>
 </div>
 
-<div class="row col-mt-3">
+<div class="registerDiv row col-mt-3">
     <form method="post">
         <div asp-validation-summary="ModelOnly"></div>
         <table>
             <tr>
                 <th><label asp-for="Name">Name</label></th>
-                <td><input asp-for="Name" class="form-control"></td>
+                <td><input asp-for="Name" class="form-control" placeholder="Enter your shop name, without spaces..."></td>
                 <td><span asp-validation-for="Name" class="small text-danger"></span></td>
             </tr>
             <tr>
                 <th><label asp-for="Password">Password</label></th>
-                <td><input asp-for="Password" class="form-control" type="password"></td>
+                <td><input asp-for="Password" class="form-control" type="password" placeholder="Enter your password..."></td>
                 <td><span asp-validation-for="Password" class="small text-danger"></span></td>
             </tr>
             <tr>
                 <th><label asp-for="Email">Email</label></th>
-                <td><input asp-for="Email" class="form-control"></td>
+                <td><input asp-for="Email" class="form-control" placeholder="Enter your email... shop@abv.bg"></td>
                 <td><span asp-validation-for="Email" class="small text-danger"></span></td>
             </tr>
             <tr>
                 <th><label asp-for="Description">Description</label></th>
-                <td><input asp-for="Description" class="form-control"></td>
+                <td><input asp-for="Description" class="form-control" placeholder="Doing everiting from brake changes to engine repairs..."></td>
                 <td><span asp-validation-for="Description" class="small text-danger"></span></td>
             </tr>
             <tr>
                 <th><label asp-for="Location">Location</label></th>
-                <td><input asp-for="Location" class="form-control"></td>
+                <td><input asp-for="Location" class="form-control" placeholder="Sofiq bul. Okolovrusten pat 220..."></td>
                 <td><span asp-validation-for="Location" class="small text-danger"></span></td>
             </tr>
             <tr>
                 <th><label asp-for="PhoneNumber">PhoneNumber</label></th>
-                <td><input asp-for="PhoneNumber" class="form-control"></td>
+                <td><input asp-for="PhoneNumber" class="form-control" placeholder="0898321223..."></td>
                 <td><span asp-validation-for="PhoneNumber" class="small text-danger"></span></td>
             </tr>
 
         </table>
 
-        <input class="btn btn-primary mt-3" type="submit" value="Register" />
+        <div class="text-center">
+            <input class="btn btn-primary mt-3" type="submit" value="Register" />
+        </div>
     </form>
+</div>
+
+<div id="message">
+    <div style="font-family: 'lobster', cursive">
+        <span>&middot;</span>Repair shop benefits!<br />
+    </div>
+    <div class="messageSmall">
+        <span>&middot;</span>Increase shop value by adding value to cars.<br />
+        <span>&middot;</span>Add car's repairs.<br />
+        <span>&middot;</span>One place that hold your work done.<br />
+    </div>
 </div>
 
 @section Scripts {
