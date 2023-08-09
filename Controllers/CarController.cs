@@ -1,6 +1,7 @@
 ﻿using CarStory.Infrastructure;
 using CarStory.Models;
 using CarStory.Models.Car;
+using CarStory.Models.DTO.Car;
 using CarStory.Models.Repair;
 using CarStory.Services.Car;
 using CarStory.Services.User;
@@ -157,6 +158,30 @@ namespace CarStory.Controllers
             var repair = await carService.GetRepairAsync(id);
 
             return this.View(repair);
+        }
+
+        public async Task<IActionResult> AddNextRepair(string id)
+        {
+            var carModel = await this.carService.GetCarAsync(id);
+
+            if(carModel == null)
+            {
+                var error = new ErrorViewModel { ControllerName = "Car", ActionName = "Cars", Description = ErrorMessageConstants.CarDoesNotExist };
+                return this.RedirectToAction("Home", "Error", error);
+            }
+
+            return this.View(carModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddNextRepair(CarDTO model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            return this.View();
         }
     }
 }

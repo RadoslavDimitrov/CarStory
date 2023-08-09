@@ -1,0 +1,50 @@
+﻿@model CarDTO
+
+<div class="text-center">
+    <h2>Car Details</h2>
+</div>
+
+<div class="car-card">
+    <h2>@Model.Make @Model.Model</h2>
+    <p class="separator-line"></p>
+    <div>Vin number: <b>@Model.VinNumber</b></div>
+    <div>Year Manufactured: <b>@Model.YearManufactured.ToString("dd MMM yyyy")</b></div>
+    <div>Mileage: <b>@Model.Milleage</b></div>
+    <div>Next Repair: <b>@(Model.NextRepair.HasValue ? Model.NextRepair.Value.ToString("dd MMM yyyy") : "No info")</b></div>
+    <div>Next Repair Info: <b>@Model.NextRepairInfo</b></div>
+    <p class="separator-line"></p>
+</div>
+
+<form method="post" asp-action="AddNextRepair">
+    <table class="table">
+        <tr>
+            <td><label for="@Model.NextRepair">Date:</label></td>
+            <td>
+                <input type="date" name="NextRepair" value="@Model.NextRepair" />
+            </td>
+        </tr>
+        <tr>
+            <td><label for="@Model.NextRepairInfo">Description:</label></td>
+            <td><textarea class="form-control" name="NextRepairInfo" rows="4" required></textarea></td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+<style>
+    /* Your existing styles */
+    .car-card {
+        width: 100%;
+        background-color: lightgreen;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 5px solid black;
+    }
+
+    .separator-line {
+        border-top: 2px solid black; /* Use border-top to create the line */
+        margin: 10px 0; /* Add some margin for spacing */
+    }
+
+</style>
+
